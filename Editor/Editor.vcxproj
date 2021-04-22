@@ -45,14 +45,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Binaries\Debug\</OutDir>
     <IntDir>..\Binaries\Obj\x64\Debug\Editor\</IntDir>
-    <TargetName>Spartan_d3d11</TargetName>
+    <TargetName>Genome_d3d11</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Binaries\Release\</OutDir>
     <IntDir>..\Binaries\Obj\x64\Release\Editor\</IntDir>
-    <TargetName>Spartan_d3d11</TargetName>
+    <TargetName>Genome_d3d11</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
