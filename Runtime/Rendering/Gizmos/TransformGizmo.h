@@ -38,7 +38,7 @@ namespace Genome
     class RHI_IndexBuffer;
     class RHI_VertexBuffer;
 
-    class SPARTAN_CLASS TransformGizmo
+    class GENOME_CLASS TransformGizmo
     {
     public:
         TransformGizmo(Context* context);

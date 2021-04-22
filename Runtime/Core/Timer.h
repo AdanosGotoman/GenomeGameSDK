@@ -37,7 +37,7 @@ namespace Genome
         FixedToMonitor
     };
 
-    class SPARTAN_CLASS Timer : public ISubsystem
+    class GENOME_CLASS Timer : public ISubsystem
     {
     public:
         Timer(Context* context);

@@ -61,7 +61,7 @@ namespace Genome
         std::vector<KeyVector> scaleFrames;
     };
 
-    class SPARTAN_CLASS Animation : public IResource
+    class GENOME_CLASS Animation : public IResource
     {
     public:
         Animation(Context* context);

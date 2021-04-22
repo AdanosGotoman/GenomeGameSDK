@@ -50,7 +50,7 @@ namespace Genome
         RHI_Shader_View_Unordered_Access
     };
 
-    class SPARTAN_CLASS RHI_Texture : public IResource
+    class GENOME_CLASS RHI_Texture : public IResource
     {
     public:
         RHI_Texture(Context* context);

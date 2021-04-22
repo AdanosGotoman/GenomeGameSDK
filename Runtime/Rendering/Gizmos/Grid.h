@@ -34,7 +34,7 @@ namespace Genome
     class Context;
     class Transform;
 
-    class SPARTAN_CLASS Grid
+    class GENOME_CLASS Grid
     {
     public:
         Grid(std::shared_ptr<RHI_Device> rhi_device);

@@ -36,7 +36,7 @@ namespace Genome
     class Input;
     class Profiler;
 
-    class SPARTAN_CLASS World : public ISubsystem
+    class GENOME_CLASS World : public ISubsystem
     {
     public:
         World(Context* context);

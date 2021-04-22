@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS RHI_DescriptorSet : public SpartanObject
+    class GENOME_CLASS RHI_DescriptorSet : public SpartanObject
     {
     public:
         RHI_DescriptorSet() = default;

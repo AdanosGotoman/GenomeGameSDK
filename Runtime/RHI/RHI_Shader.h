@@ -36,7 +36,7 @@ namespace Genome
     // Forward declarations
     class Context;
 
-    class SPARTAN_CLASS RHI_Shader : public SpartanObject
+    class GENOME_CLASS RHI_Shader : public SpartanObject
     {
     public:
         RHI_Shader() = default;

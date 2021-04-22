@@ -34,7 +34,7 @@ namespace Genome
     class RHI_Device;
     class RHI_ConstantBuffer;
 
-    class SPARTAN_CLASS Transform : public IComponent
+    class GENOME_CLASS Transform : public IComponent
     {
     public:
         Transform(Context* context, Entity* entity, uint32_t id = 0);

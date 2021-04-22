@@ -32,7 +32,7 @@ namespace Genome
 
     namespace Math
     {
-        class SPARTAN_CLASS RayHit
+        class GENOME_CLASS RayHit
         {
         public:
             RayHit(const std::shared_ptr<Entity>& entity, const Vector3& position, float distance, bool is_inside)

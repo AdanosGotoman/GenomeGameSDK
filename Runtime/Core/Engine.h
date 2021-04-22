@@ -54,7 +54,7 @@ namespace Genome
         Engine_Game     = 1UL << 1, // Is the engine running in game or editor mode ?
     };
 
-    class SPARTAN_CLASS Engine
+    class GENOME_CLASS Engine
     {
     public:
         Engine(const WindowData& window_data);

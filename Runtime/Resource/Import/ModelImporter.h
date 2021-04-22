@@ -53,7 +53,7 @@ namespace Genome
         const aiScene* scene    = nullptr;
     };
 
-    class SPARTAN_CLASS ModelImporter
+    class GENOME_CLASS ModelImporter
     {
     public:
         ModelImporter(Context* context);

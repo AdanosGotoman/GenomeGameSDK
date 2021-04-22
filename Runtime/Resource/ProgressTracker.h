@@ -54,7 +54,7 @@ namespace Genome
         bool is_loading;
     };
 
-    class SPARTAN_CLASS ProgressTracker
+    class GENOME_CLASS ProgressTracker
     {
     public:
         static ProgressTracker& Get()

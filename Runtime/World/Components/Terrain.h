@@ -35,7 +35,7 @@ namespace Genome
         class Vector3;
     }
 
-    class SPARTAN_CLASS Terrain : public IComponent
+    class GENOME_CLASS Terrain : public IComponent
     {
     public:
         Terrain(Context* context, Entity* entity, uint32_t id = 0);

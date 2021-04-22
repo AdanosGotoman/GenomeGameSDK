@@ -63,7 +63,7 @@ typedef std::variant<_VARIANT_TYPES, VARIANT_TYPES> VariantInternal;
 
 namespace Genome
 {
-    class SPARTAN_CLASS Variant
+    class GENOME_CLASS Variant
     {
     public:
         // Default

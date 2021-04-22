@@ -34,7 +34,7 @@ namespace Genome
         Environment_Sphere
     };
 
-    class SPARTAN_CLASS Environment : public IComponent
+    class GENOME_CLASS Environment : public IComponent
     {
     public:
         Environment(Context* context, Entity* entity, uint32_t id = 0);

@@ -49,7 +49,7 @@ template<typename T>
 inline constexpr void validate_resource_type() { static_assert(std::is_base_of<IResource, T>::value, "Provided type does not implement IResource"); }
 
 // Explicit template instantiation
-#define INSTANTIATE_TO_RESOURCE_TYPE(T, enumT) template<> SPARTAN_CLASS ResourceType IResource::TypeToEnum<T>() { validate_resource_type<T>(); return enumT; }
+#define INSTANTIATE_TO_RESOURCE_TYPE(T, enumT) template<> GENOME_CLASS ResourceType IResource::TypeToEnum<T>() { validate_resource_type<T>(); return enumT; }
 
 // To add a new resource to the engine, simply register it here
 INSTANTIATE_TO_RESOURCE_TYPE(RHI_Texture,       ResourceType::Texture)

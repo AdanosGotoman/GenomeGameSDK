@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome::Math
 {
-    class SPARTAN_CLASS Vector2
+    class GENOME_CLASS Vector2
     {
     public:
         Vector2()

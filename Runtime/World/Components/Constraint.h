@@ -44,7 +44,7 @@ namespace Genome
         ConstraintType_ConeTwist
     };
 
-    class SPARTAN_CLASS Constraint : public IComponent
+    class GENOME_CLASS Constraint : public IComponent
     {
     public:
         Constraint(Context* context, Entity* entity, uint32_t id = 0);

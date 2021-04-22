@@ -48,7 +48,7 @@ namespace Genome
     }
     //========================
 
-    class SPARTAN_CLASS XmlDocument
+    class GENOME_CLASS XmlDocument
     {
     public:
         XmlDocument();

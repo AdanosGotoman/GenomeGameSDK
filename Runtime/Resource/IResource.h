@@ -55,7 +55,7 @@ namespace Genome
         Failed
     };
 
-    class SPARTAN_CLASS IResource : public SpartanObject
+    class GENOME_CLASS IResource : public SpartanObject
     {
     public:
         IResource(Context* context, ResourceType type);

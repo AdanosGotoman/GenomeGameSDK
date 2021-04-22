@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS RHI_Texture2D : public RHI_Texture
+    class GENOME_CLASS RHI_Texture2D : public RHI_Texture
     {
     public:
         // Creates a texture from data

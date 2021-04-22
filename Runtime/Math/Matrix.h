@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome::Math
 {
-    class SPARTAN_CLASS Matrix
+    class GENOME_CLASS Matrix
     {
     public:
         Matrix()
@@ -453,6 +453,6 @@ namespace Genome::Math
     };
 
     // Reverse order operators
-    inline SPARTAN_CLASS Vector3 operator*(const Vector3& lhs, const Matrix& rhs) { return rhs * lhs; }
-    inline SPARTAN_CLASS Vector4 operator*(const Vector4& lhs, const Matrix& rhs) { return rhs * lhs; }
+    inline GENOME_CLASS Vector3 operator*(const Vector3& lhs, const Matrix& rhs) { return rhs * lhs; }
+    inline GENOME_CLASS Vector4 operator*(const Vector4& lhs, const Matrix& rhs) { return rhs * lhs; }
 }

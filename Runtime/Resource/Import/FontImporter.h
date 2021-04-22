@@ -36,7 +36,7 @@ namespace Genome
     class Context;
     class Font;
 
-    class SPARTAN_CLASS FontImporter
+    class GENOME_CLASS FontImporter
     {
     public:
         FontImporter(Context* context);

@@ -61,7 +61,7 @@ namespace Genome
         std::function<void(std::any)> setter;
     };
 
-    class SPARTAN_CLASS IComponent : public SpartanObject, public std::enable_shared_from_this<IComponent>
+    class GENOME_CLASS IComponent : public SpartanObject, public std::enable_shared_from_this<IComponent>
     {
     public:
         IComponent(Context* context, Entity* entity, uint32_t id = 0, Transform* transform = nullptr);

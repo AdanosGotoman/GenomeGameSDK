@@ -51,7 +51,7 @@ namespace Genome
         Custom
     };
 
-    class SPARTAN_CLASS AudioClip : public IResource
+    class GENOME_CLASS AudioClip : public IResource
     {
     public:
         AudioClip(Context* context);

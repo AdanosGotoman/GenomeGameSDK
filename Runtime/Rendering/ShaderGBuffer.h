@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS ShaderGBuffer : public RHI_Shader, public std::enable_shared_from_this<ShaderGBuffer>
+    class GENOME_CLASS ShaderGBuffer : public RHI_Shader, public std::enable_shared_from_this<ShaderGBuffer>
     {
     public:
         ShaderGBuffer(Context* context, const uint16_t flags = 0);

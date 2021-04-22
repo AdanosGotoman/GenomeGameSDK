@@ -32,7 +32,7 @@ namespace Genome
     struct ScriptInstance;
     //=======================
 
-    class SPARTAN_CLASS Script : public IComponent
+    class GENOME_CLASS Script : public IComponent
     {
     public:
         Script(Context* context, Entity* entity, uint32_t id = 0);

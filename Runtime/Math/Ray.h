@@ -37,7 +37,7 @@ namespace Genome
         class Plane;
         class Sphere;
 
-        class SPARTAN_CLASS Ray
+        class GENOME_CLASS Ray
         {
         public:
             Ray() = default;

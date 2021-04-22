@@ -50,7 +50,7 @@ namespace Genome
         uint32_t offset;
     };
 
-    class SPARTAN_CLASS RHI_InputLayout : public SpartanObject
+    class GENOME_CLASS RHI_InputLayout : public SpartanObject
     {
     public:
         RHI_InputLayout(const std::shared_ptr<RHI_Device>& rhi_device)

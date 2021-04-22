@@ -33,7 +33,7 @@ namespace Genome
     class Transform;
     class Renderable;
     
-    class SPARTAN_CLASS Entity : public SpartanObject, public std::enable_shared_from_this<Entity>
+    class GENOME_CLASS Entity : public SpartanObject, public std::enable_shared_from_this<Entity>
     {
     public:
         Entity(Context* context, uint32_t transform_id = 0);

@@ -34,7 +34,7 @@ namespace Genome
 {
     class Context;
 
-    class SPARTAN_CLASS ImageImporter
+    class GENOME_CLASS ImageImporter
     {
     public:
         ImageImporter(Context* context);

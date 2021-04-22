@@ -47,7 +47,7 @@ namespace Genome
         Projection_Orthographic,
     };
 
-    class SPARTAN_CLASS Camera : public IComponent
+    class GENOME_CLASS Camera : public IComponent
     {
     public:
         Camera(Context* context, Entity* entity, uint32_t id = 0);

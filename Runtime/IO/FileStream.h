@@ -42,7 +42,7 @@ namespace Genome
         FileStream_Append   = 1 << 2,
     };
 
-    class SPARTAN_CLASS FileStream
+    class GENOME_CLASS FileStream
     {
     public:
         FileStream(const std::string& path, uint32_t flags);

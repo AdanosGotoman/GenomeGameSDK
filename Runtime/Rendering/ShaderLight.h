@@ -43,7 +43,7 @@ namespace Genome
         Shader_Light_Volumetric             = 1 << 6
     };
 
-    class SPARTAN_CLASS ShaderLight : public RHI_Shader
+    class GENOME_CLASS ShaderLight : public RHI_Shader
     {
     public:
         ShaderLight(Context* context, const uint16_t flags = 0);

@@ -31,7 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS RHI_PipelineState : public SpartanObject
+    class GENOME_CLASS RHI_PipelineState : public SpartanObject
     {
     public:
         RHI_PipelineState();

@@ -29,7 +29,7 @@ namespace Genome
 {
     class Audio;
 
-    class SPARTAN_CLASS AudioListener : public IComponent
+    class GENOME_CLASS AudioListener : public IComponent
     {
     public:
         AudioListener(Context* context, Entity* entity, uint32_t id = 0);

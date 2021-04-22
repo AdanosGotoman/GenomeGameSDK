@@ -31,7 +31,7 @@ namespace Genome
 {
     class Context;
 
-    class SPARTAN_CLASS ISubsystem : public std::enable_shared_from_this<ISubsystem>
+    class GENOME_CLASS ISubsystem : public std::enable_shared_from_this<ISubsystem>
     {        
     public:
         ISubsystem(Context* context) { m_context = context; }

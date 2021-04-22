@@ -54,7 +54,7 @@ namespace Genome
         class Frustum;
     }
 
-    class SPARTAN_CLASS Renderer : public ISubsystem
+    class GENOME_CLASS Renderer : public ISubsystem
     {
     public:
         // Constants

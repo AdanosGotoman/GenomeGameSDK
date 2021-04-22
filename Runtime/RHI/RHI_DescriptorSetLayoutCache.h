@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS RHI_DescriptorSetLayoutCache : public SpartanObject
+    class GENOME_CLASS RHI_DescriptorSetLayoutCache : public SpartanObject
     {
     public:
         RHI_DescriptorSetLayoutCache(const RHI_Device* rhi_device);

@@ -32,7 +32,7 @@ namespace Genome::Math
     class Vector3;
     class Matrix;
 
-    class SPARTAN_CLASS Vector4
+    class GENOME_CLASS Vector4
     {
     public:
         Vector4()

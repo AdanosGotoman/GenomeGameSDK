@@ -60,7 +60,7 @@ namespace Genome
         std::vector<ShadowSlice> slices;
     };
 
-    class SPARTAN_CLASS Light : public IComponent
+    class GENOME_CLASS Light : public IComponent
     {
     public:
         Light(Context* context, Entity* entity, uint32_t id = 0);

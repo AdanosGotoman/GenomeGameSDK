@@ -49,7 +49,7 @@ namespace Genome
         Geometry_Default_Cone
     };
 
-    class SPARTAN_CLASS Renderable : public IComponent
+    class GENOME_CLASS Renderable : public IComponent
     {
     public:
         Renderable(Context* context, Entity* entity, uint32_t id = 0);

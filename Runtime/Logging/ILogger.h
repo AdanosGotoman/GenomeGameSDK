@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS ILogger
+    class GENOME_CLASS ILogger
     {
     public:
         virtual ~ILogger() = default;

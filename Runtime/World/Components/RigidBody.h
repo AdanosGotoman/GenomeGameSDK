@@ -43,7 +43,7 @@ namespace Genome
         Impulse
     };
 
-    class SPARTAN_CLASS RigidBody : public IComponent
+    class GENOME_CLASS RigidBody : public IComponent
     {
     public:
         RigidBody(Context* context, Entity* entity, uint32_t id = 0);

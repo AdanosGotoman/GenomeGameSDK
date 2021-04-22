@@ -37,7 +37,7 @@ namespace Genome
     class Physics;
     //=========================
 
-    class SPARTAN_CLASS SoftBody : public IComponent
+    class GENOME_CLASS SoftBody : public IComponent
     {
     public:
         SoftBody(Context* context, Entity* entity, uint32_t id = 0);

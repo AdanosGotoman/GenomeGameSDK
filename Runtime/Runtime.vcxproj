@@ -107,6 +107,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameSystem\ActorSystem\ActorSystem.h" />
+    <ClInclude Include="GameSystem\ActorSystem\Actor.h" />
     <ClInclude Include="Audio\Audio.h" />
     <ClInclude Include="Audio\AudioClip.h" />
     <ClInclude Include="Core\Context.h" />
@@ -123,6 +125,7 @@
     <ClInclude Include="Core\Variant.h" />
     <ClInclude Include="Display\Display.h" />
     <ClInclude Include="Display\DisplayMode.h" />
+    <ClInclude Include="GameSystem\SharedBase\IGameObject.h" />
     <ClInclude Include="IO\FileStream.h" />
     <ClInclude Include="IO\XmlDocument.h" />
     <ClInclude Include="Input\Input.h" />
@@ -228,6 +231,8 @@
     <ClInclude Include="World\World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameSystem\ActorSystem\ActorSystem.cpp" />
+    <ClCompile Include="GameSystem\ActorSystem\Actor.cpp" />
     <ClCompile Include="Audio\Audio.cpp" />
     <ClCompile Include="Audio\AudioClip.cpp" />
     <ClCompile Include="Core\Engine.cpp" />

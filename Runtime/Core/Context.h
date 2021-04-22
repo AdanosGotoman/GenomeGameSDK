@@ -49,7 +49,7 @@ namespace Genome
         TickType tick_group;
     };
 
-    class SPARTAN_CLASS Context
+    class GENOME_CLASS Context
     {
     public:
         Context() = default;

@@ -67,6 +67,15 @@
     <Filter Include="World\Components">
       <UniqueIdentifier>{4200C30A-2EF9-E15C-572B-C7E14383C168}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSystem">
+      <UniqueIdentifier>{2a071b4a-8eaa-4929-9379-41a0d9180563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSystem\ActorSystem">
+      <UniqueIdentifier>{c412b64e-33f1-4aa3-805a-4af61a57132b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSystem\SharedBase">
+      <UniqueIdentifier>{cb05d282-4a6f-4ed2-b5f6-1b647fe55dad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio\Audio.h">
@@ -426,6 +435,15 @@
     <ClInclude Include="World\World.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="GameSystem\ActorSystem\Actor.h">
+      <Filter>GameSystem\ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\ActorSystem\ActorSystem.h">
+      <Filter>GameSystem\ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\SharedBase\IGameObject.h">
+      <Filter>GameSystem\SharedBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\Audio.cpp">
@@ -730,6 +748,12 @@
     </ClCompile>
     <ClCompile Include="World\World.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\ActorSystem\Actor.cpp">
+      <Filter>GameSystem\ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\ActorSystem\ActorSystem.cpp">
+      <Filter>GameSystem\ActorSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

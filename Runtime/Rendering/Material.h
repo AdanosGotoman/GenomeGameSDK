@@ -52,7 +52,7 @@ namespace Genome
         Material_Mask                   = 1 << 13   // Discards pixels
     };
 
-    class SPARTAN_CLASS Material : public IResource
+    class GENOME_CLASS Material : public IResource
     {
     public:
         Material(Context* context);

@@ -31,7 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS RHI_Device : public SpartanObject
+    class GENOME_CLASS RHI_Device : public SpartanObject
     {
     public:
         RHI_Device(Context* context);

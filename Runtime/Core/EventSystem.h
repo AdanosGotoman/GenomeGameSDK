@@ -74,7 +74,7 @@ namespace Genome
 {
     using subscriber = std::function<void(const Variant&)>;
 
-    class SPARTAN_CLASS EventSystem
+    class GENOME_CLASS EventSystem
     {
     public:
         static EventSystem& Get()

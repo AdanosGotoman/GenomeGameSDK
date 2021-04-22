@@ -39,7 +39,7 @@ namespace Genome
     class Input;
     class Camera;
 
-    class SPARTAN_CLASS TransformHandle
+    class GENOME_CLASS TransformHandle
     {
     public:
         TransformHandle(Context* context, const TransformHandleType transform_handle_type);

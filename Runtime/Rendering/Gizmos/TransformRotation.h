@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS TransformRotation : public TransformHandle
+    class GENOME_CLASS TransformRotation : public TransformHandle
     {
     public:
         TransformRotation(Context* context = nullptr);

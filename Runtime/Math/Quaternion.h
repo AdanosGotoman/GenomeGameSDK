@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome::Math
 {
-    class SPARTAN_CLASS Quaternion
+    class GENOME_CLASS Quaternion
     {
     public:
         // Constructs an identity quaternion
@@ -305,6 +305,6 @@ namespace Genome::Math
     };
 
     // Reverse order operators
-    inline SPARTAN_CLASS Vector3 operator*(const Vector3& lhs, const Quaternion& rhs) { return rhs * lhs; }
-    inline SPARTAN_CLASS Quaternion operator*(float lhs, const Quaternion& rhs) { return rhs * lhs; }
+    inline GENOME_CLASS Vector3 operator*(const Vector3& lhs, const Quaternion& rhs) { return rhs * lhs; }
+    inline GENOME_CLASS Quaternion operator*(float lhs, const Quaternion& rhs) { return rhs * lhs; }
 }

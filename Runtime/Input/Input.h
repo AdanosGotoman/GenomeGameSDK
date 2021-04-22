@@ -76,7 +76,7 @@ namespace Genome
         Right_Shoulder
     };
 
-    class SPARTAN_CLASS Input : public ISubsystem
+    class GENOME_CLASS Input : public ISubsystem
     {
     public:
         Input(Context* context);

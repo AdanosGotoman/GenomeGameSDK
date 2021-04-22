@@ -73,7 +73,7 @@ namespace Genome
         LogType type;
     };
 
-    class SPARTAN_CLASS Log
+    class GENOME_CLASS Log
     {
         friend class ILogger;
     public:

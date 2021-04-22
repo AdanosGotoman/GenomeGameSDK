@@ -35,7 +35,7 @@ namespace Genome
     // Globals
     extern uint32_t g_id;
 
-    class SPARTAN_CLASS SpartanObject
+    class GENOME_CLASS SpartanObject
     {
     public:
         SpartanObject(Context* context = nullptr);

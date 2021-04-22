@@ -43,7 +43,7 @@ namespace Genome
         ColliderShape_Mesh,
     };
 
-    class SPARTAN_CLASS Collider : public IComponent
+    class GENOME_CLASS Collider : public IComponent
     {
     public:
         Collider(Context* context, Entity* entity, uint32_t id = 0);

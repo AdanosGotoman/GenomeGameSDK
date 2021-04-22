@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Genome
 {
-    class SPARTAN_CLASS RHI_ConstantBuffer : public SpartanObject
+    class GENOME_CLASS RHI_ConstantBuffer : public SpartanObject
     {
     public:
         RHI_ConstantBuffer(const std::shared_ptr<RHI_Device>& rhi_device, const std::string& name, bool is_dynamic = false);

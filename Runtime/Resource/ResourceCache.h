@@ -45,7 +45,7 @@ namespace Genome
         Textures
     };
 
-    class SPARTAN_CLASS ResourceCache : public ISubsystem
+    class GENOME_CLASS ResourceCache : public ISubsystem
     {
     public:
         ResourceCache(Context* context);

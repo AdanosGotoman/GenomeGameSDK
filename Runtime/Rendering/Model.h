@@ -37,7 +37,7 @@ namespace Genome
     class Mesh;
     namespace Math{ class BoundingBox; }
 
-    class SPARTAN_CLASS Model : public IResource, public std::enable_shared_from_this<Model>
+    class GENOME_CLASS Model : public IResource, public std::enable_shared_from_this<Model>
     {
     public:
         Model(Context* context);

@@ -48,7 +48,7 @@ namespace Genome
         Submitted
     };
 
-    class SPARTAN_CLASS RHI_CommandList : public SpartanObject
+    class GENOME_CLASS RHI_CommandList : public SpartanObject
     {
     public:
         RHI_CommandList(uint32_t index, RHI_SwapChain* swap_chain, Context* context);

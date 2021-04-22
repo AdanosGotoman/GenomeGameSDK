@@ -33,7 +33,7 @@ namespace Genome
 {
     namespace Math { class Vector4; }
 
-    class SPARTAN_CLASS RHI_SwapChain : public SpartanObject
+    class GENOME_CLASS RHI_SwapChain : public SpartanObject
     {
     public:
         RHI_SwapChain(

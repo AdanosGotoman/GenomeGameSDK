@@ -45,7 +45,7 @@ namespace Genome
         std::string url;
     };
 
-    class SPARTAN_CLASS Settings : public ISubsystem
+    class GENOME_CLASS Settings : public ISubsystem
     {
     public:
         Settings(Context* context);

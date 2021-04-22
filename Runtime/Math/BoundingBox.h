@@ -35,7 +35,7 @@ namespace Genome
     {
         class Matrix;
 
-        class SPARTAN_CLASS BoundingBox
+        class GENOME_CLASS BoundingBox
         {
         public:
             // Construct with zero size.

@@ -43,7 +43,7 @@ namespace Genome
     class Variant;
     class Timer;
 
-    class SPARTAN_CLASS Profiler : public ISubsystem
+    class GENOME_CLASS Profiler : public ISubsystem
     {
     public:
         Profiler(Context* context);
