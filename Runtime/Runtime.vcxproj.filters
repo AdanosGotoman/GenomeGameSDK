@@ -10,6 +10,15 @@
     <Filter Include="Display">
       <UniqueIdentifier>{7BAF8573-E78E-040F-F0A6-8FE55C056B70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSystem">
+      <UniqueIdentifier>{6458EF38-5010-3186-B917-0AE2A5EECB76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSystem\ActorSystem">
+      <UniqueIdentifier>{11B4E977-FDAD-12CA-E61A-A9DAD2B37836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSystem\SharedBase">
+      <UniqueIdentifier>{E53CEA09-51A9-A504-1A9D-3D6286C8C76C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="IO">
       <UniqueIdentifier>{FD735900-E9FF-870B-52AE-880B3E59880B}</UniqueIdentifier>
     </Filter>
@@ -67,15 +76,6 @@
     <Filter Include="World\Components">
       <UniqueIdentifier>{4200C30A-2EF9-E15C-572B-C7E14383C168}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSystem">
-      <UniqueIdentifier>{2a071b4a-8eaa-4929-9379-41a0d9180563}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSystem\ActorSystem">
-      <UniqueIdentifier>{c412b64e-33f1-4aa3-805a-4af61a57132b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSystem\SharedBase">
-      <UniqueIdentifier>{cb05d282-4a6f-4ed2-b5f6-1b647fe55dad}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio\Audio.h">
@@ -125,6 +125,12 @@
     </ClInclude>
     <ClInclude Include="Display\DisplayMode.h">
       <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\ActorSystem\Actor.h">
+      <Filter>GameSystem\ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\SharedBase\IGameObject.h">
+      <Filter>GameSystem\SharedBase</Filter>
     </ClInclude>
     <ClInclude Include="IO\FileStream.h">
       <Filter>IO</Filter>
@@ -435,15 +441,6 @@
     <ClInclude Include="World\World.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="GameSystem\ActorSystem\Actor.h">
-      <Filter>GameSystem\ActorSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem\ActorSystem\ActorSystem.h">
-      <Filter>GameSystem\ActorSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem\SharedBase\IGameObject.h">
-      <Filter>GameSystem\SharedBase</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\Audio.cpp">
@@ -472,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="Display\Display.cpp">
       <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\ActorSystem\Actor.cpp">
+      <Filter>GameSystem\ActorSystem</Filter>
     </ClCompile>
     <ClCompile Include="IO\FileStream.cpp">
       <Filter>IO</Filter>
@@ -748,12 +748,6 @@
     </ClCompile>
     <ClCompile Include="World\World.cpp">
       <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSystem\ActorSystem\Actor.cpp">
-      <Filter>GameSystem\ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSystem\ActorSystem\ActorSystem.cpp">
-      <Filter>GameSystem\ActorSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

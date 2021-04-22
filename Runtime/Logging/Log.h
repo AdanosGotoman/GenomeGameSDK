@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <mutex>
 #include <vector>
 #include "../Core/Spartan_Definitions.h"
+#include "ILogger.h"
 //======================================
 
 namespace Genome

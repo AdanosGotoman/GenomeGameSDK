@@ -1,5 +1,4 @@
 #pragma once
-#include "ActorSystem.h"
 #include "../Math/Vector3.h"
 #include "assimp/scene.h"
 #include "../World/World.h"
@@ -10,7 +9,7 @@ namespace Genome
 
     enum eStates { state_STAND, stateJUMP, stateMOVING};
 
-    class GENOME_CLASS Actor : public ActorSystem
+    class GENOME_CLASS Actor
     {
     private:
         const float SPEED = 200;
