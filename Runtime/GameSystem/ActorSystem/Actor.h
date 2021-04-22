@@ -17,6 +17,8 @@ namespace Genome
 
         void OnRun();
         void OnStepMove();
+
+        //
     };
 }
 
