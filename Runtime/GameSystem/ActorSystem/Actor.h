@@ -8,6 +8,8 @@ namespace Genome
 {
     class Entity;
 
+    enum eStates { state_STAND, stateJUMP, stateMOVING};
+
     class GENOME_CLASS Actor : public ActorSystem
     {
     private:
@@ -40,6 +42,10 @@ namespace Genome
 
         void OnRun();
         void OnStepMove();
+
+    public:
+        virtual void SetName(const char* name) = 0;
+        virtual const char* GetName() const = 0;
     };
 }
 
