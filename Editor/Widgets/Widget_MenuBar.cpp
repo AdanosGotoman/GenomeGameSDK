@@ -136,7 +136,7 @@ void Widget_MenuBar::ShowFileDialog() const
             if (FileSystem::IsEngineSceneFile(_Widget_MenuBar::g_fileDialogSelection))
             {
                 EditorHelper::Get().LoadWorld(_Widget_MenuBar::g_fileDialogSelection);
-                _Widget_MenuBar::g_fileDialogVisible = false;
+                _Widget_MenuBar::g_fileDialogVisible = true;
             }
         }
         // SAVE
@@ -146,7 +146,7 @@ void Widget_MenuBar::ShowFileDialog() const
             if (m_file_dialog->GetFilter() == FileDialog_Filter_Scene)
             {
                 EditorHelper::Get().SaveWorld(_Widget_MenuBar::g_fileDialogSelection);
-                _Widget_MenuBar::g_fileDialogVisible = false;
+                _Widget_MenuBar::g_fileDialogVisible = true;
             }
         }
     }

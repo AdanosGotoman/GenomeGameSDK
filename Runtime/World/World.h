@@ -64,9 +64,10 @@ namespace Genome
         const auto& EntityGetAll() const    { return m_entities; }
         //======================================================================
 
-    private:
+    public:
         void Clear();
         void _EntityRemove(const std::shared_ptr<Entity>& entity);
+        float SetCoords(float x, float y, float z);
 
         //= COMMON ENTITY CREATION ======================
         std::shared_ptr<Entity> CreateEnvironment();
@@ -79,6 +80,13 @@ namespace Genome
         bool m_resolve              = true;
         Input* m_input              = nullptr;
         Profiler* m_profiler        = nullptr;
+        int width = 0;
+        int height = 0;
+
+        float left;
+        float right;
+        float top;
+        float bottom;
 
         std::vector<std::shared_ptr<Entity>> m_entities;
     };

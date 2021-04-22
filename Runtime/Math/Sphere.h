@@ -36,5 +36,8 @@ namespace Genome::Math
 
         Vector3 center;
         float radius;
+
+    public:
+        void SetOrigin(float x, float y, float z);
     };
 }
