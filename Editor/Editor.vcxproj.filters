@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{C0FF640D-2C14-8DBE-F595-301E616989EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Implementation">
+      <UniqueIdentifier>{350D4F3A-219C-D803-CABA-ECFEB628E9A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Source">
+      <UniqueIdentifier>{C0D5F744-AC38-87E9-55BE-BF9F4100536C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Source\misc">
+      <UniqueIdentifier>{9B809395-0797-912B-500E-1D4DBC6362B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Source\misc\cpp">
+      <UniqueIdentifier>{EDCF633E-593C-1F39-2230-B7968E5B41A1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Source\misc\freetype">
+      <UniqueIdentifier>{AE5D6A05-9A6D-16D6-0327-7BF4EF55056F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{7CB70329-E896-82C4-F1AE-0D9B5D0DE925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WidgetsDeferred">
+      <UniqueIdentifier>{FD479AF2-69D3-07B7-72E4-8AABDEEE63B7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="ImGui\Implementation\ImGui_RHI.h">
+      <Filter>ImGui\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Implementation\imgui_impl_win32.h">
+      <Filter>ImGui\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\imconfig.h">
+      <Filter>ImGui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\imgui.h">
+      <Filter>ImGui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\imgui_internal.h">
+      <Filter>ImGui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\imstb_rectpack.h">
+      <Filter>ImGui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\imstb_textedit.h">
+      <Filter>ImGui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\imstb_truetype.h">
+      <Filter>ImGui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\misc\cpp\imgui_stdlib.h">
+      <Filter>ImGui\Source\misc\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Source\misc\freetype\imgui_freetype.h">
+      <Filter>ImGui\Source\misc\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui_Extension.h" />
+    <ClInclude Include="Widgets\Widget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_Assets.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_Console.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_MenuBar.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_Profiler.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_ProgressDialog.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_Properties.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_RenderOptions.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_ResourceCache.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_ShaderEditor.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_Toolbar.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_Viewport.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget_World.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetsDeferred\ButtonColorPicker.h">
+      <Filter>WidgetsDeferred</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetsDeferred\FileDialog.h">
+      <Filter>WidgetsDeferred</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetsDeferred\IconProvider.h">
+      <Filter>WidgetsDeferred</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetsDeferred\Widget_TextEditor.h">
+      <Filter>WidgetsDeferred</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="ImGui\Implementation\imgui_impl_win32.cpp">
+      <Filter>ImGui\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\Source\imgui.cpp">
+      <Filter>ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\Source\imgui_demo.cpp">
+      <Filter>ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\Source\imgui_draw.cpp">
+      <Filter>ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\Source\imgui_tables.cpp">
+      <Filter>ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\Source\imgui_widgets.cpp">
+      <Filter>ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\Source\misc\cpp\imgui_stdlib.cpp">
+      <Filter>ImGui\Source\misc\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\Source\misc\freetype\imgui_freetype.cpp">
+      <Filter>ImGui\Source\misc\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_Assets.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_Console.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_MenuBar.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_Profiler.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_ProgressDialog.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_Properties.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_RenderOptions.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_ResourceCache.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_ShaderEditor.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_Toolbar.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_Viewport.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget_World.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="WidgetsDeferred\ButtonColorPicker.cpp">
+      <Filter>WidgetsDeferred</Filter>
+    </ClCompile>
+    <ClCompile Include="WidgetsDeferred\FileDialog.cpp">
+      <Filter>WidgetsDeferred</Filter>
+    </ClCompile>
+    <ClCompile Include="WidgetsDeferred\IconProvider.cpp">
+      <Filter>WidgetsDeferred</Filter>
+    </ClCompile>
+    <ClCompile Include="WidgetsDeferred\Widget_TextEditor.cpp">
+      <Filter>WidgetsDeferred</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+</Project>

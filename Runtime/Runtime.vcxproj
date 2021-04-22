@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4995DAC4-B574-5960-BE8C-E4362AEBBFC1}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Runtime</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\Binaries\Debug\</OutDir>
+    <IntDir>..\Binaries\Obj\x64\Debug\Runtime\</IntDir>
+    <TargetName>Runtime</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\Binaries\Release\</OutDir>
+    <IntDir>..\Binaries\Obj\x64\Release\Runtime\</IntDir>
+    <TargetName>Runtime</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Spartan.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ThirdParty\Assimp_5.0.0;..\ThirdParty\Bullet_2.89;..\ThirdParty\FMOD_1.10.10;..\ThirdParty\FreeImage_3.18.0;..\ThirdParty\FreeType_2.10.4;..\ThirdParty\pugixml_1.10;..\ThirdParty\Mono_6.12.0.86;Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>assimp_debug.lib;fmodL64_vc.lib;FreeImageLib_debug.lib;freetype_debug.lib;BulletCollision_debug.lib;BulletDynamics_debug.lib;BulletSoftBody_debug.lib;LinearMath_debug.lib;pugixml_debug.lib;IrrXML_debug.lib;libmono-static-sgen_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\ThirdParty\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Spartan.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ThirdParty\Assimp_5.0.0;..\ThirdParty\Bullet_2.89;..\ThirdParty\FMOD_1.10.10;..\ThirdParty\FreeImage_3.18.0;..\ThirdParty\FreeType_2.10.4;..\ThirdParty\pugixml_1.10;..\ThirdParty\Mono_6.12.0.86;Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>assimp.lib;fmod64_vc.lib;FreeImageLib.lib;freetype.lib;BulletCollision.lib;BulletDynamics.lib;BulletSoftBody.lib;LinearMath.lib;pugixml.lib;IrrXML.lib;libmono-static-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\ThirdParty\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Audio\Audio.h" />
+    <ClInclude Include="Audio\AudioClip.h" />
+    <ClInclude Include="Core\Context.h" />
+    <ClInclude Include="Core\Engine.h" />
+    <ClInclude Include="Core\EventSystem.h" />
+    <ClInclude Include="Core\FileSystem.h" />
+    <ClInclude Include="Core\ISubsystem.h" />
+    <ClInclude Include="Core\Settings.h" />
+    <ClInclude Include="Core\Spartan.h" />
+    <ClInclude Include="Core\SpartanObject.h" />
+    <ClInclude Include="Core\Spartan_Definitions.h" />
+    <ClInclude Include="Core\Stopwatch.h" />
+    <ClInclude Include="Core\Timer.h" />
+    <ClInclude Include="Core\Variant.h" />
+    <ClInclude Include="Display\Display.h" />
+    <ClInclude Include="Display\DisplayMode.h" />
+    <ClInclude Include="IO\FileStream.h" />
+    <ClInclude Include="IO\XmlDocument.h" />
+    <ClInclude Include="Input\Input.h" />
+    <ClInclude Include="Logging\ILogger.h" />
+    <ClInclude Include="Logging\Log.h" />
+    <ClInclude Include="Math\BoundingBox.h" />
+    <ClInclude Include="Math\Frustum.h" />
+    <ClInclude Include="Math\MathHelper.h" />
+    <ClInclude Include="Math\Matrix.h" />
+    <ClInclude Include="Math\Plane.h" />
+    <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Math\Ray.h" />
+    <ClInclude Include="Math\RayHit.h" />
+    <ClInclude Include="Math\Rectangle.h" />
+    <ClInclude Include="Math\Sphere.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Physics\BulletPhysicsHelper.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\PhysicsDebugDraw.h" />
+    <ClInclude Include="Profiling\Profiler.h" />
+    <ClInclude Include="Profiling\TimeBlock.h" />
+    <ClInclude Include="RHI\D3D11\D3D11_Utility.h" />
+    <ClInclude Include="RHI\RHI_BlendState.h" />
+    <ClInclude Include="RHI\RHI_CommandList.h" />
+    <ClInclude Include="RHI\RHI_ConstantBuffer.h" />
+    <ClInclude Include="RHI\RHI_Definition.h" />
+    <ClInclude Include="RHI\RHI_DepthStencilState.h" />
+    <ClInclude Include="RHI\RHI_Descriptor.h" />
+    <ClInclude Include="RHI\RHI_DescriptorSet.h" />
+    <ClInclude Include="RHI\RHI_DescriptorSetLayout.h" />
+    <ClInclude Include="RHI\RHI_DescriptorSetLayoutCache.h" />
+    <ClInclude Include="RHI\RHI_Device.h" />
+    <ClInclude Include="RHI\RHI_Fence.h" />
+    <ClInclude Include="RHI\RHI_Implementation.h" />
+    <ClInclude Include="RHI\RHI_IndexBuffer.h" />
+    <ClInclude Include="RHI\RHI_InputLayout.h" />
+    <ClInclude Include="RHI\RHI_PhysicalDevice.h" />
+    <ClInclude Include="RHI\RHI_Pipeline.h" />
+    <ClInclude Include="RHI\RHI_PipelineCache.h" />
+    <ClInclude Include="RHI\RHI_PipelineState.h" />
+    <ClInclude Include="RHI\RHI_RasterizerState.h" />
+    <ClInclude Include="RHI\RHI_Sampler.h" />
+    <ClInclude Include="RHI\RHI_Semaphore.h" />
+    <ClInclude Include="RHI\RHI_Shader.h" />
+    <ClInclude Include="RHI\RHI_SwapChain.h" />
+    <ClInclude Include="RHI\RHI_Texture.h" />
+    <ClInclude Include="RHI\RHI_Texture2D.h" />
+    <ClInclude Include="RHI\RHI_TextureCube.h" />
+    <ClInclude Include="RHI\RHI_Vertex.h" />
+    <ClInclude Include="RHI\RHI_VertexBuffer.h" />
+    <ClInclude Include="RHI\RHI_Viewport.h" />
+    <ClInclude Include="Rendering\Animation.h" />
+    <ClInclude Include="Rendering\Font\Font.h" />
+    <ClInclude Include="Rendering\Font\Glyph.h" />
+    <ClInclude Include="Rendering\Gizmos\Grid.h" />
+    <ClInclude Include="Rendering\Gizmos\TransformEnums.h" />
+    <ClInclude Include="Rendering\Gizmos\TransformGizmo.h" />
+    <ClInclude Include="Rendering\Gizmos\TransformHandle.h" />
+    <ClInclude Include="Rendering\Gizmos\TransformHandleAxis.h" />
+    <ClInclude Include="Rendering\Gizmos\TransformPosition.h" />
+    <ClInclude Include="Rendering\Gizmos\TransformRotation.h" />
+    <ClInclude Include="Rendering\Gizmos\TransformScale.h" />
+    <ClInclude Include="Rendering\Material.h" />
+    <ClInclude Include="Rendering\Mesh.h" />
+    <ClInclude Include="Rendering\Model.h" />
+    <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\Renderer_ConstantBuffers.h" />
+    <ClInclude Include="Rendering\Renderer_Enums.h" />
+    <ClInclude Include="Rendering\ShaderGBuffer.h" />
+    <ClInclude Include="Rendering\ShaderLight.h" />
+    <ClInclude Include="Resource\IResource.h" />
+    <ClInclude Include="Resource\Import\AssimpHelper.h" />
+    <ClInclude Include="Resource\Import\FontImporter.h" />
+    <ClInclude Include="Resource\Import\ImageImporter.h" />
+    <ClInclude Include="Resource\Import\ModelImporter.h" />
+    <ClInclude Include="Resource\ProgressTracker.h" />
+    <ClInclude Include="Resource\ResourceCache.h" />
+    <ClInclude Include="Scripting\ScriptInstance.h" />
+    <ClInclude Include="Scripting\Scripting.h" />
+    <ClInclude Include="Scripting\ScriptingApi.h" />
+    <ClInclude Include="Scripting\ScriptingHelper.h" />
+    <ClInclude Include="Threading\Threading.h" />
+    <ClInclude Include="Utilities\Geometry.h" />
+    <ClInclude Include="Utilities\Hash.h" />
+    <ClInclude Include="Utilities\Sampling.h" />
+    <ClInclude Include="World\Components\AudioListener.h" />
+    <ClInclude Include="World\Components\AudioSource.h" />
+    <ClInclude Include="World\Components\Camera.h" />
+    <ClInclude Include="World\Components\Collider.h" />
+    <ClInclude Include="World\Components\Constraint.h" />
+    <ClInclude Include="World\Components\Environment.h" />
+    <ClInclude Include="World\Components\IComponent.h" />
+    <ClInclude Include="World\Components\Light.h" />
+    <ClInclude Include="World\Components\Renderable.h" />
+    <ClInclude Include="World\Components\RigidBody.h" />
+    <ClInclude Include="World\Components\Script.h" />
+    <ClInclude Include="World\Components\SoftBody.h" />
+    <ClInclude Include="World\Components\Terrain.h" />
+    <ClInclude Include="World\Components\Transform.h" />
+    <ClInclude Include="World\Entity.h" />
+    <ClInclude Include="World\World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Audio\Audio.cpp" />
+    <ClCompile Include="Audio\AudioClip.cpp" />
+    <ClCompile Include="Core\Engine.cpp" />
+    <ClCompile Include="Core\FileSystem.cpp" />
+    <ClCompile Include="Core\Settings.cpp" />
+    <ClCompile Include="Core\Spartan.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Core\SpartanObject.cpp" />
+    <ClCompile Include="Core\Timer.cpp" />
+    <ClCompile Include="Display\Display.cpp" />
+    <ClCompile Include="IO\FileStream.cpp" />
+    <ClCompile Include="IO\XmlDocument.cpp" />
+    <ClCompile Include="Input\Windows\Windows_Input.cpp" />
+    <ClCompile Include="Logging\Log.cpp" />
+    <ClCompile Include="Math\BoundingBox.cpp" />
+    <ClCompile Include="Math\Frustum.cpp" />
+    <ClCompile Include="Math\Matrix.cpp" />
+    <ClCompile Include="Math\Plane.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
+    <ClCompile Include="Math\Ray.cpp" />
+    <ClCompile Include="Math\Rectangle.cpp" />
+    <ClCompile Include="Math\Sphere.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Math\Vector3.cpp" />
+    <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Physics\PhysicsDebugDraw.cpp" />
+    <ClCompile Include="Profiling\Profiler.cpp" />
+    <ClCompile Include="Profiling\TimeBlock.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_BlendState.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_CommandList.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_ConstantBuffer.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_DepthStencilState.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSet.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSetLayout.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSetLayoutCache.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_Device.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_Fence.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_IndexBuffer.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_InputLayout.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_Pipeline.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_PipelineState.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_RasterizerState.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_Sampler.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_Semaphore.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_Shader.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_SwapChain.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_Texture.cpp" />
+    <ClCompile Include="RHI\D3D11\D3D11_VertexBuffer.cpp" />
+    <ClCompile Include="RHI\RHI_CommandList.cpp" />
+    <ClCompile Include="RHI\RHI_DescriptorSet.cpp" />
+    <ClCompile Include="RHI\RHI_DescriptorSetLayout.cpp" />
+    <ClCompile Include="RHI\RHI_DescriptorSetLayoutCache.cpp" />
+    <ClCompile Include="RHI\RHI_Device.cpp" />
+    <ClCompile Include="RHI\RHI_Implementation.cpp" />
+    <ClCompile Include="RHI\RHI_PipelineCache.cpp" />
+    <ClCompile Include="RHI\RHI_PipelineState.cpp" />
+    <ClCompile Include="RHI\RHI_Sampler.cpp" />
+    <ClCompile Include="RHI\RHI_Shader.cpp" />
+    <ClCompile Include="RHI\RHI_Texture.cpp" />
+    <ClCompile Include="RHI\RHI_Viewport.cpp" />
+    <ClCompile Include="Rendering\Animation.cpp" />
+    <ClCompile Include="Rendering\Font\Font.cpp" />
+    <ClCompile Include="Rendering\Gizmos\Grid.cpp" />
+    <ClCompile Include="Rendering\Gizmos\TransformGizmo.cpp" />
+    <ClCompile Include="Rendering\Gizmos\TransformHandle.cpp" />
+    <ClCompile Include="Rendering\Gizmos\TransformHandleAxis.cpp" />
+    <ClCompile Include="Rendering\Gizmos\TransformPosition.cpp" />
+    <ClCompile Include="Rendering\Gizmos\TransformRotation.cpp" />
+    <ClCompile Include="Rendering\Gizmos\TransformScale.cpp" />
+    <ClCompile Include="Rendering\Material.cpp" />
+    <ClCompile Include="Rendering\Mesh.cpp" />
+    <ClCompile Include="Rendering\Model.cpp" />
+    <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\Renderer_Passes.cpp" />
+    <ClCompile Include="Rendering\Renderer_Primitives.cpp" />
+    <ClCompile Include="Rendering\Renderer_Resources.cpp" />
+    <ClCompile Include="Rendering\ShaderGBuffer.cpp" />
+    <ClCompile Include="Rendering\ShaderLight.cpp" />
+    <ClCompile Include="Resource\IResource.cpp" />
+    <ClCompile Include="Resource\Import\FontImporter.cpp" />
+    <ClCompile Include="Resource\Import\ImageImporter.cpp" />
+    <ClCompile Include="Resource\Import\ModelImporter.cpp" />
+    <ClCompile Include="Resource\ResourceCache.cpp" />
+    <ClCompile Include="Scripting\Scripting.cpp" />
+    <ClCompile Include="Threading\Threading.cpp" />
+    <ClCompile Include="World\Components\AudioListener.cpp" />
+    <ClCompile Include="World\Components\AudioSource.cpp" />
+    <ClCompile Include="World\Components\Camera.cpp" />
+    <ClCompile Include="World\Components\Collider.cpp" />
+    <ClCompile Include="World\Components\Constraint.cpp" />
+    <ClCompile Include="World\Components\Environment.cpp" />
+    <ClCompile Include="World\Components\IComponent.cpp" />
+    <ClCompile Include="World\Components\Light.cpp" />
+    <ClCompile Include="World\Components\Renderable.cpp" />
+    <ClCompile Include="World\Components\RigidBody.cpp" />
+    <ClCompile Include="World\Components\Script.cpp" />
+    <ClCompile Include="World\Components\SoftBody.cpp" />
+    <ClCompile Include="World\Components\Terrain.cpp" />
+    <ClCompile Include="World\Components\Transform.cpp" />
+    <ClCompile Include="World\Entity.cpp" />
+    <ClCompile Include="World\World.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
