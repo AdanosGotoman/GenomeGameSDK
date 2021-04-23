@@ -123,8 +123,8 @@
     <ClInclude Include="Core\Variant.h" />
     <ClInclude Include="Display\Display.h" />
     <ClInclude Include="Display\DisplayMode.h" />
-    <ClInclude Include="GameSystem\ActorSystem\Actor.h" />
-    <ClInclude Include="GameSystem\SharedBase\IGameObject.h" />
+    <ClInclude Include="GameSystem\SharedBase\GameObject.h" />
+    <ClInclude Include="GameSystem\World\EngineWorld.h" />
     <ClInclude Include="IO\FileStream.h" />
     <ClInclude Include="IO\XmlDocument.h" />
     <ClInclude Include="Input\Input.h" />
@@ -241,7 +241,7 @@
     <ClCompile Include="Core\SpartanObject.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Display\Display.cpp" />
-    <ClCompile Include="GameSystem\ActorSystem\Actor.cpp" />
+    <ClCompile Include="GameSystem\World\EngineWorld.cpp" />
     <ClCompile Include="IO\FileStream.cpp" />
     <ClCompile Include="IO\XmlDocument.cpp" />
     <ClCompile Include="Input\Windows\Windows_Input.cpp" />

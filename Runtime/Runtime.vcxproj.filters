@@ -13,9 +13,6 @@
     <Filter Include="GameSystem">
       <UniqueIdentifier>{6458EF38-5010-3186-B917-0AE2A5EECB76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSystem\ActorSystem">
-      <UniqueIdentifier>{11B4E977-FDAD-12CA-E61A-A9DAD2B37836}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameSystem\SharedBase">
       <UniqueIdentifier>{E53CEA09-51A9-A504-1A9D-3D6286C8C76C}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,9 @@
     <Filter Include="World\Components">
       <UniqueIdentifier>{4200C30A-2EF9-E15C-572B-C7E14383C168}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSystem\World">
+      <UniqueIdentifier>{20ebb55b-a55a-447a-9138-fdf4a76d0553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio\Audio.h">
@@ -126,10 +126,7 @@
     <ClInclude Include="Display\DisplayMode.h">
       <Filter>Display</Filter>
     </ClInclude>
-    <ClInclude Include="GameSystem\ActorSystem\Actor.h">
-      <Filter>GameSystem\ActorSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem\SharedBase\IGameObject.h">
+    <ClInclude Include="GameSystem\SharedBase\GameObject.h">
       <Filter>GameSystem\SharedBase</Filter>
     </ClInclude>
     <ClInclude Include="IO\FileStream.h">
@@ -441,6 +438,9 @@
     <ClInclude Include="World\World.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="GameSystem\World\EngineWorld.h">
+      <Filter>GameSystem\World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\Audio.cpp">
@@ -469,9 +469,6 @@
     </ClCompile>
     <ClCompile Include="Display\Display.cpp">
       <Filter>Display</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSystem\ActorSystem\Actor.cpp">
-      <Filter>GameSystem\ActorSystem</Filter>
     </ClCompile>
     <ClCompile Include="IO\FileStream.cpp">
       <Filter>IO</Filter>
@@ -748,6 +745,9 @@
     </ClCompile>
     <ClCompile Include="World\World.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\World\EngineWorld.cpp">
+      <Filter>GameSystem\World</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
