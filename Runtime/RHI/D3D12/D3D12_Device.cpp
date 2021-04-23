@@ -32,10 +32,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //= NAMESPACES ===============
 using namespace std;
-using namespace Spartan::Math;
+using namespace Genome::Math;
 //============================
 
-namespace Spartan
+namespace Genome
 {
     RHI_Device::RHI_Device(Context* context)
     {

@@ -11,8 +11,6 @@ namespace Genome
         std::string scriptClassName;
 
         ClassDef* classDef;
-
-
     };
 
     class GameObject

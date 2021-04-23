@@ -20,7 +20,7 @@
 SOLUTION_NAME				= "GenomeGameSDK"
 EDITOR_NAME					= "Editor"
 RUNTIME_NAME				= "Runtime"
-TARGET_NAME					= "Genome" -- Name of executable
+TARGET_NAME					= "GenomeGameSDK" -- Name of executable
 DEBUG_FORMAT				= "c7"
 EDITOR_DIR					= "../" .. EDITOR_NAME
 RUNTIME_DIR					= "../" .. RUNTIME_NAME
@@ -69,7 +69,7 @@ solution (SOLUTION_NAME)
 	systemversion "latest"
 	cppdialect "C++17"
 	language "C++"
-	platforms {"x64"}
+	platforms {"x64", "linux"}
 	configurations { "Debug", "Release" }
 
 	-- Defines
@@ -82,6 +82,10 @@ solution (SOLUTION_NAME)
 	filter { "platforms:x64" }
 		system "Windows"
 		architecture "x64"
+
+    filter { "platforms:linux" }
+		system "Linux"
+		architecture "x86_64"
 
 	--	"Debug"
 	filter "configurations:Debug"

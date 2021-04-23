@@ -1,15 +1,15 @@
 #pragma once
 
 // Version
-#define sp_version "v0.33"
+#define sp_version "v0.33 WIP"
 
 // Class
 #define GENOME_CLASS
 #if SPARTAN_RUNTIME_SHARED == 1
 #ifdef SPARTAN_RUNTIME
-#define GENOME_CLASS __declspec(dllexport)
+#define SPARTAN_CLASS __declspec(dllexport)
 #else
-#define GENOME_CLASS __declspec(dllimport)
+#define SPARTAN_CLASS __declspec(dllimport)
 #endif
 #endif
 

@@ -271,11 +271,6 @@ namespace Genome::Math
         static const Vector3 One;
         static const Vector3 Infinity;
         static const Vector3 InfinityNeg;
-
-        float left;
-        float right;
-        float top;
-        float bottom;
     };
 
     // Reverse order operators
