@@ -8,4 +8,3 @@ namespace Genome
         return true;
     }
 }
-

@@ -26,5 +26,3 @@ namespace Genome
         void Render(Camera& cam);
     };
 }
-
-

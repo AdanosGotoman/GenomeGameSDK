@@ -64,7 +64,7 @@ namespace Genome
         mono_set_dirs(dir_mono_lib.c_str(), dir_mono_etc.c_str());
 
         // Initialise a domain
-        m_domain = mono_jit_init_version("Spartan", "v4.0.30319");
+        m_domain = mono_jit_init_version("Genome", "v4.0.30319");
         if (!m_domain)
         {
             LOG_ERROR("mono_jit_init failed");

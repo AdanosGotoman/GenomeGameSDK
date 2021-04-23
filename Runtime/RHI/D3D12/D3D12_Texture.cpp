@@ -29,10 +29,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //= NAMESPACES ===============
 using namespace std;
-using namespace Spartan::Math;
+using namespace Genome::Math;
 //============================
 
-namespace Spartan
+namespace Genome
 {
     RHI_Texture2D::~RHI_Texture2D()
     {

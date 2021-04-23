@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std;
 //==================
 
-namespace Spartan::vulkan_utility
+namespace Genome::vulkan_utility
 {
     PFN_vkCreateDebugUtilsMessengerEXT                                      functions::create_messenger                         = nullptr;
     VkDebugUtilsMessengerEXT                                                functions::messenger                                = nullptr;
