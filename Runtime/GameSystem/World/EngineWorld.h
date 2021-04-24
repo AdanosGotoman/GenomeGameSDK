@@ -4,6 +4,8 @@
 
 namespace Genome
 {
+    class Entity;
+
     class EngineWorld : public GameObject
     {
     public:
@@ -20,6 +22,9 @@ namespace Genome
         virtual bool SaveWorld(std::string& fileName, const SaveMode saveMode);
         virtual bool CreateWorld(void);
         virtual bool DestroyWorld(void);
+
+        std::shared_ptr<Entity> CreateEntity(bool isActive = true);
+        void RemoveEntity(const std::shared_ptr<Entity>& entity);
 
         const bool writeBin = false;
 
