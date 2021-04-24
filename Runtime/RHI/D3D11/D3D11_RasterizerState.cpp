@@ -73,7 +73,7 @@ namespace Genome
         desc.CullMode               = d3d11_cull_mode[cull_mode];
         desc.FillMode               = d3d11_polygon_mode[fill_mode];
         desc.FrontCounterClockwise  = false;
-        desc.DepthBias              = static_cast<UINT>(Math::Helper::Floor(depth_bias * (float)(1 << 24)));
+        desc.DepthBias              = static_cast<UINT>(Math::Floor(depth_bias * (float)(1 << 24)));
         desc.DepthBiasClamp         = depth_bias_clamp;
         desc.SlopeScaledDepthBias   = depth_bias_slope_scaled;
         desc.DepthClipEnable        = depth_clip_enabled;

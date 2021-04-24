@@ -167,9 +167,9 @@ namespace Genome
             return;
 
         // Updated handles with delta
-        m_handle_x.m_delta    = delta_xyz * Helper::Sign(delta.x) * handle_speed;
-        m_handle_y.m_delta    = delta_xyz * Helper::Sign(delta.y) * handle_speed;
-        m_handle_z.m_delta    = delta_xyz * Helper::Sign(delta.z) * handle_speed;
+        m_handle_x.m_delta    = delta_xyz * Sign(delta.x) * handle_speed;
+        m_handle_y.m_delta    = delta_xyz * Sign(delta.y) * handle_speed;
+        m_handle_z.m_delta    = delta_xyz * Sign(delta.z) * handle_speed;
         m_handle_xyz.m_delta  = m_handle_x.m_delta + m_handle_y.m_delta + m_handle_z.m_delta;
     }
 

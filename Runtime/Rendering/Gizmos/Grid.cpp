@@ -75,10 +75,10 @@ namespace Genome
             for (auto i = -halfSizeW; i < halfSizeW; i++)
             {
                 // Become more transparent, the further out we go
-                const auto alphaWidth    = 1.0f - static_cast<float>(Helper::Abs(j)) / static_cast<float>(halfSizeH);
-                const auto alphaHeight    = 1.0f - static_cast<float>(Helper::Abs(i)) / static_cast<float>(halfSizeW);
-                auto alpha                = (alphaWidth + alphaHeight) * 0.5f;
-                alpha                    = Helper::Pow(alpha, 10.0f);
+                const auto alphaWidth    = 1.0f - static_cast<float>(Math::Abs(j)) / static_cast<float>(halfSizeH);
+                const auto alphaHeight   = 1.0f - static_cast<float>(Math::Abs(i)) / static_cast<float>(halfSizeW);
+                auto alpha               = (alphaWidth + alphaHeight) * 0.5f;
+                alpha                    = Math::Pow(alpha, 10.0f);
 
                 // LINE 1
                 // Upper left.

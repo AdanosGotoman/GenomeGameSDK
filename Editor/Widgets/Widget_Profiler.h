@@ -35,8 +35,8 @@ struct Timings
 
     void AddSample(const float sample)
     {
-        m_min = Genome::Math::Helper::Min(m_min, sample);
-        m_max = Genome::Math::Helper::Max(m_max, sample);
+        m_min = Genome::Math::Min(m_min, sample);
+        m_max = Genome::Math::Max(m_max, sample);
         m_sum += sample;
         m_sample_count++;
         m_avg = float(m_sum / static_cast<float>(m_sample_count));

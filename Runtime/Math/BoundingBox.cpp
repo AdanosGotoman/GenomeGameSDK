@@ -47,13 +47,13 @@ namespace Genome::Math
 
         for (uint32_t i = 0; i < point_count; i++)
         {
-            m_max.x = Helper::Max(m_max.x, points[i].x);
-            m_max.y = Helper::Max(m_max.y, points[i].y);
-            m_max.z = Helper::Max(m_max.z, points[i].z);
+            m_max.x = Math::Max(m_max.x, points[i].x);
+            m_max.y = Math::Max(m_max.y, points[i].y);
+            m_max.z = Math::Max(m_max.z, points[i].z);
 
-            m_min.x = Helper::Min(m_min.x, points[i].x);
-            m_min.y = Helper::Min(m_min.y, points[i].y);
-            m_min.z = Helper::Min(m_min.z, points[i].z);
+            m_min.x = Math::Min(m_min.x, points[i].x);
+            m_min.y = Math::Min(m_min.y, points[i].y);
+            m_min.z = Math::Min(m_min.z, points[i].z);
         }
     }
 
@@ -64,13 +64,13 @@ namespace Genome::Math
 
         for (uint32_t i = 0; i < vertex_count; i++)
         {
-            m_max.x = Helper::Max(m_max.x, vertices[i].pos[0]);
-            m_max.y = Helper::Max(m_max.y, vertices[i].pos[1]);
-            m_max.z = Helper::Max(m_max.z, vertices[i].pos[2]);
+            m_max.x = Math::Max(m_max.x, vertices[i].pos[0]);
+            m_max.y = Math::Max(m_max.y, vertices[i].pos[1]);
+            m_max.z = Math::Max(m_max.z, vertices[i].pos[2]);
 
-            m_min.x = Helper::Min(m_min.x, vertices[i].pos[0]);
-            m_min.y = Helper::Min(m_min.y, vertices[i].pos[1]);
-            m_min.z = Helper::Min(m_min.z, vertices[i].pos[2]);
+            m_min.x = Math::Min(m_min.x, vertices[i].pos[0]);
+            m_min.y = Math::Min(m_min.y, vertices[i].pos[1]);
+            m_min.z = Math::Min(m_min.z, vertices[i].pos[2]);
         }
     }
 
@@ -115,9 +115,9 @@ namespace Genome::Math
         const Vector3 extent_old = GetExtents();
         const Vector3 extend_new = Vector3
         (
-            Helper::Abs(transform.m00) * extent_old.x + Helper::Abs(transform.m10) * extent_old.y + Helper::Abs(transform.m20) * extent_old.z,
-            Helper::Abs(transform.m01) * extent_old.x + Helper::Abs(transform.m11) * extent_old.y + Helper::Abs(transform.m21) * extent_old.z,
-            Helper::Abs(transform.m02) * extent_old.x + Helper::Abs(transform.m12) * extent_old.y + Helper::Abs(transform.m22) * extent_old.z
+            Math::Abs(transform.m00) * extent_old.x + Math::Abs(transform.m10) * extent_old.y + Math::Abs(transform.m20) * extent_old.z,
+            Math::Abs(transform.m01) * extent_old.x + Math::Abs(transform.m11) * extent_old.y + Math::Abs(transform.m21) * extent_old.z,
+            Math::Abs(transform.m02) * extent_old.x + Math::Abs(transform.m12) * extent_old.y + Math::Abs(transform.m22) * extent_old.z
         );
 
         return BoundingBox(center_new - extend_new, center_new + extend_new);
@@ -125,11 +125,11 @@ namespace Genome::Math
 
     void BoundingBox::Merge(const BoundingBox& box)
     {
-        m_min.x = Helper::Min(m_min.x, box.m_min.x);
-        m_min.y = Helper::Min(m_min.y, box.m_min.y);
-        m_min.z = Helper::Min(m_min.z, box.m_min.z);
-        m_max.x = Helper::Max(m_max.x, box.m_max.x);
-        m_max.y = Helper::Max(m_max.x, box.m_max.x);
-        m_max.z = Helper::Max(m_max.x, box.m_max.x);
+        m_min.x = Math::Min(m_min.x, box.m_min.x);
+        m_min.y = Math::Min(m_min.y, box.m_min.y);
+        m_min.z = Math::Min(m_min.z, box.m_min.z);
+        m_max.x = Math::Max(m_max.x, box.m_max.x);
+        m_max.y = Math::Max(m_max.x, box.m_max.x);
+        m_max.z = Math::Max(m_max.x, box.m_max.x);
     }
 }

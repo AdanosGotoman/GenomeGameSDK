@@ -35,10 +35,7 @@ namespace Genome::Math
         Inside,
         Intersects
     };
-}
 
-namespace Genome::Math::Helper
-{
     constexpr float EPSILON     = std::numeric_limits<float>::epsilon();
     constexpr float INFINITY_   = std::numeric_limits<float>::infinity();
     constexpr float PI          = 3.14159265359f;

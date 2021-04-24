@@ -47,7 +47,7 @@ namespace Genome
         m_rhi_device        = rhi_device.get();
         m_cmd_list          = cmd_list;
         m_type              = type;
-        m_max_tree_depth    = Math::Helper::Max(m_max_tree_depth, m_tree_depth);
+        m_max_tree_depth    = Math::Max(m_max_tree_depth, m_tree_depth);
 
         if (type == TimeBlockType::Cpu)
         {

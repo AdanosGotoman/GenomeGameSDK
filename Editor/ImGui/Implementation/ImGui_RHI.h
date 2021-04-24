@@ -187,7 +187,7 @@ namespace ImGui::RHI
             const uint32_t swapchain_id         = swap_chain->GetId();
             const uint32_t swapchain_cmd_index  = swap_chain->GetCmdIndex();
 
-            const uint32_t gap =  Math::Helper::Clamp<uint32_t>((swapchain_cmd_index + 1) - static_cast<uint32_t>(g_vertex_buffers[swapchain_id].size()), 0, 10);
+            const uint32_t gap =  Math::Clamp<uint32_t>((swapchain_cmd_index + 1) - static_cast<uint32_t>(g_vertex_buffers[swapchain_id].size()), 0, 10);
             for (uint32_t i = 0; i < gap; i++)
             {
                 g_vertex_buffers[swapchain_id].emplace_back(make_unique<RHI_VertexBuffer>(g_rhi_device, static_cast<uint32_t>(sizeof(ImDrawVert))));

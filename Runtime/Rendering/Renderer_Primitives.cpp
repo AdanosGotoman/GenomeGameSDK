@@ -86,14 +86,14 @@ namespace Genome
         }
     }
 
-    void Renderer::DrawTriangle(const Math::Vector3& v0, const Math::Vector3& v1, const Math::Vector3& v2, const Math::Vector4& color /*= DEBUG_COLOR*/, const float duration /*= 0.0f*/, bool depth /*= true*/)
+    void Renderer::DrawTriangle(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector4& color /*= DEBUG_COLOR*/, const float duration /*= 0.0f*/, bool depth /*= true*/)
     {
         DrawLine(v0, v1, color, color, duration, depth);
         DrawLine(v1, v2, color, color, duration, depth);
         DrawLine(v2, v0, color, color, duration, depth);
     }
 
-    void Renderer::DrawRectangle(const Math::Rectangle& rectangle, const Math::Vector4& color /*= DebugColor*/, const float duration /*= 0.0f*/, bool depth /*= true*/)
+    void Renderer::DrawRectangle(const Rectangle& rectangle, const Vector4& color /*= DebugColor*/, const float duration /*= 0.0f*/, bool depth /*= true*/)
     {
         const float cam_z = m_camera->GetTransform()->GetPosition().z + m_camera->GetNearPlane() + 5.0f;
 
@@ -122,7 +122,7 @@ namespace Genome
         DrawLine(Vector3(min.x, max.y, max.z), Vector3(min.x, min.y, max.z), color, color, duration, depth);
     }
 
-    void Renderer::DrawCircle(const Math::Vector3& center, const Math::Vector3& axis, const float radius, const uint32_t segmentCount, const Math::Vector4& color /*= DEBUG_COLOR*/, const float duration /*= 0.0f*/, const bool depth /*= true*/)
+    void Renderer::DrawCircle(const Vector3& center, const Vector3& axis, const float radius, const uint32_t segmentCount, const Vector4& color /*= DEBUG_COLOR*/, const float duration /*= 0.0f*/, const bool depth /*= true*/)
     {
         if (radius <= 0.0f || segmentCount <= 0)
             return;
@@ -132,7 +132,7 @@ namespace Genome
         points.resize(segmentCount + 1);
 
         // Compute points on circle
-        float angle_step = Math::Helper::PI_2 / (float)segmentCount;
+        float angle_step = PI_2 / (float)segmentCount;
         for (uint32_t i = 0; i <= segmentCount; i++)
         {
             float angle = (float)i * angle_step;

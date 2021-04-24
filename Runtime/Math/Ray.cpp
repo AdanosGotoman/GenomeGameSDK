@@ -42,13 +42,13 @@ namespace Genome::Math
     {
         // If undefined, no hit (infinite distance)
         if (!box.Defined())
-            return Helper::INFINITY_;
+            return Math::INFINITY_;
         
         // Check for ray origin being inside the box
         if (box.IsInside(m_start))
             return 0.0f;
 
-        auto dist = Helper::INFINITY_;
+        auto dist = Math::INFINITY_;
 
         // Check for intersecting in the X-direction
         if (m_start.x < box.GetMin().x && m_direction.x > 0.0f)
@@ -134,7 +134,7 @@ namespace Genome::Math
     float Ray::HitDistance(const Plane& plane, Vector3* intersection_point /*= nullptr*/) const
     {
         float d = plane.normal.Dot(m_direction);
-        if (Helper::Abs(d) >= Helper::EPSILON)
+        if (Math::Abs(d) >= Math::EPSILON)
         {
             float t = -(plane.normal.Dot(m_start) + plane.d) / d;
             if (t >= 0.0f)
@@ -147,12 +147,12 @@ namespace Genome::Math
             }
             else
             {
-                return Helper::INFINITY_;
+                return Math::INFINITY_;
             }
         }
         else
         {
-            return Helper::INFINITY_;
+            return Math::INFINITY_;
         }
     }
 
@@ -168,7 +168,7 @@ namespace Genome::Math
         Vector3 p(m_direction.Cross(edge2));
         float det = edge1.Dot(p);
 
-        if (det >= Helper::EPSILON)
+        if (det >= Math::EPSILON)
         {
             // Calculate u & v parameters and test
             Vector3 t(m_start - v1);
@@ -196,7 +196,7 @@ namespace Genome::Math
             }
         }
 
-        return Helper::INFINITY_;
+        return Math::INFINITY_;
     }
 
     float Ray::HitDistance(const Sphere & sphere) const
@@ -216,7 +216,7 @@ namespace Genome::Math
     
         // No solution
         if (d < 0.0f)
-            return Helper::INFINITY_;
+            return Math::INFINITY_;
 
         // Get the nearer solution
         float dSqrt = sqrtf(d);

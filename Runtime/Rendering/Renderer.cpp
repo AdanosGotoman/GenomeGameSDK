@@ -375,7 +375,7 @@ namespace Genome
             if (offset_index >= buffer_gpu->GetOffsetCount())
             {
                 cmd_list->Flush();
-                const uint32_t new_size = Math::Helper::NextPowerOfTwo(offset_index + 1);
+                const uint32_t new_size = NextPowerOfTwo(offset_index + 1);
                 if (!buffer_gpu->Create<T>(new_size))
                 {
                     LOG_ERROR("Failed to re-allocate %s buffer with %d offsets", buffer_gpu->GetName().c_str(), new_size);
@@ -512,12 +512,12 @@ namespace Genome
         float luminous_intensity = light->GetIntensity() * m_camera->GetExposure();
         if (light->GetLightType() == LightType::Point)
         {
-            luminous_intensity /= Math::Helper::PI_4; // lumens to candelas
+            luminous_intensity /= PI_4; // lumens to candelas
             luminous_intensity *= 255.0f; // this is a hack, must fix whats my color units
         }
         else if (light->GetLightType() == LightType::Spot)
         {
-            luminous_intensity /= Math::Helper::PI; // lumens to candelas
+            luminous_intensity /= PI; // lumens to candelas
             luminous_intensity *= 255.0f; // this is a hack, must fix whats my color units
         }
 
@@ -645,11 +645,11 @@ namespace Genome
 
         if (option == Renderer_Option_Value::Anisotropy)
         {
-            value = Helper::Clamp(value, 0.0f, 16.0f);
+            value = Clamp(value, 0.0f, 16.0f);
         }
         else if (option == Renderer_Option_Value::ShadowResolution)
         {
-            value = Helper::Clamp(value, static_cast<float>(m_resolution_shadow_min), static_cast<float>(RHI_Context::texture_2d_dimension_max));
+            value = Clamp(value, static_cast<float>(m_resolution_shadow_min), static_cast<float>(RHI_Context::texture_2d_dimension_max));
         }
 
         if (m_option_values[option] == value)
@@ -736,7 +736,7 @@ namespace Genome
         return RHI_Context::texture_2d_dimension_max;
     }
 
-    void Renderer::SetGlobalShaderObjectTransform(RHI_CommandList* cmd_list, const Math::Matrix& transform)
+    void Renderer::SetGlobalShaderObjectTransform(RHI_CommandList* cmd_list, const Matrix& transform)
     {
         m_buffer_uber_cpu.transform = transform;
         UpdateUberBuffer(cmd_list);

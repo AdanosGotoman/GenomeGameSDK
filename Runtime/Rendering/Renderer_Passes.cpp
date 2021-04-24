@@ -587,8 +587,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(tex_out->GetWidth(), tex_out->GetHeight());
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 
@@ -632,8 +632,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(tex_out->GetWidth(), tex_out->GetHeight());
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 
@@ -673,8 +673,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_ssao_noisy->GetWidth()), static_cast<float>(tex_ssao_noisy->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_ssao_noisy->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_ssao_noisy->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_ssao_noisy->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_ssao_noisy->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -723,8 +723,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -868,8 +868,8 @@ namespace Genome
                         m_buffer_uber_cpu.is_transparent_pass   = is_transparent_pass;
                         UpdateUberBuffer(cmd_list);
 
-                        const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_diffuse->GetWidth()) / m_thread_group_count));
-                        const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_diffuse->GetHeight()) / m_thread_group_count));
+                        const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_diffuse->GetWidth()) / m_thread_group_count));
+                        const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_diffuse->GetHeight()) / m_thread_group_count));
                         const uint32_t thread_group_count_z = 1;
                         const bool async = false;
 
@@ -901,8 +901,8 @@ namespace Genome
             m_buffer_uber_cpu.is_transparent_pass   = is_transparent_pass;
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -1305,8 +1305,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -1347,8 +1347,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(m_render_tex_bloom[0].get()->GetWidth()), static_cast<float>(m_render_tex_bloom[0].get()->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(m_render_tex_bloom[0].get()->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(m_render_tex_bloom[0].get()->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(m_render_tex_bloom[0].get()->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(m_render_tex_bloom[0].get()->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z   = 1;
                 const bool async                      = false;
 
@@ -1378,8 +1378,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(mip_small->GetWidth()), static_cast<float>(mip_small->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(mip_small->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(mip_small->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(mip_small->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(mip_small->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z = 1;
                 const bool async = false;
 
@@ -1408,8 +1408,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(mip_large->GetWidth()), static_cast<float>(mip_large->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(mip_large->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(mip_large->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(mip_large->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(mip_large->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z = 1;
                 const bool async = false;
 
@@ -1434,8 +1434,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z = 1;
                 const bool async = false;
 
@@ -1467,8 +1467,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -1498,8 +1498,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 
@@ -1523,8 +1523,8 @@ namespace Genome
         UpdateUberBuffer(cmd_list);
 
         // Compute thread count
-        const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-        const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+        const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+        const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
         const uint32_t thread_group_count_z = 1;
         const bool async = false;
 
@@ -1585,8 +1585,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 
@@ -1616,8 +1616,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 
@@ -1659,8 +1659,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_bokeh_half->GetWidth()), static_cast<float>(tex_bokeh_half->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_bokeh_half->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_bokeh_half->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_bokeh_half->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_bokeh_half->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z   = 1;
                 const bool async                      = false;
 
@@ -1686,8 +1686,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_bokeh_half_2->GetWidth()), static_cast<float>(tex_bokeh_half_2->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_bokeh_half_2->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_bokeh_half_2->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_bokeh_half_2->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_bokeh_half_2->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z = 1;
                 const bool async = false;
 
@@ -1712,8 +1712,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_bokeh_half->GetWidth()), static_cast<float>(tex_bokeh_half->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_bokeh_half->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_bokeh_half->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_bokeh_half->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_bokeh_half->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z = 1;
                 const bool async = false;
 
@@ -1738,8 +1738,8 @@ namespace Genome
                 m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
                 UpdateUberBuffer(cmd_list);
 
-                const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-                const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+                const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+                const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
                 const uint32_t thread_group_count_z = 1;
                 const bool async = false;
 
@@ -1772,8 +1772,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -1803,8 +1803,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 
@@ -1834,8 +1834,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(tex_out->GetWidth()), static_cast<float>(tex_out->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 
@@ -2064,9 +2064,9 @@ namespace Genome
                     {
                         // Compute light screen space position and scale (based on distance from the camera)
                         const Vector2 position_light_screen = m_camera->Project(position_light_world);
-                        const float distance                = (position_camera_world - position_light_world).Length() + Helper::EPSILON;
+                        const float distance                = (position_camera_world - position_light_world).Length() + EPSILON;
                         float scale                         = m_gizmo_size_max / distance;
-                        scale                               = Helper::Clamp(scale, m_gizmo_size_min, m_gizmo_size_max);
+                        scale                               = Clamp(scale, m_gizmo_size_min, m_gizmo_size_max);
 
                         // Choose texture based on light type
                         shared_ptr<RHI_Texture> light_tex = nullptr;
@@ -2436,8 +2436,8 @@ namespace Genome
             m_buffer_uber_cpu.transform     = m_buffer_frame_cpu.view_projection_ortho;
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -2475,8 +2475,8 @@ namespace Genome
             m_buffer_uber_cpu.resolution = Vector2(static_cast<float>(render_target->GetWidth()), static_cast<float>(render_target->GetHeight()));
             UpdateUberBuffer(cmd_list);
 
-            const uint32_t thread_group_count_x = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(render_target->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(render_target->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x = static_cast<uint32_t>(Ceil(static_cast<float>(render_target->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y = static_cast<uint32_t>(Ceil(static_cast<float>(render_target->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z = 1;
             const bool async = false;
 
@@ -2503,8 +2503,8 @@ namespace Genome
         // Draw
         if (cmd_list->BeginRenderPass(pso))
         {
-            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
-            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Math::Helper::Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
+            const uint32_t thread_group_count_x   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetWidth()) / m_thread_group_count));
+            const uint32_t thread_group_count_y   = static_cast<uint32_t>(Ceil(static_cast<float>(tex_out->GetHeight()) / m_thread_group_count));
             const uint32_t thread_group_count_z   = 1;
             const bool async                      = false;
 

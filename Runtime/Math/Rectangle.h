@@ -45,10 +45,10 @@ namespace Genome
 
             Rectangle(const float left, const float top, const float right, const float bottom)
             {
-                this->left      = left;
-                this->top       = top;
-                this->right     = right;
-                this->bottom    = bottom;
+                this->left    = left;
+                this->top     = top;
+                this->right   = right;
+                this->bottom  = bottom;
             }
 
             Rectangle(const Rectangle& rectangle)
@@ -64,18 +64,18 @@ namespace Genome
             bool operator==(const Rectangle& rhs) const
             {
                 return
-                    left    == rhs.left     &&
-                    top     == rhs.top      &&
-                    right   == rhs.right    &&
+                    left    == rhs.left   &&
+                    top     == rhs.top    &&
+                    right   == rhs.right  &&
                     bottom  == rhs.bottom;
             }
 
             bool operator!=(const Rectangle& rhs) const
             {
                 return
-                    left    != rhs.left     ||
-                    top     != rhs.top      ||
-                    right   != rhs.right    ||
+                    left    != rhs.left   ||
+                    top     != rhs.top    ||
+                    right   != rhs.right  ||
                     bottom  != rhs.bottom;
             }
 
@@ -93,10 +93,10 @@ namespace Genome
             // Merge a point.
             void Merge(const Vector2& point)
             {
-                left    = Math::Helper::Min(left,     point.x);
-                top     = Math::Helper::Min(top,      point.y);
-                right   = Math::Helper::Max(right,    point.x);
-                bottom  = Math::Helper::Max(bottom,   point.y);
+                left    = Min(left,     point.x);
+                top     = Min(top,      point.y);
+                right   = Max(right,    point.x);
+                bottom  = Max(bottom,   point.y);
             }
 
             bool CreateBuffers(Renderer* renderer);

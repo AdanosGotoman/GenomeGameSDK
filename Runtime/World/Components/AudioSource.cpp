@@ -173,7 +173,7 @@ namespace Genome
     
         // Priority for the channel, from 0 (most important) 
         // to 256 (least important), default = 128.
-        m_priority = static_cast<int>(Helper::Clamp(priority, 0, 255));
+        m_priority = static_cast<int>(Clamp(priority, 0, 255));
         m_audio_clip->SetPriority(m_priority);
     }
     
@@ -182,7 +182,7 @@ namespace Genome
         if (!m_audio_clip)
             return;
     
-        m_volume = Helper::Clamp(volume, 0.0f, 1.0f);
+        m_volume = Clamp(volume, 0.0f, 1.0f);
         m_audio_clip->SetVolume(m_volume);
     }
     
@@ -191,7 +191,7 @@ namespace Genome
         if (!m_audio_clip)
             return;
     
-        m_pitch = Helper::Clamp(pitch, 0.0f, 3.0f);
+        m_pitch = Clamp(pitch, 0.0f, 3.0f);
         m_audio_clip->SetPitch(m_pitch);
     }
     
@@ -201,7 +201,7 @@ namespace Genome
             return;
     
         // Pan level, from -1.0 (left) to 1.0 (right).
-        m_pan = Helper::Clamp(pan, -1.0f, 1.0f);
+        m_pan = Clamp(pan, -1.0f, 1.0f);
         m_audio_clip->SetPan(m_pan);
     }
 }

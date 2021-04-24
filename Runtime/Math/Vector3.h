@@ -81,9 +81,9 @@ namespace Genome::Math
         void Normalize()
         {
             const auto length_squared = LengthSquared();
-            if (!Helper::Equals(length_squared, 1.0f) && length_squared > 0.0f)
+            if (!Math::Equals(length_squared, 1.0f) && length_squared > 0.0f)
             {
-                const auto length_inverted = 1.0f / Helper::Sqrt(length_squared);
+                const auto length_inverted = 1.0f / Math::Sqrt(length_squared);
                 x *= length_inverted;
                 y *= length_inverted;
                 z *= length_inverted;
@@ -94,9 +94,9 @@ namespace Genome::Math
         [[nodiscard]] Vector3 Normalized() const
         {
             const auto length_squared = LengthSquared();
-            if (!Helper::Equals(length_squared, 1.0f) && length_squared > 0.0f)
+            if (!Math::Equals(length_squared, 1.0f) && length_squared > 0.0f)
             {
-                const auto length_inverted = 1.0f / Helper::Sqrt(length_squared);
+                const auto length_inverted = 1.0f / Math::Sqrt(length_squared);
                 return (*this) * length_inverted;
             }
             else
@@ -125,7 +125,7 @@ namespace Genome::Math
         [[nodiscard]] Vector3 Cross(const Vector3& v2) const { return Cross(*this, v2); }
 
         // Returns the length
-        [[nodiscard]] float Length() const          { return Helper::Sqrt(x * x + y * y + z * z); }
+        [[nodiscard]] float Length() const          { return Math::Sqrt(x * x + y * y + z * z); }
         // Returns the squared length
         [[nodiscard]] float LengthSquared() const   { return x * x + y * y + z * z; }
 
@@ -136,7 +136,7 @@ namespace Genome::Math
 
             if (sqrmag > maxLength * maxLength)
             {
-                const float mag = Helper::Sqrt(sqrmag);
+                const float mag = Math::Sqrt(sqrmag);
 
                 //these intermediate variables force the intermediate result to be
                 //of float precision. without this, the intermediate result can be of higher
@@ -168,7 +168,7 @@ namespace Genome::Math
         }
 
         // Return absolute vector
-        [[nodiscard]] Vector3 Abs() const { return Vector3(Helper::Abs(x), Helper::Abs(y), Helper::Abs(z)); }
+        [[nodiscard]] Vector3 Abs() const { return Vector3(Math::Abs(x), Math::Abs(y), Math::Abs(z)); }
 
         Vector3 operator*(const Vector3& b) const
         {

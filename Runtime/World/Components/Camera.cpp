@@ -114,7 +114,7 @@ namespace Genome
 
     void Camera::SetNearPlane(const float near_plane)
     {
-        m_near_plane = Helper::Max(0.01f, near_plane);
+        m_near_plane = Max(0.01f, near_plane);
         m_is_dirty = true;
     }
 
@@ -132,7 +132,7 @@ namespace Genome
 
     float Camera::GetFovHorizontalDeg() const
     {
-        return Helper::RadiansToDegrees(m_fov_horizontal_rad);
+        return RadiansToDegrees(m_fov_horizontal_rad);
     }
 
     float Camera::GetFovVerticalRad() const
@@ -142,7 +142,7 @@ namespace Genome
 
     void Camera::SetFovHorizontalDeg(const float fov)
     {
-        m_fov_horizontal_rad = Helper::DegreesToRadians(fov);
+        m_fov_horizontal_rad = DegreesToRadians(fov);
         m_is_dirty = true;
     }
 
@@ -199,7 +199,7 @@ namespace Genome
                 float distance = m_ray.HitDistance(aabb);
 
                 // Don't store hit data if there was no hit
-                if (distance == Helper::INFINITY_)
+                if (distance == INFINITY_)
                     continue;
 
                 hits.emplace_back(
@@ -375,17 +375,17 @@ namespace Genome
                 const Vector2 mouse_delta = m_input->GetMouseDelta() * m_mouse_sensitivity;
 
                 // Lerp to it
-                m_mouse_smoothed = Helper::Lerp(m_mouse_smoothed, mouse_delta, Helper::Saturate(1.0f - m_mouse_smoothing));
+                m_mouse_smoothed = Lerp(m_mouse_smoothed, mouse_delta, Saturate(1.0f - m_mouse_smoothing));
 
                 // Accumulate rotation
                 m_mouse_rotation += m_mouse_smoothed;
 
                 // Clamp rotation along the x-axis
-                m_mouse_rotation.y = Helper::Clamp(m_mouse_rotation.y, -90.0f, 90.0f);
+                m_mouse_rotation.y = Clamp(m_mouse_rotation.y, -90.0f, 90.0f);
 
                 // Compute rotation
-                const Quaternion xQuaternion    = Quaternion::FromAngleAxis(m_mouse_rotation.x * Helper::DEG_TO_RAD, Vector3::Up);
-                const Quaternion yQuaternion    = Quaternion::FromAngleAxis(m_mouse_rotation.y * Helper::DEG_TO_RAD, Vector3::Right);
+                const Quaternion xQuaternion    = Quaternion::FromAngleAxis(m_mouse_rotation.x * DEG_TO_RAD, Vector3::Up);
+                const Quaternion yQuaternion    = Quaternion::FromAngleAxis(m_mouse_rotation.y * DEG_TO_RAD, Vector3::Right);
                 const Quaternion rotation       = xQuaternion * yQuaternion;
 
                 // Rotate
@@ -396,7 +396,7 @@ namespace Genome
             {
                 // Compute max speed
                 m_movement_speed_max += m_input->GetMouseWheelDelta() / 2.0f;
-                m_movement_speed_max = Helper::Clamp(m_movement_speed_max, m_movement_speed_min, numeric_limits<float>::max());
+                m_movement_speed_max = Clamp(m_movement_speed_max, m_movement_speed_min, numeric_limits<float>::max());
 
                 // Compute direction
                 Vector3 direction = Vector3::Zero;
@@ -417,7 +417,7 @@ namespace Genome
         // Translation
         {
             // Apply movement drag
-            m_movement_speed *= 1.0f - Helper::Saturate(m_movement_drag * delta_time);
+            m_movement_speed *= 1.0f - Saturate(m_movement_drag * delta_time);
 
             // Translate for as long as there is speed
             if (m_movement_speed != Vector3::Zero)

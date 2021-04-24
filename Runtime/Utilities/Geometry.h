@@ -27,12 +27,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../RHI/RHI_Vertex.h"
 //================================
 
+using namespace Genome::Math;
+
 namespace Genome::Utility::Geometry
 {
     static void CreateCube(std::vector<RHI_Vertex_PosTexNorTan>* vertices, std::vector<uint32_t>* indices)
     {
-        using namespace Math;
-
         // front
         vertices->emplace_back(Vector3(-0.5f, -0.5f, -0.5f), Vector2(0, 1), Vector3(0, 0, -1), Vector3(0, 1, 0));
         vertices->emplace_back(Vector3(-0.5f, 0.5f, -0.5f), Vector2(0, 0), Vector3(0, 0, -1), Vector3(0, 1, 0));
@@ -96,8 +96,6 @@ namespace Genome::Utility::Geometry
 
     static void CreateQuad(std::vector<RHI_Vertex_PosTexNorTan>* vertices, std::vector<uint32_t>* indices)
     {
-        using namespace Math;
-
         vertices->emplace_back(Vector3(-0.5f, 0.0f, 0.5f),  Vector2(0, 0), Vector3(0, 1, 0), Vector3(1, 0, 0)); // 0 top-left
         vertices->emplace_back(Vector3(0.5f,  0.0f, 0.5f),  Vector2(1, 0), Vector3(0, 1, 0), Vector3(1, 0, 0)); // 1 top-right
         vertices->emplace_back(Vector3(-0.5f, 0.0f, -0.5f), Vector2(0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0)); // 2 bottom-left
@@ -113,14 +111,12 @@ namespace Genome::Utility::Geometry
 
     static void CreateSphere(std::vector<RHI_Vertex_PosTexNorTan>* vertices, std::vector<uint32_t>* indices, float radius = 1.0f, int slices = 20, int stacks = 20)
     {
-        using namespace Math;
-
         Vector3 normal = Vector3(0, 1, 0);
         Vector3 tangent = Vector3(1, 0, 0);
         vertices->emplace_back(Vector3(0, radius, 0), Vector2::Zero, normal, tangent);
 
-        const float phiStep   = Helper::PI / stacks;
-        const float thetaStep = 2.0f * Helper::PI / slices;
+        const float phiStep   = PI / stacks;
+        const float thetaStep = 2.0f * PI / slices;
 
         for (int i = 1; i <= stacks - 1; i++)
         {
@@ -136,7 +132,7 @@ namespace Genome::Utility::Geometry
 
                 Vector3 t = Vector3(-radius * sin(phi) * sin(theta), 0, radius * sin(phi) * cos(theta)).Normalized();
                 Vector3 n = p.Normalized();
-                Vector2 uv = Vector2(theta / (Helper::PI * 2), phi / Helper::PI);
+                Vector2 uv = Vector2(theta / (PI * 2), phi / PI);
                 vertices->emplace_back(p, uv, n, t);
             }
         }
@@ -178,8 +174,6 @@ namespace Genome::Utility::Geometry
 
     static void CreateCylinder(std::vector<RHI_Vertex_PosTexNorTan>* vertices, std::vector<uint32_t>* indices, float radiusTop = 1.0f, float radiusBottom = 1.0f, float height = 1.0f, int slices = 15, int stacks = 15)
     {
-        using namespace Math;
-
         const float stackHeight = height / stacks;
         const float radiusStep = (radiusTop - radiusBottom) / stacks;
         const float ringCount = (float)(stacks + 1);
@@ -188,7 +182,7 @@ namespace Genome::Utility::Geometry
         {
             const float y = -0.5f * height + i * stackHeight;
             const float r = radiusBottom + i * radiusStep;
-            const float dTheta = 2.0f * Helper::PI / slices;
+            const float dTheta = 2.0f * PI / slices;
             for (int j = 0; j <= slices; j++)
             {
                 const float c = cos(j * dTheta);
@@ -225,7 +219,7 @@ namespace Genome::Utility::Geometry
         // Build top cap
         int baseIndex = (int)vertices->size();
         float y = 0.5f * height;
-        const float dTheta = 2.0f * Helper::PI / slices;
+        const float dTheta = 2.0f * PI / slices;
 
         Vector3 normal;
         Vector3 tangent;
@@ -265,13 +259,13 @@ namespace Genome::Utility::Geometry
             const float u = x / height + 0.5f;
             const float v = z / height + 0.5f;
 
-            normal =     Vector3(0, -1, 0);
-            tangent        = Vector3(1, 0, 0);
+            normal    = Vector3(0, -1, 0);
+            tangent   = Vector3(1, 0, 0);
             vertices->emplace_back(Vector3(x, y, z), Vector2(u, v), normal, tangent);
         }
 
         normal        = Vector3(0, -1, 0);
-        tangent        = Vector3(1, 0, 0);
+        tangent       = Vector3(1, 0, 0);
         vertices->emplace_back(Vector3(0, y, 0), Vector2(0.5f, 0.5f), normal, tangent);
 
         centerIndex = (int)vertices->size() - 1;
