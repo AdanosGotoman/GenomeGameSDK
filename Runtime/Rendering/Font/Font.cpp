@@ -77,8 +77,8 @@ namespace Genome
         // Find max character height (todo, actually get spacing from FreeType)
         for (const auto& char_info : m_glyphs)
         {
-            m_char_max_width    = Helper::Max<int>(char_info.second.width, m_char_max_width);
-            m_char_max_height   = Helper::Max<int>(char_info.second.height, m_char_max_height);
+            m_char_max_width    = Max<int>(char_info.second.width, m_char_max_width);
+            m_char_max_height   = Max<int>(char_info.second.height, m_char_max_height);
         }
         
         LOG_INFO("Loading \"%s\" took %d ms", FileSystem::GetFileNameFromFilePath(file_path).c_str(), static_cast<int>(timer.GetElapsedTimeMs()));
@@ -107,7 +107,7 @@ namespace Genome
                 const uint32_t space_offset         = m_glyphs[ASCII_SPACE].horizontal_advance;
                 const uint32_t space_count          = 8; // spaces in a typical terminal
                 const uint32_t tab_spacing          = space_offset * space_count;
-                const uint32_t offset_from_start    = static_cast<uint32_t>(Math::Helper::Abs(pen.x - position.x));
+                const uint32_t offset_from_start    = static_cast<uint32_t>(Abs(pen.x - position.x));
                 const uint32_t next_column_index    = (offset_from_start / tab_spacing) + 1;
                 const uint32_t offset_to_column     = (next_column_index * tab_spacing) - offset_from_start;
                 pen.x                               += offset_to_column;
@@ -150,7 +150,7 @@ namespace Genome
 
     void Font::SetSize(const uint32_t size)
     {
-        m_font_size = Helper::Clamp<uint32_t>(size, 8, 50);
+        m_font_size = Clamp<uint32_t>(size, 8, 50);
     }
 
     bool Font::UpdateBuffers(vector<RHI_Vertex_PosTex>& vertices, vector<uint32_t>& indices) const

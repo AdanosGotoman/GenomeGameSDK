@@ -29,6 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../Core/SpartanObject.h"
 #include "RHI_Vertex.h"
 #include "RHI_Descriptor.h"
+#include <atomic>
 //================================
 
 namespace Genome

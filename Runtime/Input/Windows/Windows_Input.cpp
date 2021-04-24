@@ -86,9 +86,9 @@ namespace Genome
         // Mouse
         {
             // Keys
-            m_keys[start_index_mouse]       = (::GetKeyState(VK_LBUTTON) & 0x8000) != 0; // Left button pressed
-            m_keys[start_index_mouse + 1]   = (::GetKeyState(VK_MBUTTON) & 0x8000) != 0; // Middle button pressed
-            m_keys[start_index_mouse + 2]   = (::GetKeyState(VK_RBUTTON) & 0x8000) != 0; // Right button pressed
+            m_keys[start_index_mouse]       = (GetKeyState(VK_LBUTTON) & 0x8000) != 0; // Left button pressed
+            m_keys[start_index_mouse + 1]   = (GetKeyState(VK_MBUTTON) & 0x8000) != 0; // Middle button pressed
+            m_keys[start_index_mouse + 2]   = (GetKeyState(VK_RBUTTON) & 0x8000) != 0; // Right button pressed
 
             // Delta
             if (window_data.message == WM_INPUT)
@@ -108,9 +108,9 @@ namespace Genome
             if (window_handle == ::GetActiveWindow())
             {
                 POINT mouse_screen_pos;
-                if (::GetCursorPos(&mouse_screen_pos))
+                if (GetCursorPos(&mouse_screen_pos))
                 {
-                    ::ScreenToClient(window_handle, &mouse_screen_pos);
+                    ScreenToClient(window_handle, &mouse_screen_pos);
                     m_mouse_position = Vector2(static_cast<float>(mouse_screen_pos.x), static_cast<float>(mouse_screen_pos.y));
                 }
             }
@@ -123,7 +123,7 @@ namespace Genome
 
         // KEYBOARD
         {
-            #define is_pressed(key_code) (::GetKeyState(key_code) & 0x8000) != 0
+            #define is_pressed(key_code) (GetKeyState(key_code) & 0x8000) != 0
 
             // FUNCTION
             m_keys[0]   = is_pressed(VK_F1);
@@ -228,11 +228,11 @@ namespace Genome
     {
         if (visible)
         {
-            while (::ShowCursor(TRUE) < 0);
+            while (ShowCursor(TRUE) < 0);
         }
         else
         {
-            while (::ShowCursor(FALSE) >= 0);
+            while (ShowCursor(FALSE) >= 0);
         }
     }
 
@@ -244,9 +244,9 @@ namespace Genome
         if (window_handle == ::GetActiveWindow())
         {
             POINT mouse_screen_pos = POINT{ static_cast<LONG>(position.x), static_cast<LONG>(position.y) };
-            if (::ClientToScreen(window_handle, &mouse_screen_pos))
+            if (ClientToScreen(window_handle, &mouse_screen_pos))
             {
-                ::SetCursorPos(mouse_screen_pos.x, mouse_screen_pos.y);
+                SetCursorPos(mouse_screen_pos.x, mouse_screen_pos.y);
             }
         }
     }
@@ -322,8 +322,8 @@ namespace Genome
         XINPUT_VIBRATION vibration;
         ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
         
-        vibration.wLeftMotorSpeed   = static_cast<int>(Helper::Clamp(left_motor_speed, 0.0f, 1.0f) * 65535);    // Convert [0, 1] to [0, 65535]
-        vibration.wRightMotorSpeed  = static_cast<int>(Helper::Clamp(right_motor_speed, 0.0f, 1.0f) * 65535);   // Convert [0, 1] to [0, 65535]
+        vibration.wLeftMotorSpeed   = static_cast<int>(Math::Clamp(left_motor_speed, 0.0f, 1.0f) * 65535);    // Convert [0, 1] to [0, 65535]
+        vibration.wRightMotorSpeed  = static_cast<int>(Math::Clamp(right_motor_speed, 0.0f, 1.0f) * 65535);   // Convert [0, 1] to [0, 65535]
 
         return XInputSetState(g_gamepad_num, &vibration) == ERROR_SUCCESS;
     }

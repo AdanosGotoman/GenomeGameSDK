@@ -121,19 +121,19 @@ namespace Genome
 
             // CPU
             m_time_cpu_avg = m_time_cpu_avg * (1.0f - delta_feedback) + m_time_cpu_last * delta_feedback;
-            m_time_cpu_min = Math::Helper::Min(m_time_cpu_min, m_time_cpu_last);
-            m_time_cpu_max = Math::Helper::Max(m_time_cpu_max, m_time_cpu_last);
+            m_time_cpu_min = Math::Min(m_time_cpu_min, m_time_cpu_last);
+            m_time_cpu_max = Math::Max(m_time_cpu_max, m_time_cpu_last);
 
             // GPU
             m_time_gpu_avg = m_time_gpu_avg * (1.0f - delta_feedback) + m_time_gpu_last * delta_feedback;
-            m_time_gpu_min = Math::Helper::Min(m_time_gpu_min, m_time_gpu_last);
-            m_time_gpu_max = Math::Helper::Max(m_time_gpu_max, m_time_gpu_last);
+            m_time_gpu_min = Math::Min(m_time_gpu_min, m_time_gpu_last);
+            m_time_gpu_max = Math::Max(m_time_gpu_max, m_time_gpu_last);
 
             // Frame
             m_time_frame_last = static_cast<float>(m_timer->GetDeltaTimeMs());
             m_time_frame_avg = m_time_frame_avg * (1.0f - delta_feedback) + m_time_frame_last * delta_feedback;
-            m_time_frame_min = Math::Helper::Min(m_time_frame_min, m_time_frame_last);
-            m_time_frame_max = Math::Helper::Max(m_time_frame_max, m_time_frame_last);
+            m_time_frame_min = Math::Min(m_time_frame_min, m_time_frame_last);
+            m_time_frame_max = Math::Max(m_time_frame_max, m_time_frame_last);
 
             // FPS
             {

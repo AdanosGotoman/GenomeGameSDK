@@ -86,8 +86,11 @@ namespace Genome::Math
             );
         }
         // Euler angles to quaternion (input in degrees)
-        static inline auto FromEulerAngles(const Vector3& rotation)                              { return FromYawPitchRoll(rotation.y * Helper::DEG_TO_RAD, rotation.x * Helper::DEG_TO_RAD, rotation.z * Helper::DEG_TO_RAD); }
-        static inline auto FromEulerAngles(float rotationX, float rotationY, float rotationZ)    { return FromYawPitchRoll(rotationY * Helper::DEG_TO_RAD, rotationX * Helper::DEG_TO_RAD, rotationZ * Helper::DEG_TO_RAD); }
+        static inline auto FromEulerAngles(const Vector3& rotation)
+        { return FromYawPitchRoll(rotation.y * Math::DEG_TO_RAD, rotation.x * Math::DEG_TO_RAD, rotation.z * Math::DEG_TO_RAD); }
+
+        static inline auto FromEulerAngles(float rotationX, float rotationY, float rotationZ)
+        { return FromYawPitchRoll(rotationY * Math::DEG_TO_RAD, rotationX * Math::DEG_TO_RAD, rotationZ * Math::DEG_TO_RAD); }
 
         // Returns Euler angles in degrees
         Vector3 ToEulerAngles() const
@@ -102,7 +105,7 @@ namespace Genome::Math
                 (
                     -90.0f,
                     0.0f,
-                    -atan2f(2.0f * (x * z - w * y), 1.0f - 2.0f * (y * y + z * z)) * Helper::RAD_TO_DEG
+                    -atan2f(2.0f * (x * z - w * y), 1.0f - 2.0f * (y * y + z * z)) * Math::RAD_TO_DEG
                 );
             }
 
@@ -112,15 +115,15 @@ namespace Genome::Math
                 (
                     90.0f,
                     0.0f,
-                    atan2f(2.0f * (x * z - w * y), 1.0f - 2.0f * (y * y + z * z)) * Helper::RAD_TO_DEG
+                    atan2f(2.0f * (x * z - w * y), 1.0f - 2.0f * (y * y + z * z)) * Math::RAD_TO_DEG
                 );
             }
 
             return Vector3
             (
-                asinf(check) * Helper::RAD_TO_DEG,
-                atan2f(2.0f * (x * z + w * y), 1.0f - 2.0f * (x * x + y * y)) * Helper::RAD_TO_DEG,
-                atan2f(2.0f * (x * y + w * z), 1.0f - 2.0f * (x * x + z * z)) * Helper::RAD_TO_DEG
+                asinf(check) * Math::RAD_TO_DEG,
+                atan2f(2.0f * (x * z + w * y), 1.0f - 2.0f * (x * x + y * y)) * Math::RAD_TO_DEG,
+                atan2f(2.0f * (x * y + w * z), 1.0f - 2.0f * (x * x + z * z)) * Math::RAD_TO_DEG
             );
         }
 
@@ -137,7 +140,7 @@ namespace Genome::Math
             const Vector3 normEnd   = end.Normalized();
             const float d           = normStart.Dot(normEnd);
 
-            if (d > -1.0f + Helper::EPSILON)
+            if (d > -1.0f +Math::EPSILON)
             {
                 const Vector3 c = normStart.Cross(normEnd);
                 const float s = sqrtf((1.0f + d) * 2.0f);
@@ -152,12 +155,12 @@ namespace Genome::Math
             else
             {
                 Vector3 axis = Vector3::Right.Cross(normStart);
-                if (axis.Length() < Helper::EPSILON)
+                if (axis.Length() < Math::EPSILON)
                 {
                     axis = Vector3::Up.Cross(normStart);
                 }
 
-                return FromAngleAxis(180.0f * Helper::DEG_TO_RAD, axis);
+                return FromAngleAxis(180.0f * Math::DEG_TO_RAD, axis);
             }
         }
 
@@ -167,7 +170,7 @@ namespace Genome::Math
             const Vector3 forward = direction.Normalized();
 
             Vector3 v = forward.Cross(upDirection);
-            if (v.LengthSquared() >= Helper::EPSILON)
+            if (v.LengthSquared() >= Math::EPSILON)
             {
                 v.Normalize();
                 const Vector3 up = v.Cross(forward);
@@ -192,9 +195,9 @@ namespace Genome::Math
         void Normalize()
         {
             const auto length_squared = LengthSquared();
-            if (!Helper::Equals(length_squared, 1.0f) && length_squared > 0.0f)
+            if (!Math::Equals(length_squared, 1.0f) && length_squared > 0.0f)
             {
-                const auto length_inverted = 1.0f / Helper::Sqrt(length_squared);
+                const auto length_inverted = 1.0f / Math::Sqrt(length_squared);
                 x *= length_inverted;
                 y *= length_inverted;
                 z *= length_inverted;
@@ -206,9 +209,9 @@ namespace Genome::Math
         Quaternion Normalized() const
         {
             const auto length_squared = LengthSquared();
-            if (!Helper::Equals(length_squared, 1.0f) && length_squared > 0.0f)
+            if (!Math::Equals(length_squared, 1.0f) && length_squared > 0.0f)
             {
-                const auto length_inverted = 1.0f / Helper::Sqrt(length_squared);
+                const auto length_inverted = 1.0f / Math::Sqrt(length_squared);
                 return (*this) * length_inverted;
             }
             else
@@ -221,7 +224,7 @@ namespace Genome::Math
             const float length_squared = LengthSquared();
             if (length_squared == 1.0f)
                 return Conjugate();
-            else if (length_squared >= Helper::EPSILON)
+            else if (length_squared >= Math::EPSILON)
                 return Conjugate() * (1.0f / length_squared);
             else
                 return Identity;
@@ -296,7 +299,7 @@ namespace Genome::Math
         // Test for equality with a quaternion, using epsilon
         bool Equals(const Quaternion& rhs) const
         {
-            return Helper::Equals(x, rhs.x) && Helper::Equals(y, rhs.y) && Helper::Equals(z, rhs.z) && Helper::Equals(w, rhs.w);
+            return Math::Equals(x, rhs.x) && Math::Equals(y, rhs.y) && Math::Equals(z, rhs.z) && Math::Equals(w, rhs.w);
         }
 
         std::string ToString() const;

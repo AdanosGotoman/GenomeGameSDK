@@ -269,8 +269,8 @@ namespace Genome
         vector<freeimage_helper::RescaleJob> jobs;
         while (width > 1 && height > 1)
         {
-            width   = Math::Helper::Max(width / 2, static_cast<uint32_t>(1));
-            height  = Math::Helper::Max(height / 2, static_cast<uint32_t>(1));
+            width   = Math::Max(width / 2, static_cast<uint32_t>(1));
+            height  = Math::Max(height / 2, static_cast<uint32_t>(1));
             jobs.emplace_back(width, height, channels);
             
             // Resize the RHI_Texture vector accordingly

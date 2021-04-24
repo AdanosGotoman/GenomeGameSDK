@@ -90,12 +90,12 @@ namespace Genome::Math
 
         if (!ignore_near_plane)
         {
-            radius = Helper::Max3(extent.x, extent.y, extent.z);
+            radius = Math::Max3(extent.x, extent.y, extent.z);
         }
         else
         {
             constexpr float z = numeric_limits<float>::infinity(); // reverse-z only (but I must read form Renderer)
-            radius = Helper::Max3(extent.x, extent.y, z);
+            radius = Math::Max3(extent.x, extent.y, z);
         }
 
         // Check sphere first as it's cheaper
@@ -154,7 +154,7 @@ namespace Genome::Math
                 return Outside;
 
             // else if the distance is between +- radius, then we intersect
-            if (static_cast<float>(Helper::Abs(distance)) < radius)
+            if (static_cast<float>(Math::Abs(distance)) < radius)
                 return Intersects;
         }
 

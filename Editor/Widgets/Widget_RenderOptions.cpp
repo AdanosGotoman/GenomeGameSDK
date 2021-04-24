@@ -81,7 +81,7 @@ void Widget_RenderOptions::TickVisible()
                 ImGui::InputFloat(text, &value, step);
                 ImGui::PopItemWidth();
                 ImGui::PopID();
-                value = Helper::Clamp(value, min, max);
+                value = Clamp(value, min, max);
 
                 // Only update if changed
                 if (m_renderer->GetOptionValue<float>(render_option) != value)

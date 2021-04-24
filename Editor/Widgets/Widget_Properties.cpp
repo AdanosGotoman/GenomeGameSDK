@@ -44,7 +44,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //= NAMESPACES =========
 using namespace std;
 using namespace Genome;
-using namespace Math;
+using namespace Genome::Math;
 //======================
 
 weak_ptr<Entity> Widget_Properties::m_inspected_entity;
@@ -295,7 +295,7 @@ void Widget_Properties::ShowLight(Light* light) const
         static vector<string> types = { "Directional", "Point", "Spot" };
         const char* type_char_ptr   = types[static_cast<int>(light->GetLightType())].c_str();
         float intensity             = light->GetIntensity();
-        float angle                 = light->GetAngle() * Math::Helper::RAD_TO_DEG;
+        float angle                 = light->GetAngle() * RAD_TO_DEG;
         bool shadows                = light->GetShadowsEnabled();
         bool shadows_screen_space   = light->GetShadowsScreenSpaceEnabled();
         bool shadows_transparent    = light->GetShadowsTransparentEnabled();
@@ -406,7 +406,7 @@ void Widget_Properties::ShowLight(Light* light) const
         if (volumetric != light->GetVolumetricEnabled())                    light->SetVolumetricEnabled(volumetric);
         if (bias != light->GetBias())                                       light->SetBias(bias);
         if (normal_bias != light->GetNormalBias())                          light->SetNormalBias(normal_bias);
-        if (angle != light->GetAngle() * Math::Helper::RAD_TO_DEG)          light->SetAngle(angle * Math::Helper::DEG_TO_RAD);
+        if (angle != light->GetAngle() * RAD_TO_DEG)                        light->SetAngle(angle * DEG_TO_RAD);
         if (range != light->GetRange())                                     light->SetRange(range);
         if (time_of_day != light->GetTimeOfDay())                           light->SetTimeOfDay(time_of_day);
         if (m_colorPicker_light->GetColor() != light->GetColor())           light->SetColor(m_colorPicker_light->GetColor());

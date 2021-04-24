@@ -91,9 +91,9 @@ namespace Genome
             return;
 
         m_size = boundingBox;
-        m_size.x = Helper::Clamp(m_size.x, Helper::EPSILON, INFINITY);
-        m_size.y = Helper::Clamp(m_size.y, Helper::EPSILON, INFINITY);
-        m_size.z = Helper::Clamp(m_size.z, Helper::EPSILON, INFINITY);
+        m_size.x = Clamp(m_size.x, EPSILON, INFINITY);
+        m_size.y = Clamp(m_size.y, EPSILON, INFINITY);
+        m_size.z = Clamp(m_size.z, EPSILON, INFINITY);
 
         Shape_Update();
     }
@@ -152,7 +152,7 @@ namespace Genome
             break;
 
         case ColliderShape_Capsule:
-            m_shape = new btCapsuleShape(m_size.x * 0.5f, Helper::Max(m_size.y - m_size.x, 0.0f));
+            m_shape = new btCapsuleShape(m_size.x * 0.5f, Max(m_size.y - m_size.x, 0.0f));
             m_shape->setLocalScaling(ToBtVector3(worldScale));
             break;
 

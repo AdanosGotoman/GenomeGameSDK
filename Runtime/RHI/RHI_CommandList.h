@@ -35,10 +35,6 @@ namespace Genome
     class Profiler;
     class Renderer;
     class Context;
-    namespace Math
-    {
-        class Rectangle;
-    }
 
     enum class RHI_CommandListState : uint8_t
     {

@@ -142,7 +142,7 @@ namespace Genome::Math
 
             if (scale > 0.0f)
             {
-                sqrt = Helper::Sqrt(scale + 1.0f);
+                sqrt = Math::Sqrt(scale + 1.0f);
                 quaternion.w = sqrt * 0.5f;
                 sqrt = 0.5f / sqrt;
 
@@ -154,7 +154,7 @@ namespace Genome::Math
             }
             if ((mRot.m00 >= mRot.m11) && (mRot.m00 >= mRot.m22))
             {
-                sqrt = Helper::Sqrt(1.0f + mRot.m00 - mRot.m11 - mRot.m22);
+                sqrt = Math::Sqrt(1.0f + mRot.m00 - mRot.m11 - mRot.m22);
                 half = 0.5f / sqrt;
 
                 quaternion.x = 0.5f * sqrt;
@@ -166,7 +166,7 @@ namespace Genome::Math
             }
             if (mRot.m11 > mRot.m22)
             {
-                sqrt = Helper::Sqrt(1.0f + mRot.m11 - mRot.m00 - mRot.m22);
+                sqrt = Math::Sqrt(1.0f + mRot.m11 - mRot.m00 - mRot.m22);
                 half = 0.5f / sqrt;
 
                 quaternion.x = (mRot.m10 + mRot.m01) * half;
@@ -176,7 +176,7 @@ namespace Genome::Math
 
                 return quaternion;
             }
-            sqrt = Helper::Sqrt(1.0f + mRot.m22 - mRot.m00 - mRot.m11);
+            sqrt = Math::Sqrt(1.0f + mRot.m22 - mRot.m00 - mRot.m11);
             half = 0.5f / sqrt;
 
             quaternion.x = (mRot.m20 + mRot.m02) * half;
@@ -191,14 +191,14 @@ namespace Genome::Math
         //= SCALE ========================================================================================
         [[nodiscard]] Vector3 GetScale() const
         {
-            const int xs = (Helper::Sign(m00 * m01 * m02 * m03) < 0) ? -1 : 1;
-            const int ys = (Helper::Sign(m10 * m11 * m12 * m13) < 0) ? -1 : 1;
-            const int zs = (Helper::Sign(m20 * m21 * m22 * m23) < 0) ? -1 : 1;
+            const int xs = (Math::Sign(m00 * m01 * m02 * m03) < 0) ? -1 : 1;
+            const int ys = (Math::Sign(m10 * m11 * m12 * m13) < 0) ? -1 : 1;
+            const int zs = (Math::Sign(m20 * m21 * m22 * m23) < 0) ? -1 : 1;
 
             return Vector3(
-                static_cast<float>(xs) * Helper::Sqrt(m00 * m00 + m01 * m01 + m02 * m02),
-                static_cast<float>(ys) * Helper::Sqrt(m10 * m10 + m11 * m11 + m12 * m12),
-                static_cast<float>(zs) * Helper::Sqrt(m20 * m20 + m21 * m21 + m22 * m22)
+                static_cast<float>(xs) * Math::Sqrt(m00 * m00 + m01 * m01 + m02 * m02),
+                static_cast<float>(ys) * Math::Sqrt(m10 * m10 + m11 * m11 + m12 * m12),
+                static_cast<float>(zs) * Math::Sqrt(m20 * m20 + m21 * m21 + m22 * m22)
             );
         }
 
@@ -253,7 +253,7 @@ namespace Genome::Math
         // fieldOfView -> Field of view in the y direction, in radians.
         static inline Matrix CreatePerspectiveFieldOfViewLH(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance)
         {
-            const float yScale = Helper::CotF(fieldOfView / 2);
+            const float yScale = Math::CotF(fieldOfView / 2);
             const float xScale = yScale / aspectRatio;
 
             const float zn = nearPlaneDistance;
@@ -431,7 +431,7 @@ namespace Genome::Math
 
             for (unsigned i = 0; i < 16; ++i)
             {
-                if (!Helper::Equals(data_left[i], data_right[i]))
+                if (!Math::Equals(data_left[i], data_right[i]))
                     return false;
             }
 
