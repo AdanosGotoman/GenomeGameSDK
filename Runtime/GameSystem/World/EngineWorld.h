@@ -18,6 +18,8 @@ namespace Genome
 
         virtual bool LoadWorld(std::string& fileName, const LoadMode loadMode);
         virtual bool SaveWorld(std::string& fileName, const SaveMode saveMode);
+        virtual bool CreateWorld(void);
+        virtual bool DestroyWorld(void);
 
         const bool writeBin = false;
 
