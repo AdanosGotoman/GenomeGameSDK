@@ -31,7 +31,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //=======================================
 
 //= NAMESPACES ==========
-using namespace std;
 using namespace Genome;
 //=======================
 
@@ -46,17 +45,22 @@ template <typename T>
 inline constexpr ResourceType IResource::TypeToEnum() { return ResourceType::Unknown; }
 
 template<typename T>
-inline constexpr void validate_resource_type() { static_assert(std::is_base_of<IResource, T>::value, "Provided type does not implement IResource"); }
+inline constexpr void validate_resource_type() 
+{  static_assert(std::is_base_of<IResource, T>::value, "Provided type does not implement IResource"); }
 
 // Explicit template instantiation
-#define INSTANTIATE_TO_RESOURCE_TYPE(T, enumT) template<> GENOME_CLASS ResourceType IResource::TypeToEnum<T>() { validate_resource_type<T>(); return enumT; }
+#define INSTANTIATE_TO_RESOURCE_TYPE(T, enumT) template<> GENOME_CLASS ResourceType IResource::TypeToEnum<T>()  \
+{                                                                                                               \
+    validate_resource_type<T>();                                                                                \
+    return enumT;                                                                                               \
+}
 
 // To add a new resource to the engine, simply register it here
-INSTANTIATE_TO_RESOURCE_TYPE(RHI_Texture,       ResourceType::Texture)
-INSTANTIATE_TO_RESOURCE_TYPE(RHI_Texture2D,     ResourceType::Texture2d)
-INSTANTIATE_TO_RESOURCE_TYPE(RHI_TextureCube,   ResourceType::TextureCube)
-INSTANTIATE_TO_RESOURCE_TYPE(AudioClip,         ResourceType::Audio)
-INSTANTIATE_TO_RESOURCE_TYPE(Material,          ResourceType::Material)
-INSTANTIATE_TO_RESOURCE_TYPE(Model,             ResourceType::Model)
-INSTANTIATE_TO_RESOURCE_TYPE(Animation,         ResourceType::Animation)
-INSTANTIATE_TO_RESOURCE_TYPE(Font,              ResourceType::Font)
+INSTANTIATE_TO_RESOURCE_TYPE(RHI_Texture,      ResourceType::Texture)
+INSTANTIATE_TO_RESOURCE_TYPE(RHI_Texture2D,    ResourceType::Texture2d)
+INSTANTIATE_TO_RESOURCE_TYPE(RHI_TextureCube,  ResourceType::TextureCube)
+INSTANTIATE_TO_RESOURCE_TYPE(AudioClip,        ResourceType::Audio)
+INSTANTIATE_TO_RESOURCE_TYPE(Material,         ResourceType::Material)
+INSTANTIATE_TO_RESOURCE_TYPE(Model,            ResourceType::Model)
+INSTANTIATE_TO_RESOURCE_TYPE(Animation,        ResourceType::Animation)
+INSTANTIATE_TO_RESOURCE_TYPE(Font,             ResourceType::Font)

@@ -28,7 +28,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //==============================
 
 //= NAMESPACES ================
-using namespace std;
 using namespace Genome::Math;
 //=============================
 
@@ -36,13 +35,13 @@ namespace Genome
 {
     Transform::Transform(Context* context, Entity* entity, uint32_t id /*= 0*/) : IComponent(context, entity, id, this)
     {
-        m_positionLocal = Vector3::Zero;
-        m_rotationLocal = Quaternion(0, 0, 0, 1);
-        m_scaleLocal    = Vector3::One;
-        m_matrix        = Matrix::Identity;
-        m_matrixLocal   = Matrix::Identity;
+        m_positionLocal    = Vector3::Zero;
+        m_rotationLocal    = Quaternion(0, 0, 0, 1);
+        m_scaleLocal       = Vector3::One;
+        m_matrix           = Matrix::Identity;
+        m_matrixLocal      = Matrix::Identity;
         m_matrix_previous  = Matrix::Identity;
-        m_parent        = nullptr;
+        m_parent           = nullptr;
 
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_positionLocal, Vector3);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_rotationLocal, Quaternion);
@@ -189,35 +188,12 @@ namespace Genome
         }    
     }
 
-    Vector3 Transform::GetUp() const
-    {
-        return GetRotationLocal() * Vector3::Up;
-    }
-
-    Vector3 Transform::GetDown() const
-    {
-        return GetRotationLocal() * Vector3::Down;
-    }
-
-    Vector3 Transform::GetForward() const
-    {
-        return GetRotationLocal() * Vector3::Forward;
-    }
-
-    Vector3 Transform::GetBackward() const
-    {
-        return GetRotationLocal() * Vector3::Backward;
-    }
-
-    Vector3 Transform::GetRight() const
-    {
-        return GetRotationLocal() * Vector3::Right;
-    }
-
-    Vector3 Transform::GetLeft() const
-    {
-        return GetRotationLocal() * Vector3::Left;
-    }
+    Vector3 Transform::GetUp()        const { return GetRotationLocal() * Vector3::Up; }
+    Vector3 Transform::GetDown()      const { return GetRotationLocal() * Vector3::Down; }
+    Vector3 Transform::GetForward()   const { return GetRotationLocal() * Vector3::Forward; }
+    Vector3 Transform::GetBackward()  const { return GetRotationLocal() * Vector3::Backward; }
+    Vector3 Transform::GetRight()     const { return GetRotationLocal() * Vector3::Right; }
+    Vector3 Transform::GetLeft()      const { return GetRotationLocal() * Vector3::Left; }
 
     // Sets a parent for this transform
     void Transform::SetParent(Transform* new_parent)
@@ -309,7 +285,7 @@ namespace Genome
         return m_children[index];
     }
 
-    Transform* Transform::GetChildByName(const string& name)
+    Transform* Transform::GetChildByName(const std::string& name)
     {
         for (const auto& child : m_children)
         {
@@ -369,7 +345,7 @@ namespace Genome
         return false;
     }
 
-    void Transform::GetDescendants(vector<Transform*>* descendants)
+    void Transform::GetDescendants(std::vector<Transform*>* descendants)
     {
         for (Transform* child : m_children)
         {

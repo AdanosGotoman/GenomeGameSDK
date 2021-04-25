@@ -32,7 +32,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //============================================
 
 //= NAMESPACES ===============
-using namespace std;
 using namespace Genome::Math;
 //============================
 
@@ -40,13 +39,13 @@ namespace Genome
 {
     Constraint::Constraint(Context* context, Entity* entity, uint32_t id /*= 0*/) : IComponent(context, entity, id)
     {
-        m_constraint                = nullptr;
-        m_enabledEffective            = true;
-        m_collisionWithLinkedBody    = false;
-        m_errorReduction            = 0.0f;
-        m_constraintForceMixing        = 0.0f;
-        m_constraintType            = ConstraintType_Point;
-        m_physics                    = GetContext()->GetSubsystem<Physics>();
+        m_constraint               = nullptr;
+        m_enabledEffective         = true;
+        m_collisionWithLinkedBody  = false;
+        m_errorReduction           = 0.0f;
+        m_constraintForceMixing    = 0.0f;
+        m_constraintType           = ConstraintType_Point;
+        m_physics                  = GetContext()->GetSubsystem<Physics>();
 
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_errorReduction, float);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_constraintForceMixing, float);
@@ -200,11 +199,11 @@ namespace Genome
     {
         if (m_constraint)
         {
-            RigidBody* rigid_body_own    = m_entity->GetComponent<RigidBody>();
-            RigidBody* rigid_body_other    = !m_bodyOther.expired() ? m_bodyOther.lock()->GetComponent<RigidBody>() : nullptr;
+            RigidBody* rigid_body_own   = m_entity->GetComponent<RigidBody>();
+            RigidBody* rigid_body_other = !m_bodyOther.expired() ? m_bodyOther.lock()->GetComponent<RigidBody>() : nullptr;
 
             // Make both bodies aware of the removal of this constraint
-            if (rigid_body_own)    rigid_body_own->RemoveConstraint(this);
+            if (rigid_body_own)   rigid_body_own->RemoveConstraint(this);
             if (rigid_body_other) rigid_body_other->RemoveConstraint(this);
 
             m_physics->RemoveConstraint(m_constraint);
@@ -275,7 +274,7 @@ namespace Genome
 
         // Make sure we have two bodies
         RigidBody* rigid_body_own    = m_entity->GetComponent<RigidBody>();
-        RigidBody* rigid_body_other    = !m_bodyOther.expired() ? m_bodyOther.lock()->GetComponent<RigidBody>() : nullptr;
+        RigidBody* rigid_body_other  = !m_bodyOther.expired() ? m_bodyOther.lock()->GetComponent<RigidBody>() : nullptr;
         if (!rigid_body_own || !rigid_body_other)
         {
             LOG_INFO("A RigidBody component is still initializing, deferring construction...");
@@ -288,8 +287,8 @@ namespace Genome
             m_deferredConstruction = false;
         }
 
-        btRigidBody* bt_own_body    = rigid_body_own ? rigid_body_own->GetBtRigidBody() : nullptr;
-        btRigidBody* bt_other_body    = rigid_body_other ? rigid_body_other->GetBtRigidBody() : nullptr;
+        btRigidBody* bt_own_body   = rigid_body_own ? rigid_body_own->GetBtRigidBody() : nullptr;
+        btRigidBody* bt_other_body = rigid_body_other ? rigid_body_other->GetBtRigidBody() : nullptr;
 
         if (!bt_own_body)
             return;
@@ -299,8 +298,8 @@ namespace Genome
             bt_other_body = &btTypedConstraint::getFixedBody();
         }    
         
-        Vector3 own_body_scaled_position    = m_position * m_transform->GetScale() - rigid_body_own->GetCenterOfMass();
-        Vector3 other_body_scaled_position    = rigid_body_other ? m_positionOther * rigid_body_other->GetTransform()->GetScale() - rigid_body_other->GetCenterOfMass() : m_positionOther;
+        Vector3 own_body_scaled_position   = m_position * m_transform->GetScale() - rigid_body_own->GetCenterOfMass();
+        Vector3 other_body_scaled_position = rigid_body_other ? m_positionOther * rigid_body_other->GetTransform()->GetScale() - rigid_body_other->GetCenterOfMass() : m_positionOther;
 
         switch (m_constraintType)
         {

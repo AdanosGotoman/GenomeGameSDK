@@ -28,7 +28,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //============================================
 
 //= NAMESPACES ===============
-using namespace std;
 using namespace Genome::Math;
 //============================
 
@@ -89,7 +88,7 @@ namespace Genome
 
     }
 
-    Math::Vector3 SoftBody::GetPosition() const
+    Vector3 SoftBody::GetPosition() const
     {
         if (m_soft_body)
         {
@@ -97,10 +96,10 @@ namespace Genome
             return ToVector3(transform.getOrigin()) - ToQuaternion(transform.getRotation()) * m_center_of_mass;
         }
 
-        return Math::Vector3::Zero;
+        return Vector3::Zero;
     }
 
-    void SoftBody::SetPosition(const Math::Vector3& position) const
+    void SoftBody::SetPosition(const Vector3& position) const
     {
         if (!m_soft_body)
             return;
@@ -112,21 +111,21 @@ namespace Genome
         Activate();
     }
 
-    Math::Quaternion SoftBody::GetRotation() const
+    Quaternion SoftBody::GetRotation() const
     {
-        return m_soft_body ? ToQuaternion(m_soft_body->getWorldTransform().getRotation()) : Math::Quaternion::Identity;
+        return m_soft_body ? ToQuaternion(m_soft_body->getWorldTransform().getRotation()) : Quaternion::Identity;
     }
 
-    void SoftBody::SetRotation(const Math::Quaternion& rotation) const
+    void SoftBody::SetRotation(const Quaternion& rotation) const
     {
         if (!m_soft_body)
             return;
 
         // Set rotation to world transform
-        const Math::Vector3 oldPosition = GetPosition();
+        const Vector3 oldPosition = GetPosition();
         btTransform& worldTrans = m_soft_body->getWorldTransform();
         worldTrans.setRotation(ToBtQuaternion(rotation));
-        if (m_center_of_mass != Math::Vector3::Zero)
+        if (m_center_of_mass != Vector3::Zero)
         {
             worldTrans.setOrigin(ToBtVector3(oldPosition + rotation * m_center_of_mass));
         }
@@ -175,18 +174,24 @@ namespace Genome
         const int count = 5;
         btVector3 pos(-s * segments, 0, 0);
         const btScalar gap = 0.5;
-        btSoftBody* psb = btSoftBodyHelpers::CreatePatch(m_physics->GetSoftWorldInfo(), btVector3(-s, 0, -s * 3),
-            btVector3(+s, 0, -s * 3),
-            btVector3(-s, 0, +s),
-            btVector3(+s, 0, +s),
-            segments, segments * 3,
-            1 + 2, true);
+        btSoftBody* psb = btSoftBodyHelpers::CreatePatch(
+            m_physics->GetSoftWorldInfo(),  // worldInfo
+            btVector3(-s, 0, -s * 3),       // corner00
+            btVector3(+s, 0, -s * 3),       // corner10
+            btVector3(-s, 0, +s),           // corner01
+            btVector3(+s, 0, +s),           // corner11
+            segments,                       // resx
+            segments * 3,                   // resy
+            1 + 2,                          // fixeds
+            true                            // gendiags
+                                            // perturbation (default = 0.0f)
+        );
         psb->getCollisionShape()->setMargin(0.5);
         btSoftBody::Material* pm = psb->appendMaterial();
         psb->m_cfg.aeromodel = btSoftBody::eAeroModel::V_TwoSidedLiftDrag;
-        pm->m_kLST              = 0.9f; // Linear stiffness coefficient [0,1]
-        pm->m_kAST              = 0.9f; // Area/Angular stiffness coefficient [0,1]
-        pm->m_kVST              = 0.9f; // Volume stiffness coefficient [0,1]
+        pm->m_kLST              = 0.9f;  // Linear stiffness coefficient [0,1]
+        pm->m_kAST              = 0.9f;  // Area/Angular stiffness coefficient [0,1]
+        pm->m_kVST              = 0.9f;  // Volume stiffness coefficient [0,1]
 
         psb->m_cfg.kVCF         = 1.0f;  // Velocities correction factor (Baumgarte)
         psb->m_cfg.kDP          = 0.0f;  // Damping coefficient [0,1]

@@ -52,8 +52,8 @@ namespace Genome
     private:
         std::string m_name;
         std::string m_file_path;
-        Scripting* m_scripting              = nullptr;
-        ScriptInstance* m_script_instance   = nullptr;
-        uint32_t m_script_instance_id       = 0;
+        Scripting* m_scripting             = nullptr;
+        ScriptInstance* m_script_instance  = nullptr;
+        uint32_t m_script_instance_id      = 0;
     };
 }

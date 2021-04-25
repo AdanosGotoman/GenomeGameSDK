@@ -30,6 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 class btRigidBody;
 class btCollisionShape;
 
+using namespace Genome::Math;
+
 namespace Genome
 {
     class Entity;
@@ -81,8 +83,8 @@ namespace Genome
         //= GRAVITY =======================================
         void SetUseGravity(bool gravity);
         bool GetUseGravity() const { return m_use_gravity; };
-        Math::Vector3 GetGravity() const { return m_gravity; }
-        void SetGravity(const Math::Vector3& acceleration);
+        Vector3 GetGravity() const { return m_gravity; }
+        void SetGravity(const Vector3& acceleration);
         //=================================================
 
         //= KINEMATIC ===============================
@@ -91,38 +93,38 @@ namespace Genome
         //===========================================
 
         //= VELOCITY/FORCE/TORQUE ==========================================================================
-        void SetLinearVelocity(const Math::Vector3& velocity, const bool activate = true) const;
-        void SetAngularVelocity(const Math::Vector3& velocity, const bool activate = true) const;
-        void ApplyForce(const Math::Vector3& force, ForceMode mode) const;
-        void ApplyForceAtPosition(const Math::Vector3& force, const Math::Vector3& position, ForceMode mode) const;
-        void ApplyTorque(const Math::Vector3& torque, ForceMode mode) const;
+        void SetLinearVelocity(const Vector3& velocity, const bool activate = true) const;
+        void SetAngularVelocity(const Vector3& velocity, const bool activate = true) const;
+        void ApplyForce(const Vector3& force, ForceMode mode) const;
+        void ApplyForceAtPosition(const Vector3& force, const Vector3& position, ForceMode mode) const;
+        void ApplyTorque(const Vector3& torque, ForceMode mode) const;
         //==================================================================================================
 
         //= POSITION LOCK ========================================
         void SetPositionLock(bool lock);
-        void SetPositionLock(const Math::Vector3& lock);
-        Math::Vector3 GetPositionLock() const { return m_position_lock; }
+        void SetPositionLock(const Vector3& lock);
+        Vector3 GetPositionLock() const { return m_position_lock; }
         //========================================================
 
         //= ROTATION LOCK ========================================
         void SetRotationLock(bool lock);
-        void SetRotationLock(const Math::Vector3& lock);
-        Math::Vector3 GetRotationLock() const { return m_rotation_lock; }
+        void SetRotationLock(const Vector3& lock);
+        Vector3 GetRotationLock() const { return m_rotation_lock; }
         //========================================================
 
         //= CENTER OF MASS ==============================================
-        void SetCenterOfMass(const Math::Vector3& centerOfMass);
-        const Math::Vector3& GetCenterOfMass() const { return m_center_of_mass; }
+        void SetCenterOfMass(const Vector3& centerOfMass);
+        const Vector3& GetCenterOfMass() const { return m_center_of_mass; }
         //===============================================================
 
         //= POSITION ===============================================================
-        Math::Vector3 GetPosition() const;
-        void SetPosition(const Math::Vector3& position, const bool activate = true) const;
+        Vector3 GetPosition() const;
+        void SetPosition(const Vector3& position, const bool activate = true) const;
         //==========================================================================
 
         //= ROTATION ==================================================================
-        Math::Quaternion GetRotation() const;
-        void SetRotation(const Math::Quaternion& rotation, const bool activate = true) const;
+        Quaternion GetRotation() const;
+        void SetRotation(const Quaternion& rotation, const bool activate = true) const;
         //=============================================================================
 
         //= MISC ============================================
@@ -147,16 +149,16 @@ namespace Genome
         void Flags_UpdateGravity() const;
         bool IsActivated() const;
 
-        float m_mass                    = 0.0f;
-        float m_friction                = 0.0f;
-        float m_friction_rolling        = 0.0f;
-        float m_restitution             = 0.0f;
-        bool m_use_gravity              = false;
-        bool m_is_kinematic             = false;
-        Math::Vector3 m_gravity         = Math::Vector3::Zero;
-        Math::Vector3 m_position_lock   = Math::Vector3::Zero;
-        Math::Vector3 m_rotation_lock   = Math::Vector3::Zero;
-        Math::Vector3 m_center_of_mass  = Math::Vector3::Zero;
+        float m_mass              = 0.0f;
+        float m_friction          = 0.0f;
+        float m_friction_rolling  = 0.0f;
+        float m_restitution       = 0.0f;
+        bool m_use_gravity        = false;
+        bool m_is_kinematic       = false;
+        Vector3 m_gravity         = Vector3::Zero;
+        Vector3 m_position_lock   = Vector3::Zero;
+        Vector3 m_rotation_lock   = Vector3::Zero;
+        Vector3 m_center_of_mass  = Vector3::Zero;
 
         btRigidBody* m_rigidBody            = nullptr;
         btCollisionShape* m_collision_shape = nullptr;

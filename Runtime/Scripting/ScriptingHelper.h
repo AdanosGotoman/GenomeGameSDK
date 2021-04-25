@@ -51,8 +51,8 @@ namespace Genome::ScriptingHelper
     static bool compile_script(const std::string& script, const std::string& dll_reference = "")
     {
         // Get paths
-        const std::string dir_scripts    = resource_cache->GetResourceDirectory(ResourceDirectory::Scripts) + "\\";
-        const std::string dir_compiler   = dir_scripts + "mono\\roslyn\\csc.exe";
+        const std::string dir_scripts   = resource_cache->GetResourceDirectory(ResourceDirectory::Scripts) + "\\";
+        const std::string dir_compiler  = dir_scripts + "mono\\roslyn\\csc.exe";
 
         // Compile script
         std::string command = dir_compiler + " -target:library -nologo";
@@ -67,7 +67,7 @@ namespace Genome::ScriptingHelper
         std::istringstream f(result);
         std::string line;
         bool compilation_result = true;
-        while (std::getline(f, line))
+        while (getline(f, line))
         {
             if (FileSystem::IsEmptyOrWhitespace(line))
                 continue;

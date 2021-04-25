@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //=======================================
 
 //= NAMESPACES ===============
-using namespace std;
 using namespace Genome::Math;
+using namespace Genome::Utility::Geometry;
 //============================
 
 namespace Genome
@@ -41,36 +41,43 @@ namespace Genome
     inline void build(const Geometry_Type type, Renderable* renderable)
     {    
         Model* model = new Model(renderable->GetContext());
-        vector<RHI_Vertex_PosTexNorTan> vertices;
-        vector<uint32_t> indices;
+        std::vector<RHI_Vertex_PosTexNorTan> vertices;
+        std::vector<uint32_t> indices;
 
-        const string project_directory = renderable->GetContext()->GetSubsystem<ResourceCache>()->GetProjectDirectory();
+        const std::string project_directory = renderable->GetContext()->GetSubsystem<ResourceCache>()->GetProjectDirectory();
 
         // Construct geometry
-        if (type == Geometry_Default_Cube)
-        {
-            Utility::Geometry::CreateCube(&vertices, &indices);
-            model->SetResourceFilePath(project_directory + "default_cube" + EXTENSION_MODEL);
-        }
-        else if (type == Geometry_Default_Quad)
-        {
-            Utility::Geometry::CreateQuad(&vertices, &indices);
-            model->SetResourceFilePath(project_directory + "default_quad" + EXTENSION_MODEL);
-        }
-        else if (type == Geometry_Default_Sphere)
-        {
-            Utility::Geometry::CreateSphere(&vertices, &indices);
-            model->SetResourceFilePath(project_directory + "default_sphere" + EXTENSION_MODEL);
-        }
-        else if (type == Geometry_Default_Cylinder)
-        {
-            Utility::Geometry::CreateCylinder(&vertices, &indices);
-            model->SetResourceFilePath(project_directory + "default_cylinder" + EXTENSION_MODEL);
-        }
-        else if (type == Geometry_Default_Cone)
-        {
-            Utility::Geometry::CreateCone(&vertices, &indices);
-            model->SetResourceFilePath(project_directory + "default_cone" + EXTENSION_MODEL);
+        switch (type) {
+            case Geometry_Default_Cube:
+            {
+                CreateCube(&vertices, &indices);
+                model->SetResourceFilePath(project_directory + "default_cube" + EXTENSION_MODEL);
+                break;
+            }
+            case Geometry_Default_Quad:
+            {
+                CreateQuad(&vertices, &indices);
+                model->SetResourceFilePath(project_directory + "default_quad" + EXTENSION_MODEL);
+                break;
+            }
+            case Geometry_Default_Sphere:
+            {
+                CreateSphere(&vertices, &indices);
+                model->SetResourceFilePath(project_directory + "default_sphere" + EXTENSION_MODEL);
+                break;
+            }
+            case Geometry_Default_Cylinder:
+            {
+                CreateCylinder(&vertices, &indices);
+                model->SetResourceFilePath(project_directory + "default_cylinder" + EXTENSION_MODEL);
+                break;
+            }
+            case Geometry_Default_Cone:
+            {
+                CreateCone(&vertices, &indices);
+                model->SetResourceFilePath(project_directory + "default_cone" + EXTENSION_MODEL);
+                break;
+            }
         }
 
         if (vertices.empty() || indices.empty())
@@ -80,13 +87,13 @@ namespace Genome
         model->UpdateGeometry();
 
         renderable->GeometrySet(
-            "Default_Geometry",
-            0,
-            static_cast<uint32_t>(indices.size()),
-            0,
-            static_cast<uint32_t>(vertices.size()),
-            BoundingBox(vertices.data(), static_cast<uint32_t>(vertices.size())),
-            model
+            "Default_Geometry",                      // name
+            0,                                       // index_offset
+            static_cast<uint32_t>(indices.size()),   // index_count
+            0,                                       // vertex_offset
+            static_cast<uint32_t>(vertices.size()),  // vertex_count
+            BoundingBox(vertices.data(), static_cast<uint32_t>(vertices.size())), // bounding_box
+            model                                    // model
         );
     }
 
@@ -107,7 +114,7 @@ namespace Genome
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_geometryIndexCount,    uint32_t);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_geometryVertexOffset,  uint32_t);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_geometryVertexCount,   uint32_t);
-        REGISTER_ATTRIBUTE_VALUE_VALUE(m_geometryName,          string);
+        REGISTER_ATTRIBUTE_VALUE_VALUE(m_geometryName,          std::string);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_model,                 Model*);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_bounding_box,          BoundingBox);
         REGISTER_ATTRIBUTE_GET_SET(Geometry_Type, GeometrySet,  Geometry_Type);
@@ -142,7 +149,7 @@ namespace Genome
         m_geometryVertexOffset  = stream->ReadAs<uint32_t>();
         m_geometryVertexCount   = stream->ReadAs<uint32_t>();
         stream->Read(&m_bounding_box);
-        string model_name;
+        std::string model_name;
         stream->Read(&model_name);
         m_model = m_context->GetSubsystem<ResourceCache>()->GetByName<Model>(model_name).get();
 
@@ -161,13 +168,13 @@ namespace Genome
         }
         else
         {
-            string material_name;
+            std::string material_name;
             stream->Read(&material_name);
             m_material = m_context->GetSubsystem<ResourceCache>()->GetByName<Material>(material_name).get();
         }
     }
 
-    void Renderable::GeometrySet(const string& name, const uint32_t index_offset, const uint32_t index_count, const uint32_t vertex_offset, const uint32_t vertex_count, const BoundingBox& bounding_box, Model* model)
+    void Renderable::GeometrySet(const std::string& name, const uint32_t index_offset, const uint32_t index_count, const uint32_t vertex_offset, const uint32_t vertex_count, const BoundingBox& bounding_box, Model* model)
     {
         // Terrible way to delete previous geometry in case it's a default one
         if (m_geometryName == "Default_Geometry")
@@ -199,7 +206,7 @@ namespace Genome
         GeometrySet("Cleared", 0, 0, 0, 0, BoundingBox(), nullptr);
     }
 
-    void Renderable::GeometryGet(vector<uint32_t>* indices, vector<RHI_Vertex_PosTexNorTan>* vertices) const
+    void Renderable::GeometryGet(std::vector<uint32_t>* indices, std::vector<RHI_Vertex_PosTexNorTan>* vertices) const
     {
         if (!m_model)
         {
@@ -207,7 +214,14 @@ namespace Genome
             return;
         }
 
-        m_model->GetGeometry(m_geometryIndexOffset, m_geometryIndexCount, m_geometryVertexOffset, m_geometryVertexCount, indices, vertices);
+        m_model->GetGeometry(
+            m_geometryIndexOffset, 
+            m_geometryIndexCount, 
+            m_geometryVertexOffset, 
+            m_geometryVertexCount, 
+            indices, 
+            vertices
+        );
     }
 
     const BoundingBox& Renderable::GetAabb()
@@ -223,7 +237,7 @@ namespace Genome
     }
 
     // All functions (set/load) resolve to this
-    shared_ptr<Material> Renderable::SetMaterial(const shared_ptr<Material>& material)
+    std::shared_ptr<Material> Renderable::SetMaterial(const std::shared_ptr<Material>& material)
     {
         if (!material)
         {
@@ -232,7 +246,7 @@ namespace Genome
         }
 
         // In order for the component to guarantee serialization/deserialization, we cache the material
-        shared_ptr<Material> _material = m_context->GetSubsystem<ResourceCache>()->Cache(material);
+        std::shared_ptr<Material> _material = m_context->GetSubsystem<ResourceCache>()->Cache(material);
 
         m_material = _material.get();
 
@@ -242,10 +256,10 @@ namespace Genome
         return _material;
     }
 
-    shared_ptr<Material> Renderable::SetMaterial(const string& file_path)
+    std::shared_ptr<Material> Renderable::SetMaterial(const std::string& file_path)
     {
         // Load the material
-        auto material = make_shared<Material>(GetContext());
+        auto material = std::make_shared<Material>(GetContext());
         if (!material->LoadFromFile(file_path))
         {
             LOG_WARNING("Failed to load material from \"%s\"", file_path.c_str());
@@ -264,12 +278,14 @@ namespace Genome
         FileSystem::CreateDirectory_(data_dir);
 
         // Create material
-        auto material = make_shared<Material>(GetContext());
-        material->SetResourceFilePath(resource_cache->GetProjectDirectory() + "standard" + EXTENSION_MATERIAL); // Set resource file path so it can be used by the resource cache
+        auto material = std::make_shared<Material>(GetContext());
+
+        // Set resource file path so it can be used by the resource cache
+        material->SetResourceFilePath(resource_cache->GetProjectDirectory() + "standard" + EXTENSION_MATERIAL);
         material->SetIsEditable(false);
 
         // Se default texture
-        const shared_ptr<RHI_Texture2D> texture = resource_cache->Load<RHI_Texture2D>(resource_cache->GetResourceDirectory(ResourceDirectory::Textures) + "/no_texture.png");
+        const std::shared_ptr<RHI_Texture2D> texture = resource_cache->Load<RHI_Texture2D>(resource_cache->GetResourceDirectory(ResourceDirectory::Textures) + "/no_texture.png");
         material->SetTextureSlot(Material_Color, texture);
 
         // Set material
@@ -277,7 +293,7 @@ namespace Genome
         m_material_default = true;
     }
 
-    string Renderable::GetMaterialName() const
+    std::string Renderable::GetMaterialName() const
     {
         return m_material ? m_material->GetResourceName() : "";
     }

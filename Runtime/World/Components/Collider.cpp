@@ -32,7 +32,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //============================================
 
 //= NAMESPACES ================
-using namespace std;
 using namespace Genome::Math;
 //=============================
 
@@ -42,8 +41,8 @@ namespace Genome
     {
         m_shapeType = ColliderShape_Box;
         m_center    = Vector3::Zero;
-        m_size        = Vector3::One;
-        m_shape        = nullptr;
+        m_size      = Vector3::One;
+        m_shape     = nullptr;
 
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_size, Vector3);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_center, Vector3);
@@ -57,8 +56,8 @@ namespace Genome
         // If there is a mesh, use it's bounding box
         if (auto renderable = GetEntity()->GetRenderable())
         {
-            m_center    = Vector3::Zero;
-            m_size        = renderable->GetAabb().GetSize();
+            m_center = Vector3::Zero;
+            m_size   = renderable->GetAabb().GetSize();
         }
 
         Shape_Update();
@@ -90,7 +89,7 @@ namespace Genome
         if (m_size == boundingBox)
             return;
 
-        m_size = boundingBox;
+        m_size   = boundingBox;
         m_size.x = Clamp(m_size.x, EPSILON, INFINITY);
         m_size.y = Clamp(m_size.y, EPSILON, INFINITY);
         m_size.z = Clamp(m_size.z, EPSILON, INFINITY);
@@ -178,8 +177,8 @@ namespace Genome
             }
 
             // Get geometry
-            vector<uint32_t> indices;
-            vector<RHI_Vertex_PosTexNorTan> vertices;
+            std::vector<uint32_t> indices;
+            std::vector<RHI_Vertex_PosTexNorTan> vertices;
             renderable->GeometryGet(&indices, &vertices);
 
             if (vertices.empty())
@@ -191,7 +190,7 @@ namespace Genome
             // Construct hull approximation
             m_shape = new btConvexHullShape(
                 (btScalar*)&vertices[0],                                    // points
-                renderable->GeometryVertexCount(),                            // point count
+                renderable->GeometryVertexCount(),                          // point count
                 static_cast<uint32_t>(sizeof(RHI_Vertex_PosTexNorTan)));    // stride
 
             // Scaling has to be done before (potential) optimization

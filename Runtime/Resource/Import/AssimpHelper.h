@@ -32,11 +32,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../../Logging/Log.h"
 //===========================================
 
+using namespace Genome::Math;
+using namespace std;
+
 namespace Genome::AssimpHelper
 {
-    inline Math::Matrix ai_matrix4_x4_to_matrix(const aiMatrix4x4& transform)
+    inline Matrix ai_matrix4_x4_to_matrix(const aiMatrix4x4& transform)
     {
-        return Math::Matrix
+        return Matrix
         (
             transform.a1, transform.b1, transform.c1, transform.d1,
             transform.a2, transform.b2, transform.c2, transform.d2,
@@ -73,24 +76,24 @@ namespace Genome::AssimpHelper
         }
     }
 
-    inline Math::Vector4 to_vector4(const aiColor4D& ai_color)
+    inline Vector4 to_vector4(const aiColor4D& ai_color)
     {
-        return Math::Vector4(ai_color.r, ai_color.g, ai_color.b, ai_color.a);
+        return Vector4(ai_color.r, ai_color.g, ai_color.b, ai_color.a);
     }
 
-    inline Math::Vector3 to_vector3(const aiVector3D& ai_vector)
+    inline Vector3 to_vector3(const aiVector3D& ai_vector)
     {
-        return Math::Vector3(ai_vector.x, ai_vector.y, ai_vector.z);
+        return Vector3(ai_vector.x, ai_vector.y, ai_vector.z);
     }
 
-    inline Math::Vector2 to_vector2(const aiVector2D& ai_vector)
+    inline Vector2 to_vector2(const aiVector2D& ai_vector)
     {
-        return Math::Vector2(ai_vector.x, ai_vector.y);
+        return Vector2(ai_vector.x, ai_vector.y);
     }
 
-    inline Math::Quaternion to_quaternion(const aiQuaternion& ai_quaternion)
+    inline Quaternion to_quaternion(const aiQuaternion& ai_quaternion)
     {
-        return Math::Quaternion(ai_quaternion.x, ai_quaternion.y, ai_quaternion.z, ai_quaternion.w);
+        return Quaternion(ai_quaternion.x, ai_quaternion.y, ai_quaternion.z, ai_quaternion.w);
     }
 
     // Implement Assimp:Logger
@@ -128,7 +131,7 @@ namespace Genome::AssimpHelper
     class AssimpProgress : public Assimp::ProgressHandler
     {
     public:
-        AssimpProgress(const std::string& file_path)
+        AssimpProgress(const string& file_path)
         {
             m_file_path = file_path;
             m_file_name = FileSystem::GetFileNameFromFilePath(file_path);
@@ -163,11 +166,11 @@ namespace Genome::AssimpHelper
         }
 
     private:
-        std::string m_file_path;
-        std::string m_file_name;
+        string m_file_path;
+        string m_file_name;
     };
 
-    inline std::string texture_try_multiple_extensions(const std::string& file_path)
+    inline string texture_try_multiple_extensions(const string& file_path)
     {
         // Remove extension
         const auto file_path_no_ext = FileSystem::GetFilePathWithoutExtension(file_path);
@@ -175,8 +178,8 @@ namespace Genome::AssimpHelper
         // Check if the file exists using all engine supported extensions
         for (const auto& supported_format : supported_formats_image)
         {
-            auto new_file_path            = file_path_no_ext + supported_format;
-            auto new_file_path_upper    = file_path_no_ext + FileSystem::ConvertToUppercase(supported_format);
+            auto new_file_path        = file_path_no_ext + supported_format;
+            auto new_file_path_upper  = file_path_no_ext + FileSystem::ConvertToUppercase(supported_format);
 
             if (FileSystem::Exists(new_file_path))
             {
@@ -192,14 +195,14 @@ namespace Genome::AssimpHelper
         return file_path;
     }
 
-    inline std::string texture_validate_path(std::string original_texture_path, const std::string& model_path)
+    inline string texture_validate_path(string original_texture_path, const string& model_path)
     {
-        std::replace(original_texture_path.begin(), original_texture_path.end(), '\\', '/');
+        replace(original_texture_path.begin(), original_texture_path.end(), '\\', '/');
 
         // Models usually return a texture path which is relative to the model's directory.
         // However, to load anything, we'll need an absolute path, so we construct it here.
         const auto model_dir    = FileSystem::GetDirectoryFromFilePath(model_path);
-        auto full_texture_path = model_dir + original_texture_path;
+        auto full_texture_path  = model_dir + original_texture_path;
 
         // 1. Check if the texture path is valid
         if (FileSystem::Exists(full_texture_path))

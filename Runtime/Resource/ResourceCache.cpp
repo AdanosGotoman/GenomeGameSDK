@@ -36,7 +36,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //=================================
 
 //= NAMESPACES ================
-using namespace std;
 using namespace Genome::Math;
 //=============================
 
@@ -44,7 +43,7 @@ namespace Genome
 {
     ResourceCache::ResourceCache(Context* context) : ISubsystem(context)
     {
-        const string data_dir = "Data\\";
+        const std::string data_dir = "Data\\";
 
         // Add engine standard resource directories
         AddResourceDirectory(ResourceDirectory::Cubemaps,        data_dir + "environment");
@@ -59,28 +58,28 @@ namespace Genome
         SetProjectDirectory("Project/");
 
         // Subscribe to events
-        SUBSCRIBE_TO_EVENT(EventType::WorldSave,    EVENT_HANDLER(SaveResourcesToFiles));
-        SUBSCRIBE_TO_EVENT(EventType::WorldLoad,    EVENT_HANDLER(LoadResourcesFromFiles));
+        SUBSCRIBE_TO_EVENT(EventType::WorldSave, EVENT_HANDLER(SaveResourcesToFiles));
+        SUBSCRIBE_TO_EVENT(EventType::WorldLoad, EVENT_HANDLER(LoadResourcesFromFiles));
     }
 
     ResourceCache::~ResourceCache()
     {
         // Unsubscribe from events
-        UNSUBSCRIBE_FROM_EVENT(EventType::WorldSave,    EVENT_HANDLER(SaveResourcesToFiles));
-        UNSUBSCRIBE_FROM_EVENT(EventType::WorldLoad,    EVENT_HANDLER(LoadResourcesFromFiles));
+        UNSUBSCRIBE_FROM_EVENT(EventType::WorldSave, EVENT_HANDLER(SaveResourcesToFiles));
+        UNSUBSCRIBE_FROM_EVENT(EventType::WorldLoad, EVENT_HANDLER(LoadResourcesFromFiles));
     }
 
     bool ResourceCache::Initialize()
     {
         // Importers
-        m_importer_image    = make_shared<ImageImporter>(m_context);
-        m_importer_model    = make_shared<ModelImporter>(m_context);
-        m_importer_font     = make_shared<FontImporter>(m_context);
+        m_importer_image  = std::make_shared<ImageImporter>(m_context);
+        m_importer_model  = std::make_shared<ModelImporter>(m_context);
+        m_importer_font   = std::make_shared<FontImporter>(m_context);
 
         return true;
     }
 
-    bool ResourceCache::IsCached(const string& resource_name, const ResourceType resource_type /*= Resource_Unknown*/)
+    bool ResourceCache::IsCached(const std::string& resource_name, const ResourceType resource_type /*= Resource_Unknown*/)
     {
         if (resource_name.empty())
         {
@@ -88,7 +87,7 @@ namespace Genome
             return false;
         }
 
-        for (shared_ptr<IResource>& resource : m_resources)
+        for (std::shared_ptr<IResource>& resource : m_resources)
         {
             if (resource_name == resource->GetResourceName())
                 return true;
@@ -97,23 +96,23 @@ namespace Genome
         return false;
     }
 
-    shared_ptr<IResource>& ResourceCache::GetByName(const string& name, const ResourceType type)
+    std::shared_ptr<IResource>& ResourceCache::GetByName(const std::string& name, const ResourceType type)
     {
-        for (shared_ptr<IResource>& resource : m_resources)
+        for (std::shared_ptr<IResource>& resource : m_resources)
         {
             if (name == resource->GetResourceName())
                 return resource;
         }
 
-        static shared_ptr<IResource> empty;
+        static std::shared_ptr<IResource> empty;
         return empty;
     }
 
-    vector<shared_ptr<IResource>> ResourceCache::GetByType(const ResourceType type /*= ResourceType::Unknown*/)
+    std::vector<std::shared_ptr<IResource>> ResourceCache::GetByType(const ResourceType type /*= ResourceType::Unknown*/)
     {
-        vector<shared_ptr<IResource>> resources;
+        std::vector<std::shared_ptr<IResource>> resources;
 
-        for (shared_ptr<IResource>& resource : m_resources)
+        for (std::shared_ptr<IResource>& resource : m_resources)
         {
             if (resource->GetResourceType() == type || type == ResourceType::Unknown)
             {
@@ -128,7 +127,7 @@ namespace Genome
     {
         uint64_t size = 0;
 
-        for (shared_ptr<IResource>& resource : m_resources)
+        for (std::shared_ptr<IResource>& resource : m_resources)
         {
             if (resource->GetResourceType() == type || type == ResourceType::Unknown)
             {
@@ -146,7 +145,7 @@ namespace Genome
     {
         uint64_t size = 0;
 
-        for (shared_ptr<IResource>& resource : m_resources)
+        for (std::shared_ptr<IResource>& resource : m_resources)
         {
             if (resource->GetResourceType() == type || type == ResourceType::Unknown)
             {
@@ -163,13 +162,14 @@ namespace Genome
     void ResourceCache::SaveResourcesToFiles()
     {
         // Start progress report
-        ProgressTracker::Get().Reset(ProgressType::ResourceCache);
-        ProgressTracker::Get().SetIsLoading(ProgressType::ResourceCache, true);
-        ProgressTracker::Get().SetStatus(ProgressType::ResourceCache, "Loading resources...");
+        auto progress_tracker = ProgressTracker::Get();
+        progress_tracker.Reset(ProgressType::ResourceCache);
+        progress_tracker.SetIsLoading(ProgressType::ResourceCache, true);
+        progress_tracker.SetStatus(ProgressType::ResourceCache, "Loading resources...");
 
         // Create resource list file
-        string file_path = GetProjectDirectoryAbsolute() + m_context->GetSubsystem<World>()->GetName() + "_resources.dat";
-        auto file = make_unique<FileStream>(file_path, FileStream_Write);
+        std::string file_path = GetProjectDirectoryAbsolute() + m_context->GetSubsystem<World>()->GetName() + "_resources.dat";
+        auto file = std::make_unique<FileStream>(file_path, FileStream_Write);
         if (!file->IsOpen())
         {
             LOG_ERROR_GENERIC_FAILURE();
@@ -177,13 +177,13 @@ namespace Genome
         }
 
         const auto resource_count = GetResourceCount();
-        ProgressTracker::Get().SetJobCount(ProgressType::ResourceCache, resource_count);
+        progress_tracker.SetJobCount(ProgressType::ResourceCache, resource_count);
 
         // Save resource count
         file->Write(resource_count);
 
         // Save all the currently used resources to disk
-        for (shared_ptr<IResource>& resource : m_resources)
+        for (std::shared_ptr<IResource>& resource : m_resources)
         {
             if (!resource->HasFilePathNative())
                 continue;
@@ -196,18 +196,18 @@ namespace Genome
             resource->SaveToFile(resource->GetResourceFilePathNative());
 
             // Update progress
-            ProgressTracker::Get().IncrementJobsDone(ProgressType::ResourceCache);
+            progress_tracker.IncrementJobsDone(ProgressType::ResourceCache);
         }
 
         // Finish with progress report
-        ProgressTracker::Get().SetIsLoading(ProgressType::ResourceCache, false);
+        progress_tracker.SetIsLoading(ProgressType::ResourceCache, false);
     }
 
     void ResourceCache::LoadResourcesFromFiles()
     {
         // Open resource list file
         auto file_path = GetProjectDirectoryAbsolute() + m_context->GetSubsystem<World>()->GetName() + "_resources.dat";
-        auto file = make_unique<FileStream>(file_path, FileStream_Read);
+        auto file = std::make_unique<FileStream>(file_path, FileStream_Read);
         if (!file->IsOpen())
             return;
 
@@ -217,7 +217,7 @@ namespace Genome
         for (uint32_t i = 0; i < resource_count; i++)
         {
             // Load resource file path
-            auto file_path = file->ReadAs<string>();
+            auto file_path = file->ReadAs<std::string>();
 
             // Load resource type
             const auto type = static_cast<ResourceType>(file->ReadAs<uint32_t>());
@@ -261,12 +261,12 @@ namespace Genome
         return static_cast<uint32_t>(GetByType(type).size());
     }
 
-    void ResourceCache::AddResourceDirectory(const ResourceDirectory type, const string& directory)
+    void ResourceCache::AddResourceDirectory(const ResourceDirectory type, const std::string& directory)
     {
         m_standard_resource_directories[type] = directory;
     }
 
-    string ResourceCache::GetResourceDirectory(const ResourceDirectory type)
+    std::string ResourceCache::GetResourceDirectory(const ResourceDirectory type)
     {
         for (auto& directory : m_standard_resource_directories)
         {
@@ -277,7 +277,7 @@ namespace Genome
         return "";
     }
 
-    void ResourceCache::SetProjectDirectory(const string& directory)
+    void ResourceCache::SetProjectDirectory(const std::string& directory)
     {
         if (!FileSystem::Exists(directory))
         {
@@ -287,7 +287,7 @@ namespace Genome
         m_project_directory = directory;
     }
 
-    string ResourceCache::GetProjectDirectoryAbsolute() const
+    std::string ResourceCache::GetProjectDirectoryAbsolute() const
     {
         return FileSystem::GetWorkingDirectory() + "/" + m_project_directory;
     }

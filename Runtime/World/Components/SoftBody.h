@@ -31,6 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 class btSoftBody;
 //================================
 
+using namespace Genome::Math;
+
 namespace Genome
 {
     // = FORWARD DECLARATIONS =
@@ -53,17 +55,17 @@ namespace Genome
         //============================================
 
         //= POSITION =======================================
-        Math::Vector3 GetPosition() const;
-        void SetPosition(const Math::Vector3& position) const;
+        Vector3 GetPosition() const;
+        void SetPosition(const Vector3& position) const;
         //==================================================
 
         //= ROTATION ======================================
-        Math::Quaternion GetRotation() const;
-        void SetRotation(const Math::Quaternion& rotation) const;
+        Quaternion GetRotation() const;
+        void SetRotation(const Quaternion& rotation) const;
         //=================================================
 
         void Activate() const;
-        const Math::Vector3& GetCenterOfMass() const { return m_center_of_mass; }
+        const Vector3& GetCenterOfMass() const { return m_center_of_mass; }
 
     private:
         void CreateBox();
@@ -73,10 +75,10 @@ namespace Genome
         void Body_AddToWorld();
         void Body_RemoveFromWorld();
 
-        Physics* m_physics              = nullptr;
-        btSoftBody* m_soft_body         = nullptr;
-        bool m_in_world                 = false;
-        Math::Vector3 m_center_of_mass  = Math::Vector3::Zero;
-        float m_mass                    = 0.0f;
+        Physics* m_physics        = nullptr;
+        btSoftBody* m_soft_body   = nullptr;
+        bool m_in_world           = false;
+        Vector3 m_center_of_mass  = Vector3::Zero;
+        float m_mass              = 0.0f;
     };
 }

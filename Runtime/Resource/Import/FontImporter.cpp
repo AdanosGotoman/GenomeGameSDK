@@ -54,10 +54,10 @@ namespace Genome
                 }
             }
 
-            uint32_t width              = 0;
-            uint32_t height             = 0;
-            unsigned char pixel_mode    = 0;
-            unsigned char* buffer       = nullptr;
+            uint32_t width            = 0;
+            uint32_t height           = 0;
+            unsigned char pixel_mode  = 0;
+            unsigned char* buffer     = nullptr;
         };
 
         inline bool handle_error(int error_code)
@@ -67,7 +67,7 @@ namespace Genome
 
             switch (error_code)
             {
-                // Generic errors
+                                                // Generic errors
                 case FT_Err_Cannot_Open_Resource:           LOG_ERROR("FreeType: Cannot open resource."); break;
                 case FT_Err_Unknown_File_Format:            LOG_ERROR("FreeType: Unknown file format."); break;
                 case FT_Err_Invalid_File_Format:            LOG_ERROR("FreeType: Broken file."); break;
@@ -80,7 +80,7 @@ namespace Genome
                 case FT_Err_Array_Too_Large:                LOG_ERROR("FreeType: Array allocation size too large."); break;
                 case FT_Err_Missing_Module:                 LOG_ERROR("FreeType: Missing module."); break;
                 case FT_Err_Missing_Property:               LOG_ERROR("FreeType: Missing property."); break;
-                // Glyph/character errors
+                                                // Glyph/character errors
                 case FT_Err_Invalid_Glyph_Index:            LOG_ERROR("FreeType: Invalid glyph index."); break;
                 case FT_Err_Invalid_Character_Code:         LOG_ERROR("FreeType: Invalid character code."); break;
                 case FT_Err_Invalid_Glyph_Format:           LOG_ERROR("FreeType: Unsupported glyph format."); break;
@@ -89,7 +89,7 @@ namespace Genome
                 case FT_Err_Invalid_Composite:              LOG_ERROR("FreeType: Invalid composite glyph."); break;
                 case FT_Err_Too_Many_Hints:                 LOG_ERROR("FreeType: Too many hints."); break;
                 case FT_Err_Invalid_Pixel_Size:             LOG_ERROR("FreeType: Invalid pixel size."); break;
-                // Handle errors
+                                                // Handle errors
                 case FT_Err_Invalid_Handle:                 LOG_ERROR("FreeType: Invalid object handle."); break;
                 case FT_Err_Invalid_Library_Handle:         LOG_ERROR("FreeType: Invalid library handle."); break;
                 case FT_Err_Invalid_Driver_Handle:          LOG_ERROR("FreeType: Invalid module handle."); break;
@@ -99,13 +99,13 @@ namespace Genome
                 case FT_Err_Invalid_CharMap_Handle:         LOG_ERROR("FreeType: Invalid charmap handle."); break;
                 case FT_Err_Invalid_Cache_Handle:           LOG_ERROR("FreeType: Invalid cache manager handle."); break;
                 case FT_Err_Invalid_Stream_Handle:          LOG_ERROR("FreeType: Invalid stream handle."); break;
-                // Driver errors
+                                                // Driver errors
                 case FT_Err_Too_Many_Drivers:               LOG_ERROR("FreeType: Too many modules."); break;
                 case FT_Err_Too_Many_Extensions:            LOG_ERROR("FreeType: Too many extensions."); break;
-                // Memory errors
+                                                // Memory errors
                 case FT_Err_Out_Of_Memory:                  LOG_ERROR("FreeType: Out of memory."); break;
                 case FT_Err_Unlisted_Object:                LOG_ERROR("FreeType: Unlisted object."); break;
-                // Stream errors
+                                                // Stream errors
                 case FT_Err_Cannot_Open_Stream:             LOG_ERROR("FreeType: Cannot open stream."); break;
                 case FT_Err_Invalid_Stream_Seek:            LOG_ERROR("FreeType: Invalid stream seek."); break;
                 case FT_Err_Invalid_Stream_Skip:            LOG_ERROR("FreeType: Invalid stream skip."); break;
@@ -114,14 +114,14 @@ namespace Genome
                 case FT_Err_Invalid_Frame_Operation:        LOG_ERROR("FreeType: Invalid frame operation."); break;
                 case FT_Err_Nested_Frame_Access:            LOG_ERROR("FreeType: Nested frame access."); break;
                 case FT_Err_Invalid_Frame_Read:             LOG_ERROR("FreeType: Invalid frame read."); break;
-                // Raster errors
-                case FT_Err_Raster_Uninitialized:            LOG_ERROR("FreeType: Raster uninitialized."); break;
-                case FT_Err_Raster_Corrupted:                LOG_ERROR("FreeType: Raster corrupted."); break;
-                case FT_Err_Raster_Overflow:                 LOG_ERROR("FreeType: Raster overflow."); break;
-                case FT_Err_Raster_Negative_Height:          LOG_ERROR("FreeType: Negative height while rastering."); break;
-                // Cache errors
+                                                // Raster errors
+                case FT_Err_Raster_Uninitialized:           LOG_ERROR("FreeType: Raster uninitialized."); break;
+                case FT_Err_Raster_Corrupted:               LOG_ERROR("FreeType: Raster corrupted."); break;
+                case FT_Err_Raster_Overflow:                LOG_ERROR("FreeType: Raster overflow."); break;
+                case FT_Err_Raster_Negative_Height:         LOG_ERROR("FreeType: Negative height while rastering."); break;
+                                                // Cache errors
                 case FT_Err_Too_Many_Caches:                LOG_ERROR("FreeType: Too many registered caches."); break;
-                // TrueType and SFNT errors 
+                                                // TrueType and SFNT errors 
                 case FT_Err_Invalid_Opcode:                 LOG_ERROR("FreeType: Invalid opcode."); break;
                 case FT_Err_Too_Few_Arguments:              LOG_ERROR("FreeType: Too few arguments."); break;
                 case FT_Err_Stack_Overflow:                 LOG_ERROR("FreeType: Stack overflow."); break;
@@ -151,13 +151,13 @@ namespace Genome
                 case FT_Err_Invalid_Post_Table_Format:      LOG_ERROR("FreeType: Invalid PostScript (post) table format."); break;
                 case FT_Err_Invalid_Post_Table:             LOG_ERROR("FreeType: Invalid PostScript (post) table."); break;
                 case FT_Err_DEF_In_Glyf_Bytecode:           LOG_ERROR("FreeType: Found FDEF or IDEF opcode in glyf bytecode."); break;
-                // CFF, CID, and Type 1 errors 
+                                                // CFF, CID, and Type 1 errors 
                 case FT_Err_Syntax_Error:                   LOG_ERROR("FreeType: Opcode syntax error."); break;
                 case FT_Err_Stack_Underflow:                LOG_ERROR("FreeType: Argument stack underflow."); break;
                 case FT_Err_Ignore:                         LOG_ERROR("FreeType: Ignore."); break;
                 case FT_Err_No_Unicode_Glyph_Name:          LOG_ERROR("FreeType: No Unicode glyph name found."); break;
                 case FT_Err_Glyph_Too_Big:                  LOG_ERROR("FreeType: Glyph too big for hinting."); break;
-                // BDF errors
+                                                // BDF errors
                 case FT_Err_Missing_Startfont_Field:        LOG_ERROR("FreeType: 'STARTFONT' field missing."); break;
                 case FT_Err_Missing_Font_Field:             LOG_ERROR("FreeType: 'FONT' field missing."); break;
                 case FT_Err_Missing_Size_Field:             LOG_ERROR("FreeType: 'SIZE' field missing."); break;
@@ -169,8 +169,8 @@ namespace Genome
                 case FT_Err_Bbx_Too_Big:                    LOG_ERROR("FreeType: 'BBX' too big."); break;
                 case FT_Err_Corrupted_Font_Header:          LOG_ERROR("FreeType: Font header corrupted or missing fields."); break;
                 case FT_Err_Corrupted_Font_Glyphs:          LOG_ERROR("FreeType: Font glyphs corrupted or missing fields."); break;
-                // None
-                default: LOG_ERROR("FreeType: Unknown error code."); break;
+                                                // None
+                default:                                    LOG_ERROR("FreeType: Unknown error code."); break;
             }
 
             return false;
@@ -184,15 +184,15 @@ namespace Genome
 
             switch (font->GetHinting())
             {
-            case Font_Hinting_None:
-                flags |= FT_LOAD_NO_HINTING;
-                break;
-            case Font_Hinting_Light:
-                flags |= FT_LOAD_TARGET_LIGHT;
-                break;
-            default: // Hinting_Normal
-                flags |= FT_LOAD_TARGET_NORMAL;
-                break;
+                case Font_Hinting_None:
+                    flags |= FT_LOAD_NO_HINTING;
+                    break;
+                case Font_Hinting_Light:
+                    flags |= FT_LOAD_TARGET_LIGHT;
+                    break;
+                default: // Hinting_Normal
+                    flags |= FT_LOAD_TARGET_NORMAL;
+                    break;
             }
 
             return flags;
@@ -200,7 +200,7 @@ namespace Genome
 
         inline bool load_glyph(const FT_Face& face, const uint32_t char_code, const uint32_t flags = g_glyph_load_flags)
         {
-            return ft_helper::handle_error(FT_Load_Char(face, char_code, flags));
+            return handle_error(FT_Load_Char(face, char_code, flags));
         }
 
         inline void get_character_max_dimensions(uint32_t* max_width, uint32_t* max_height, FT_Face& face, const uint32_t outline_size)
@@ -260,17 +260,22 @@ namespace Genome
                     {
                         bool stroked = false;
 
-                        if (font->GetOutline() == Font_Outline_Edge)
-                        {
-                            stroked = handle_error(FT_Glyph_Stroke(&glyph, stroker, true));
-                        }
-                        else if (font->GetOutline() == Font_Outline_Positive)
-                        {
-                            stroked = handle_error(FT_Glyph_StrokeBorder(&glyph, stroker, false, true));
-                        }
-                        else if (font->GetOutline() == Font_Outline_Negative)
-                        {
-                            stroked = handle_error(FT_Glyph_StrokeBorder(&glyph, stroker, true, true));
+                        switch (font->GetOutline()) {
+                            case Font_Outline_Edge:
+                            {
+                                stroked = handle_error(FT_Glyph_Stroke(&glyph, stroker, true));
+                                break;
+                            }
+                            case Font_Outline_Positive:
+                            {
+                                stroked = handle_error(FT_Glyph_StrokeBorder(&glyph, stroker, false, true));
+                                break;
+                            }
+                            case Font_Outline_Negative:
+                            {
+                                stroked = handle_error(FT_Glyph_StrokeBorder(&glyph, stroker, true, true));
+                                break;
+                            }
                         }
 
                         if (stroked)
@@ -320,21 +325,21 @@ namespace Genome
 
                     switch (bitmap.pixel_mode)
                     {
-                    case FT_PIXEL_MODE_MONO: {
-                        // implement if it's ever needed
-                    } break;
+                        case FT_PIXEL_MODE_MONO: {
+                            // implement if it's ever needed
+                        } break;
 
-                    case FT_PIXEL_MODE_GRAY: {
-                        atlas[atlas_pos] = static_cast<std::byte>(bitmap.buffer[glyph_x + glyph_y * bitmap.width]);
-                    } break;
+                        case FT_PIXEL_MODE_GRAY: {
+                            atlas[atlas_pos] = static_cast<std::byte>(bitmap.buffer[glyph_x + glyph_y * bitmap.width]);
+                        } break;
 
-                    case FT_PIXEL_MODE_BGRA: {
-                        // implement if it's ever needed
-                    } break;
+                        case FT_PIXEL_MODE_BGRA: {
+                            // implement if it's ever needed
+                        } break;
 
-                    default:
-                        LOG_ERROR("Font uses unsupported pixel format");
-                        break;
+                        default:
+                            LOG_ERROR("Font uses unsupported pixel format");
+                            break;
                     }
                 }
             }
@@ -345,16 +350,16 @@ namespace Genome
             // The glyph metrics refer to whatever the last loaded glyph was, this is up to the caller of the function
             FT_Glyph_Metrics& metrics = ft_font->glyph->metrics; 
 
-            Glyph glyph                 = {};
-            glyph.offset_x              = metrics.horiBearingX >> 6;
-            glyph.offset_y              = metrics.horiBearingY >> 6;
-            glyph.width                 = (metrics.width >> 6) + outline_size * 2;
-            glyph.height                = (metrics.height >> 6) + outline_size * 2;
-            glyph.horizontal_advance    = metrics.horiAdvance >> 6;
-            glyph.uv_x_left             = static_cast<float>(pen.x)                 / static_cast<float>(atlas_width);
-            glyph.uv_x_right            = static_cast<float>(pen.x + glyph.width)   / static_cast<float>(atlas_width);
-            glyph.uv_y_top              = static_cast<float>(pen.y)                 / static_cast<float>(atlas_height);
-            glyph.uv_y_bottom           = static_cast<float>(pen.y + glyph.height)  / static_cast<float>(atlas_height);
+            Glyph glyph               = {};
+            glyph.offset_x            = metrics.horiBearingX >> 6;
+            glyph.offset_y            = metrics.horiBearingY >> 6;
+            glyph.width               = (metrics.width >> 6) + outline_size * 2;
+            glyph.height              = (metrics.height >> 6) + outline_size * 2;
+            glyph.horizontal_advance  = metrics.horiAdvance >> 6;
+            glyph.uv_x_left           = static_cast<float>(pen.x)                 / static_cast<float>(atlas_width);
+            glyph.uv_x_right          = static_cast<float>(pen.x + glyph.width)   / static_cast<float>(atlas_width);
+            glyph.uv_y_top            = static_cast<float>(pen.y)                 / static_cast<float>(atlas_height);
+            glyph.uv_y_bottom         = static_cast<float>(pen.y + glyph.height)  / static_cast<float>(atlas_height);
 
             // Kerning is the process of adjusting the position of two subsequent glyph images 
             // in a string of text in order to improve the general appearance of text. 
@@ -372,16 +377,18 @@ namespace Genome
         }
     }
 
+    using namespace ft_helper;
+
     FontImporter::FontImporter(Context* context)
     {
         m_context = context;
 
         // Initialize library
-        if (!ft_helper::handle_error(FT_Init_FreeType(&m_library)))
+        if (!handle_error(FT_Init_FreeType(&m_library)))
             return;
 
         // Initialize stroker
-        if (!ft_helper::handle_error(FT_Stroker_New(m_library, &m_stroker)))
+        if (!handle_error(FT_Stroker_New(m_library, &m_stroker)))
             return;
 
         // Get version
@@ -395,28 +402,28 @@ namespace Genome
     FontImporter::~FontImporter()
     {
         FT_Stroker_Done(m_stroker);
-        ft_helper::handle_error(FT_Done_FreeType(m_library));
+        handle_error(FT_Done_FreeType(m_library));
     }
 
     bool FontImporter::LoadFromFile(Font* font, const string& file_path)
     {
         // Load font (called face)
         FT_Face ft_font = nullptr;
-        if (!ft_helper::handle_error(FT_New_Face(m_library, file_path.c_str(), 0, &ft_font)))
+        if (!handle_error(FT_New_Face(m_library, file_path.c_str(), 0, &ft_font)))
         {
-            ft_helper::handle_error(FT_Done_Face(ft_font));
+            handle_error(FT_Done_Face(ft_font));
             return false;
         }
 
         // Set font size
-        if (!ft_helper::handle_error(FT_Set_Char_Size(
-            ft_font,                // handle to face object
-            0,                        // char_width in 1/64th of points 
-            font->GetSize() * 64,    // char_height in 1/64th of points
-            96,                        // horizontal device resolution
-            96)))                    // vertical device resolution
+        if (!handle_error(FT_Set_Char_Size(
+            ft_font,               // handle to face object
+            0,                     // char_width in 1/64th of points 
+            font->GetSize() * 64,  // char_height in 1/64th of points
+            96,                    // horizontal device resolution
+            96)))                  // vertical device resolution
         {
-            ft_helper::handle_error(FT_Done_Face(ft_font));
+            handle_error(FT_Done_Face(ft_font));
             return false;
         }
 
@@ -428,14 +435,14 @@ namespace Genome
             FT_Stroker_Set(m_stroker, outline_size * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
         }
 
-        g_glyph_load_flags = ft_helper::get_load_flags(font);
+        g_glyph_load_flags = get_load_flags(font);
 
         // Get the size of the font atlas texture (if an outline is requested, it accounts for a big enough atlas)
         uint32_t atlas_width        = 0;
         uint32_t atlas_height       = 0;
         uint32_t atlas_cell_width   = 0;
         uint32_t atlas_cell_height  = 0;
-        ft_helper::get_texture_atlas_dimensions(&atlas_width, &atlas_height, &atlas_cell_width, &atlas_cell_height, ft_font, outline_size);
+        get_texture_atlas_dimensions(&atlas_width, &atlas_height, &atlas_cell_width, &atlas_cell_height, ft_font, outline_size);
 
         // Atlas for text
         vector<std::byte> atlas_text(atlas_width * atlas_height);
@@ -455,14 +462,14 @@ namespace Genome
         for (uint32_t char_code = GLYPH_START; char_code < GLYPH_END; char_code++)
         {
             // Load text bitmap
-            ft_helper::ft_bitmap bitmap_text;
-            ft_helper::get_bitmap(&bitmap_text, font, nullptr, ft_font, char_code);
+            ft_bitmap bitmap_text;
+            get_bitmap(&bitmap_text, font, nullptr, ft_font, char_code);
 
             // Load glyph bitmap (if needeD)
-            ft_helper::ft_bitmap bitmap_outline;
+            ft_bitmap bitmap_outline;
             if (outline)
             {
-                ft_helper::get_bitmap(&bitmap_outline, font, m_stroker, ft_font, char_code);
+                get_bitmap(&bitmap_outline, font, m_stroker, ft_font, char_code);
             }
 
             // Advance pen
@@ -483,22 +490,22 @@ namespace Genome
             // Copy to atlas buffers
             if (bitmap_text.buffer)
             {
-                ft_helper::copy_to_atlas(atlas_text, bitmap_text, pen, atlas_width, outline_size);
+                copy_to_atlas(atlas_text, bitmap_text, pen, atlas_width, outline_size);
 
                 if (bitmap_outline.buffer)
                 {
-                    ft_helper::copy_to_atlas(atlas_outline, bitmap_outline, pen, atlas_width, 0);
+                    copy_to_atlas(atlas_outline, bitmap_outline, pen, atlas_width, 0);
                 }
 
                 writting_started = true;
             }
 
             // Get glyph
-            font->SetGlyph(char_code, ft_helper::get_glyph(ft_font, char_code, pen, atlas_width, atlas_height, outline_size));
+            font->SetGlyph(char_code, get_glyph(ft_font, char_code, pen, atlas_width, atlas_height, outline_size));
         }
 
         // Free face
-        ft_helper::handle_error(FT_Done_Face(ft_font));
+        handle_error(FT_Done_Face(ft_font));
 
         // Create a texture with of font atlas and a texture of the font outline atlas
         {

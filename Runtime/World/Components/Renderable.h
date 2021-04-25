@@ -28,12 +28,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../../Math/Matrix.h"
 //=================================
 
+using namespace Genome::Math;
+
 namespace Genome
 {
     class Model;
     class Mesh;
     class Light;
     class Material;
+
     namespace Math
     {
         class Vector3;
@@ -67,7 +70,7 @@ namespace Genome
             uint32_t index_count,
             uint32_t vertex_offset,
             uint32_t vertex_count,
-            const Math::BoundingBox& aabb, 
+            const BoundingBox& aabb, 
             Model* model
         );
         void GeometryClear();
@@ -80,8 +83,8 @@ namespace Genome
         Geometry_Type GeometryType()                const { return m_geometry_type; }
         const std::string& GeometryName()           const { return m_geometryName; }
         Model* GeometryModel()                      const { return m_model; }
-        const Math::BoundingBox& GetBoundingBox()   const { return m_bounding_box; }
-        const Math::BoundingBox& GetAabb();
+        const BoundingBox& GetBoundingBox()         const { return m_bounding_box; }
+        const BoundingBox& GetAabb();
         //=====================================================================================================
 
         //= MATERIAL ====================================================================
@@ -92,14 +95,14 @@ namespace Genome
         std::shared_ptr<Material> SetMaterial(const std::string& file_path);
 
         void UseDefaultMaterial();
-        std::string GetMaterialName()   const;
-        Material* GetMaterial()         const { return m_material; }
-        auto HasMaterial()              const { return m_material != nullptr; }
+        std::string GetMaterialName()              const;
+        Material* GetMaterial()                    const { return m_material; }
+        auto HasMaterial()                         const { return m_material != nullptr; }
         //===============================================================================
 
         //= PROPERTIES ===================================================================
-        void SetCastShadows(const bool cast_shadows)    { m_cast_shadows = cast_shadows; }
-        auto GetCastShadows() const                     { return m_cast_shadows; }
+        void SetCastShadows(const bool cast_shadows)     { m_cast_shadows = cast_shadows; }
+        auto GetCastShadows()                      const { return m_cast_shadows; }
         //================================================================================
 
     private:
@@ -109,12 +112,12 @@ namespace Genome
         uint32_t m_geometryVertexOffset;
         uint32_t m_geometryVertexCount;
         Geometry_Type m_geometry_type;
-        Math::BoundingBox m_bounding_box;
-        Math::BoundingBox m_aabb;
-        Math::Matrix m_last_transform   = Math::Matrix::Identity;
-        bool m_cast_shadows             = true;
+        BoundingBox m_bounding_box;
+        BoundingBox m_aabb;
+        Matrix m_last_transform   = Matrix::Identity;
+        bool m_cast_shadows       = true;
         bool m_material_default;
-        Model* m_model          = nullptr;
-        Material* m_material    = nullptr;
+        Model* m_model            = nullptr;
+        Material* m_material      = nullptr;
     };
 }

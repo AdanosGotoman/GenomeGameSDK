@@ -53,9 +53,9 @@ namespace Genome
 
     bool Profiler::Initialize()
     {
-        m_resource_manager    = m_context->GetSubsystem<ResourceCache>();
-        m_renderer            = m_context->GetSubsystem<Renderer>();
-        m_timer               = m_context->GetSubsystem<Timer>();
+        m_resource_manager  = m_context->GetSubsystem<ResourceCache>();
+        m_renderer          = m_context->GetSubsystem<Renderer>();
+        m_timer             = m_context->GetSubsystem<Timer>();
 
         return true;
     }
@@ -98,10 +98,10 @@ namespace Genome
             m_is_stuttering_cpu         = m_time_cpu_last > (m_time_cpu_avg + m_stutter_delta_ms);
             m_is_stuttering_gpu         = m_time_gpu_last > (m_time_gpu_avg + m_stutter_delta_ms);
 
-            frames_to_accumulate    = 20.0f;
-            delta_feedback          = 1.0f / frames_to_accumulate;
-            m_time_cpu_last         = 0.0f;
-            m_time_gpu_last         = 0.0f;
+            frames_to_accumulate  = 20.0f;
+            delta_feedback        = 1.0f / frames_to_accumulate;
+            m_time_cpu_last       = 0.0f;
+            m_time_gpu_last       = 0.0f;
 
             for (const TimeBlock& time_block : m_time_blocks_read)
             {
@@ -244,18 +244,18 @@ namespace Genome
 
     void Profiler::ResetMetrics()
     {
-        m_time_frame_avg    = 0.0f;
-        m_time_frame_min    = std::numeric_limits<float>::max();
-        m_time_frame_max    = std::numeric_limits<float>::lowest();
-        m_time_frame_last   = 0.0f;
-        m_time_cpu_avg      = 0.0f;
-        m_time_cpu_min      = std::numeric_limits<float>::max();
-        m_time_cpu_max      = std::numeric_limits<float>::lowest();
-        m_time_cpu_last     = 0.0f;
-        m_time_gpu_avg      = 0.0f;
-        m_time_gpu_min      = std::numeric_limits<float>::max();
-        m_time_gpu_max      = std::numeric_limits<float>::lowest();
-        m_time_gpu_last     = 0.0f;
+        m_time_frame_avg   = 0.0f;
+        m_time_frame_min   = std::numeric_limits<float>::max();
+        m_time_frame_max   = std::numeric_limits<float>::lowest();
+        m_time_frame_last  = 0.0f;
+        m_time_cpu_avg     = 0.0f;
+        m_time_cpu_min     = std::numeric_limits<float>::max();
+        m_time_cpu_max     = std::numeric_limits<float>::lowest();
+        m_time_cpu_last    = 0.0f;
+        m_time_gpu_avg     = 0.0f;
+        m_time_gpu_min     = std::numeric_limits<float>::max();
+        m_time_gpu_max     = std::numeric_limits<float>::lowest();
+        m_time_gpu_last    = 0.0f;
     }
 
     TimeBlock* Profiler::GetNewTimeBlock()
@@ -302,8 +302,8 @@ namespace Genome
 
     void Profiler::UpdateRhiMetricsString()
     {
-        const auto texture_count    = m_resource_manager->GetResourceCount(ResourceType::Texture) + m_resource_manager->GetResourceCount(ResourceType::Texture2d) + m_resource_manager->GetResourceCount(ResourceType::TextureCube);
-        const auto material_count   = m_resource_manager->GetResourceCount(ResourceType::Material);
+        const auto texture_count  = m_resource_manager->GetResourceCount(ResourceType::Texture) + m_resource_manager->GetResourceCount(ResourceType::Texture2d) + m_resource_manager->GetResourceCount(ResourceType::TextureCube);
+        const auto material_count = m_resource_manager->GetResourceCount(ResourceType::Material);
 
         static const char* text =
             // Times

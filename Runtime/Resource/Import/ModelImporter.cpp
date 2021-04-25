@@ -35,8 +35,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //= NAMESPACES ================
 using namespace std;
-using namespace Genome::Math;
 using namespace Assimp;
+using namespace Genome::AssimpHelper;
+using namespace Genome::Math;
 //=============================
 
 namespace Genome
@@ -87,31 +88,31 @@ namespace Genome
         importer.SetPropertyInteger(AI_CONFIG_PP_RVC_FLAGS, aiComponent_CAMERAS | aiComponent_LIGHTS);
         // Enable progress tracking
         importer.SetPropertyBool(AI_CONFIG_GLOB_MEASURE_TIME, true);
-        importer.SetProgressHandler(new AssimpHelper::AssimpProgress(file_path));
+        importer.SetProgressHandler(new AssimpProgress(file_path));
         #ifdef DEBUG
         // Enable logging
-        DefaultLogger::set(new AssimpHelper::AssimpLogger());
+        DefaultLogger::set(new AssimpLogger());
         #endif
         
         const auto importer_flags =
-            aiProcess_MakeLeftHanded |              // directx style.
-            aiProcess_FlipUVs |                     // directx style.
-            aiProcess_FlipWindingOrder |            // directx style.
-            aiProcess_CalcTangentSpace |
-            aiProcess_GenSmoothNormals |
-            aiProcess_JoinIdenticalVertices |
-            aiProcess_OptimizeMeshes |              // reduce the number of meshes         
-            aiProcess_ImproveCacheLocality |        // re-order triangles for better vertex cache locality.
-            aiProcess_RemoveRedundantMaterials |    // remove redundant/unreferenced materials.
-            aiProcess_LimitBoneWeights |
-            aiProcess_SplitLargeMeshes |
-            aiProcess_Triangulate |
-            aiProcess_GenUVCoords |
-            aiProcess_SortByPType |                 // splits meshes with more than one primitive type in homogeneous sub-meshes.
-            aiProcess_FindDegenerates |             // convert degenerate primitives to proper lines or points.
-            aiProcess_FindInvalidData |
-            aiProcess_FindInstances |
-            aiProcess_ValidateDataStructure |
+            aiProcess_MakeLeftHanded            |  // directx style.
+            aiProcess_FlipUVs                   |  // directx style.
+            aiProcess_FlipWindingOrder          |  // directx style.
+            aiProcess_CalcTangentSpace          |
+            aiProcess_GenSmoothNormals          |
+            aiProcess_JoinIdenticalVertices     |
+            aiProcess_OptimizeMeshes            |  // reduce the number of meshes         
+            aiProcess_ImproveCacheLocality      |  // re-order triangles for better vertex cache locality.
+            aiProcess_RemoveRedundantMaterials  |  // remove redundant/unreferenced materials.
+            aiProcess_LimitBoneWeights          |
+            aiProcess_SplitLargeMeshes          |
+            aiProcess_Triangulate               |
+            aiProcess_GenUVCoords               |
+            aiProcess_SortByPType               |  // splits meshes with more than one primitive type in homogeneous sub-meshes.
+            aiProcess_FindDegenerates           |  // convert degenerate primitives to proper lines or points.
+            aiProcess_FindInvalidData           |
+            aiProcess_FindInstances             |
+            aiProcess_ValidateDataStructure     |
             aiProcess_Debone;
 
         // aiProcess_FixInfacingNormals - is not reliable and fails often.
@@ -122,7 +123,7 @@ namespace Genome
         {
             // Update progress tracking
             int job_count = 0;
-            AssimpHelper::compute_node_count(scene->mRootNode, &job_count);
+            compute_node_count(scene->mRootNode, &job_count);
             ProgressTracker::Get().SetJobCount(ProgressType::ModelImporter, job_count);
 
             params.scene            = scene;
@@ -166,7 +167,7 @@ namespace Genome
         new_entity->GetTransform()->SetParent(parent_trans);
 
         // Set the transformation matrix of the Assimp node to the new node
-        AssimpHelper::set_entity_transform(assimp_node, new_entity);
+        set_entity_transform(assimp_node, new_entity);
 
         // Process all the node's meshes
         ParseNodeMeshes(assimp_node, new_entity, params);
@@ -232,7 +233,7 @@ namespace Genome
                 for (uint32_t k = 0; k < static_cast<uint32_t>(assimp_node_anim->mNumPositionKeys); k++)
                 {
                     const auto time = assimp_node_anim->mPositionKeys[k].mTime;
-                    const auto value = AssimpHelper::to_vector3(assimp_node_anim->mPositionKeys[k].mValue);
+                    const auto value = to_vector3(assimp_node_anim->mPositionKeys[k].mValue);
 
                     animation_node.positionFrames.emplace_back(KeyVector{ time, value });
                 }
@@ -241,7 +242,7 @@ namespace Genome
                 for (uint32_t k = 0; k < static_cast<uint32_t>(assimp_node_anim->mNumRotationKeys); k++)
                 {
                     const auto time = assimp_node_anim->mPositionKeys[k].mTime;
-                    const auto value = AssimpHelper::to_quaternion(assimp_node_anim->mRotationKeys[k].mValue);
+                    const auto value = to_quaternion(assimp_node_anim->mRotationKeys[k].mValue);
 
                     animation_node.rotationFrames.emplace_back(KeyQuaternion{ time, value });
                 }
@@ -250,7 +251,7 @@ namespace Genome
                 for (uint32_t k = 0; k < static_cast<uint32_t>(assimp_node_anim->mNumScalingKeys); k++)
                 {
                     const auto time = assimp_node_anim->mPositionKeys[k].mTime;
-                    const auto value = AssimpHelper::to_vector3(assimp_node_anim->mScalingKeys[k].mValue);
+                    const auto value = to_vector3(assimp_node_anim->mScalingKeys[k].mValue);
 
                     animation_node.scaleFrames.emplace_back(KeyVector{ time, value });
                 }
@@ -318,11 +319,11 @@ namespace Genome
             for (uint32_t face_index = 0; face_index < assimp_mesh->mNumFaces; face_index++)
             {
                 // if (aiPrimitiveType_LINE | aiPrimitiveType_POINT) && aiProcess_Triangulate) then (face.mNumIndices == 3)
-                auto& face                    = assimp_mesh->mFaces[face_index];
-                const auto indices_index      = (face_index * 3);
-                indices[indices_index + 0]    = face.mIndices[0];
-                indices[indices_index + 1]    = face.mIndices[1];
-                indices[indices_index + 2]    = face.mIndices[2];
+                auto& face                  = assimp_mesh->mFaces[face_index];
+                const auto indices_index    = (face_index * 3);
+                indices[indices_index + 0]  = face.mIndices[0];
+                indices[indices_index + 1]  = face.mIndices[1];
+                indices[indices_index + 2]  = face.mIndices[2];
             }
         }
 
@@ -431,18 +432,18 @@ namespace Genome
         // TEXTURES
         const auto load_mat_tex = [&params, &assimp_material, &material](const Material_Property type_spartan, const aiTextureType type_assimp_pbr, const aiTextureType type_assimp_legacy)
         {
-            aiTextureType type_assimp   = assimp_material->GetTextureCount(type_assimp_pbr)     > 0 ? type_assimp_pbr       : aiTextureType_NONE;
-            type_assimp                 = assimp_material->GetTextureCount(type_assimp_legacy)  > 0 ? type_assimp_legacy    : type_assimp;
+            aiTextureType type_assimp   = assimp_material->GetTextureCount(type_assimp_pbr)     > 0 ? type_assimp_pbr     : aiTextureType_NONE;
+            type_assimp                 = assimp_material->GetTextureCount(type_assimp_legacy)  > 0 ? type_assimp_legacy  : type_assimp;
 
             aiString texture_path;
             if (assimp_material->GetTextureCount(type_assimp) > 0)
             {
                 if (AI_SUCCESS == assimp_material->GetTexture(type_assimp, 0, &texture_path))
                 {
-                    const auto deduced_path = AssimpHelper::texture_validate_path(texture_path.data, params.file_path);
+                    const auto deduced_path = texture_validate_path(texture_path.data, params.file_path);
                     if (FileSystem::IsSupportedImageFile(deduced_path))
                     {
-                        params.model->AddTexture(material, type_spartan, AssimpHelper::texture_validate_path(texture_path.data, params.file_path));
+                        params.model->AddTexture(material, type_spartan, texture_validate_path(texture_path.data, params.file_path));
 
                         if (type_assimp == aiTextureType_BASE_COLOR || type_assimp == aiTextureType_DIFFUSE)
                         {
@@ -476,16 +477,16 @@ namespace Genome
             }
         };
 
-        // Engine texture,               Assimp texture pbr,                 Assimp texture legacy (fallback)
-        load_mat_tex(Material_Color,     aiTextureType_BASE_COLOR,           aiTextureType_DIFFUSE);
-        load_mat_tex(Material_Roughness, aiTextureType_DIFFUSE_ROUGHNESS,    aiTextureType_SHININESS);   // Use specular as fallback
-        load_mat_tex(Material_Metallic,  aiTextureType_METALNESS,            aiTextureType_AMBIENT);     // Use ambient as fallback
-        load_mat_tex(Material_Normal,    aiTextureType_NORMAL_CAMERA,        aiTextureType_NORMALS);
-        load_mat_tex(Material_Occlusion, aiTextureType_AMBIENT_OCCLUSION,    aiTextureType_LIGHTMAP);
-        load_mat_tex(Material_Occlusion, aiTextureType_LIGHTMAP,             aiTextureType_LIGHTMAP);
-        load_mat_tex(Material_Emission,  aiTextureType_EMISSION_COLOR,       aiTextureType_EMISSIVE);
-        load_mat_tex(Material_Height,    aiTextureType_HEIGHT,               aiTextureType_NONE);
-        load_mat_tex(Material_Mask,      aiTextureType_OPACITY,              aiTextureType_NONE);
+        // Engine texture,               Assimp texture pbr,               Assimp texture legacy (fallback)
+        load_mat_tex(Material_Color,     aiTextureType_BASE_COLOR,         aiTextureType_DIFFUSE);
+        load_mat_tex(Material_Roughness, aiTextureType_DIFFUSE_ROUGHNESS,  aiTextureType_SHININESS);   // Use specular as fallback
+        load_mat_tex(Material_Metallic,  aiTextureType_METALNESS,          aiTextureType_AMBIENT);     // Use ambient as fallback
+        load_mat_tex(Material_Normal,    aiTextureType_NORMAL_CAMERA,      aiTextureType_NORMALS);
+        load_mat_tex(Material_Occlusion, aiTextureType_AMBIENT_OCCLUSION,  aiTextureType_LIGHTMAP);
+        load_mat_tex(Material_Occlusion, aiTextureType_LIGHTMAP,           aiTextureType_LIGHTMAP);
+        load_mat_tex(Material_Emission,  aiTextureType_EMISSION_COLOR,     aiTextureType_EMISSIVE);
+        load_mat_tex(Material_Height,    aiTextureType_HEIGHT,             aiTextureType_NONE);
+        load_mat_tex(Material_Mask,      aiTextureType_OPACITY,            aiTextureType_NONE);
 
         return material;
     }

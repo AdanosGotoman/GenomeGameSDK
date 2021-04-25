@@ -32,17 +32,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //============================================
 
 //= NAMESPACES ===============
-using namespace std;
 using namespace Genome::Math;
 //============================
 
 namespace Genome
 {
-    static const float DEFAULT_MASS                 = 0.0f;
-    static const float DEFAULT_FRICTION             = 0.5f;
-    static const float DEFAULT_FRICTION_ROLLING     = 0.0f;
-    static const float DEFAULT_RESTITUTION          = 0.0f;    
-    static const float DEFAULT_DEACTIVATION_TIME    = 2000;
+    static const float DEFAULT_MASS               = 0.0f;
+    static const float DEFAULT_FRICTION           = 0.5f;
+    static const float DEFAULT_FRICTION_ROLLING   = 0.0f;
+    static const float DEFAULT_RESTITUTION        = 0.0f;    
+    static const float DEFAULT_DEACTIVATION_TIME  = 2000;
 
     class MotionState : public btMotionState
     {
@@ -52,8 +51,8 @@ namespace Genome
         // Update from engine, ENGINE -> BULLET
         void getWorldTransform(btTransform& worldTrans) const override
         {
-            const Vector3 lastPos        = m_rigidBody->GetTransform()->GetPosition();
-            const Quaternion lastRot    = m_rigidBody->GetTransform()->GetRotation();
+            const Vector3 lastPos     = m_rigidBody->GetTransform()->GetPosition();
+            const Quaternion lastRot  = m_rigidBody->GetTransform()->GetRotation();
 
             worldTrans.setOrigin(ToBtVector3(lastPos + lastRot * m_rigidBody->GetCenterOfMass()));
             worldTrans.setRotation(ToBtQuaternion(lastRot));
@@ -62,32 +61,32 @@ namespace Genome
         // Update from bullet, BULLET -> ENGINE
         void setWorldTransform(const btTransform& worldTrans) override
         {
-            const Quaternion newWorldRot    = ToQuaternion(worldTrans.getRotation());
-            const Vector3 newWorldPos        = ToVector3(worldTrans.getOrigin()) - newWorldRot * m_rigidBody->GetCenterOfMass();
+            const Quaternion newWorldRot  = ToQuaternion(worldTrans.getRotation());
+            const Vector3 newWorldPos     = ToVector3(worldTrans.getOrigin()) - newWorldRot * m_rigidBody->GetCenterOfMass();
 
             m_rigidBody->GetTransform()->SetPosition(newWorldPos);
             m_rigidBody->GetTransform()->SetRotation(newWorldRot);
         }
+
     private:
         RigidBody* m_rigidBody;
     };
 
     RigidBody::RigidBody(Context* context, Entity* entity, uint32_t id /*= 0*/) : IComponent(context, entity, id)
     {
-        m_physics = GetContext()->GetSubsystem<Physics>();
-
-        m_in_world            = false;
-        m_mass                = DEFAULT_MASS;
-        m_restitution        = DEFAULT_RESTITUTION;
-        m_friction            = DEFAULT_FRICTION;
-        m_friction_rolling    = DEFAULT_FRICTION_ROLLING;
-        m_use_gravity        = true;
+        m_physics           = GetContext()->GetSubsystem<Physics>();
+        m_in_world          = false;
+        m_mass              = DEFAULT_MASS;
+        m_restitution       = DEFAULT_RESTITUTION;
+        m_friction          = DEFAULT_FRICTION;
+        m_friction_rolling  = DEFAULT_FRICTION_ROLLING;
+        m_use_gravity       = true;
         m_gravity           = m_physics->GetGravity();
-        m_is_kinematic        = false;
-        m_position_lock        = Vector3::Zero;
-        m_rotation_lock        = Vector3::Zero;
-        m_collision_shape    = nullptr;
-        m_rigidBody            = nullptr;
+        m_is_kinematic      = false;
+        m_position_lock     = Vector3::Zero;
+        m_rotation_lock     = Vector3::Zero;
+        m_collision_shape   = nullptr;
+        m_rigidBody         = nullptr;
 
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_mass, float);
         REGISTER_ATTRIBUTE_VALUE_VALUE(m_friction, float);
@@ -418,8 +417,8 @@ namespace Genome
         {
             interpTrans.setOrigin(transform_world.getOrigin());
         }
-        m_rigidBody->setInterpolationWorldTransform(interpTrans);
 
+        m_rigidBody->setInterpolationWorldTransform(interpTrans);
         m_rigidBody->updateInertiaTensor();
 
         if (activate)
@@ -516,13 +515,13 @@ namespace Genome
             
             // Info
             btRigidBody::btRigidBodyConstructionInfo constructionInfo(m_mass, motion_state, m_collision_shape, local_intertia);
-            constructionInfo.m_mass                = m_mass;
-            constructionInfo.m_friction            = m_friction;
-            constructionInfo.m_rollingFriction    = m_friction_rolling;
-            constructionInfo.m_restitution        = m_restitution;
-            constructionInfo.m_collisionShape    = m_collision_shape;
-            constructionInfo.m_localInertia        = local_intertia;
-            constructionInfo.m_motionState        = motion_state;
+            constructionInfo.m_mass             = m_mass;
+            constructionInfo.m_friction         = m_friction;
+            constructionInfo.m_rollingFriction  = m_friction_rolling;
+            constructionInfo.m_restitution      = m_restitution;
+            constructionInfo.m_collisionShape   = m_collision_shape;
+            constructionInfo.m_localInertia     = local_intertia;
+            constructionInfo.m_motionState      = motion_state;
 
             m_rigidBody = new btRigidBody(constructionInfo);
             m_rigidBody->setUserPointer(this);
@@ -599,8 +598,8 @@ namespace Genome
     {
         if (const auto& collider = m_entity->GetComponent<Collider>())
         {
-            m_collision_shape    = collider->GetShape();
-            m_center_of_mass    = collider->GetCenter();
+            m_collision_shape  = collider->GetShape();
+            m_center_of_mass   = collider->GetCenter();
         }
     }
 

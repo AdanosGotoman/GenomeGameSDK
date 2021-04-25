@@ -126,10 +126,11 @@ namespace Genome
                 return;
 
             m_resources.erase(
-                std::remove_if(
+                remove_if(
                     m_resources.begin(),
                     m_resources.end(),
-                    [](std::shared_ptr<IResource> resource) { return dynamic_cast<SpartanObject*>(resource.get())->GetId() == resource->GetId(); }),
+                    [](std::shared_ptr<IResource> resource) { return dynamic_cast<SpartanObject*>(resource.get())->GetId() == resource->GetId(); }
+                ),
                 m_resources.end()
             );
         }
@@ -180,14 +181,14 @@ namespace Genome
         std::string GetResourceDirectory(ResourceDirectory type);
         void SetProjectDirectory(const std::string& directory);
         std::string GetProjectDirectoryAbsolute() const;
-        const auto& GetProjectDirectory()   const { return m_project_directory; }
-        std::string GetResourceDirectory()  const { return "Data"; }
+        const auto& GetProjectDirectory()         const { return m_project_directory; }
+        std::string GetResourceDirectory()        const { return "Data"; }
         //==============================================================================
 
         // Importers
-        auto GetModelImporter() const { return m_importer_model.get(); }
-        auto GetImageImporter() const { return m_importer_image.get(); }
-        auto GetFontImporter()  const { return m_importer_font.get(); }
+        auto GetModelImporter()                   const { return m_importer_model.get(); }
+        auto GetImageImporter()                   const { return m_importer_image.get(); }
+        auto GetFontImporter()                    const { return m_importer_font.get(); }
 
     private:
         // Event handlers

@@ -130,14 +130,14 @@ namespace Genome::Utility::Geometry
                     (radius * sin(phi) * sin(theta))
                 );
 
-                Vector3 t = Vector3(-radius * sin(phi) * sin(theta), 0, radius * sin(phi) * cos(theta)).Normalized();
-                Vector3 n = p.Normalized();
+                Vector3 t  = Vector3(-radius * sin(phi) * sin(theta), 0, radius * sin(phi) * cos(theta)).Normalized();
+                Vector3 n  = p.Normalized();
                 Vector2 uv = Vector2(theta / (PI * 2), phi / PI);
                 vertices->emplace_back(p, uv, n, t);
             }
         }
 
-        normal = Vector3(0, -1, 0);
+        normal  = Vector3(0, -1, 0);
         tangent = Vector3(1, 0, 0);
         vertices->emplace_back(Vector3(0, -radius, 0), Vector2(0, 1), normal, tangent);
 
@@ -188,11 +188,11 @@ namespace Genome::Utility::Geometry
                 const float c = cos(j * dTheta);
                 const float s = sin(j * dTheta);
 
-                Vector3 v = Vector3(r*c, y, r*s);
+                Vector3 v  = Vector3(r*c, y, r*s);
                 Vector2 uv = Vector2((float)j / slices, 1.0f - (float)i / stacks);
-                Vector3 t = Vector3(-s, 0.0f, c);
+                Vector3 t  = Vector3(-s, 0.0f, c);
 
-                const float dr = radiusBottom - radiusTop;
+                const float dr    = radiusBottom - radiusTop;
                 Vector3 bitangent = Vector3(dr*c, -height, dr*s);
 
                 Vector3 n = Vector3::Cross(t, bitangent).Normalized();
@@ -217,9 +217,9 @@ namespace Genome::Utility::Geometry
         }
 
         // Build top cap
-        int baseIndex = (int)vertices->size();
-        float y = 0.5f * height;
-        const float dTheta = 2.0f * PI / slices;
+        int baseIndex       = (int)vertices->size();
+        float y             = 0.5f * height;
+        const float dTheta  = 2.0f * PI / slices;
 
         Vector3 normal;
         Vector3 tangent;
@@ -231,12 +231,12 @@ namespace Genome::Utility::Geometry
             const float u = x / height + 0.5f;
             const float v = z / height + 0.5f;
 
-            normal = Vector3(0, 1, 0);
+            normal  = Vector3(0, 1, 0);
             tangent = Vector3(1, 0, 0);
             vertices->emplace_back(Vector3(x, y, z), Vector2(u, v), normal, tangent);
         }
 
-        normal = Vector3(0, 1, 0);
+        normal  = Vector3(0, 1, 0);
         tangent = Vector3(1, 0, 0);
         vertices->emplace_back(Vector3(0, y, 0), Vector2(0.5f, 0.5f), normal, tangent);
 
@@ -259,13 +259,13 @@ namespace Genome::Utility::Geometry
             const float u = x / height + 0.5f;
             const float v = z / height + 0.5f;
 
-            normal    = Vector3(0, -1, 0);
-            tangent   = Vector3(1, 0, 0);
+            normal   = Vector3(0, -1, 0);
+            tangent  = Vector3(1, 0, 0);
             vertices->emplace_back(Vector3(x, y, z), Vector2(u, v), normal, tangent);
         }
 
-        normal        = Vector3(0, -1, 0);
-        tangent       = Vector3(1, 0, 0);
+        normal   = Vector3(0, -1, 0);
+        tangent  = Vector3(1, 0, 0);
         vertices->emplace_back(Vector3(0, y, 0), Vector2(0.5f, 0.5f), normal, tangent);
 
         centerIndex = (int)vertices->size() - 1;

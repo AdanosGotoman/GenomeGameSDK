@@ -105,7 +105,7 @@ namespace Genome
             }
 
             // Position
-            if (window_handle == ::GetActiveWindow())
+            if (window_handle == GetActiveWindow())
             {
                 POINT mouse_screen_pos;
                 if (GetCursorPos(&mouse_screen_pos))
@@ -241,7 +241,7 @@ namespace Genome
         const WindowData& window_data   = m_context->m_engine->GetWindowData();
         const HWND window_handle        = static_cast<HWND>(window_data.handle);
 
-        if (window_handle == ::GetActiveWindow())
+        if (window_handle == GetActiveWindow())
         {
             POINT mouse_screen_pos = POINT{ static_cast<LONG>(position.x), static_cast<LONG>(position.y) };
             if (ClientToScreen(window_handle, &mouse_screen_pos))
@@ -296,12 +296,12 @@ namespace Genome
             m_gamepad_thumb_right.x = static_cast<float>(g_gamepad.Gamepad.sThumbRX);
             m_gamepad_thumb_right.y = static_cast<float>(g_gamepad.Gamepad.sThumbRY);
 
-            if (m_gamepad_trigger_left != 0)    m_gamepad_trigger_left  /= 255.0f;    // Convert [0, 255] to [0, 1]
+            if (m_gamepad_trigger_left  != 0)   m_gamepad_trigger_left  /= 255.0f;    // Convert [0, 255] to [0, 1]
             if (m_gamepad_trigger_right != 0)   m_gamepad_trigger_right /= 255.0f;    // Convert [0, 255] to [0, 1]
-            if (m_gamepad_thumb_left.x != 0)    m_gamepad_thumb_left.x  = m_gamepad_thumb_left.x    < 0 ? m_gamepad_thumb_left.x    / 32768.0f : m_gamepad_thumb_left.x     / 32767.0f; // Convert [-32768, 32767] to [-1, 1]
-            if (m_gamepad_thumb_left.y != 0)    m_gamepad_thumb_left.y  = m_gamepad_thumb_left.y    < 0 ? m_gamepad_thumb_left.y    / 32768.0f : m_gamepad_thumb_left.y     / 32767.0f; // Convert [-32768, 32767] to [-1, 1]
-            if (m_gamepad_thumb_right.x != 0)   m_gamepad_thumb_right.x = m_gamepad_thumb_right.x   < 0 ? m_gamepad_thumb_right.x   / 32768.0f : m_gamepad_thumb_right.x    / 32767.0f; // Convert [-32768, 32767] to [-1, 1]
-            if (m_gamepad_thumb_right.y != 0)   m_gamepad_thumb_right.y = m_gamepad_thumb_right.y   < 0 ? m_gamepad_thumb_right.y   / 32768.0f : m_gamepad_thumb_right.y    / 32767.0f; // Convert [-32768, 32767] to [-1, 1]
+            if (m_gamepad_thumb_left.x  != 0)   m_gamepad_thumb_left.x  = (m_gamepad_thumb_left.x  < 0) ? (m_gamepad_thumb_left.x  / 32768.0f) : (m_gamepad_thumb_left.x  / 32767.0f); // Convert [-32768, 32767] to [-1, 1]
+            if (m_gamepad_thumb_left.y  != 0)   m_gamepad_thumb_left.y  = (m_gamepad_thumb_left.y  < 0) ? (m_gamepad_thumb_left.y  / 32768.0f) : (m_gamepad_thumb_left.y  / 32767.0f); // Convert [-32768, 32767] to [-1, 1]
+            if (m_gamepad_thumb_right.x != 0)   m_gamepad_thumb_right.x = (m_gamepad_thumb_right.x < 0) ? (m_gamepad_thumb_right.x / 32768.0f) : (m_gamepad_thumb_right.x / 32767.0f); // Convert [-32768, 32767] to [-1, 1]
+            if (m_gamepad_thumb_right.y != 0)   m_gamepad_thumb_right.y = (m_gamepad_thumb_right.y < 0) ? (m_gamepad_thumb_right.y / 32768.0f) : (m_gamepad_thumb_right.y / 32767.0f); // Convert [-32768, 32767] to [-1, 1]
         }
         else
         {

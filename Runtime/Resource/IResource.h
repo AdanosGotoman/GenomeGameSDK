@@ -65,7 +65,8 @@ namespace Genome
         {
             const bool is_native_file = FileSystem::IsEngineMaterialFile(path) || FileSystem::IsEngineModelFile(path);
 
-            // If this is an native engine file, don't do a file check as no actual foreign material exists (it was created on the fly)
+            // If this is an native engine file, don't do a file check 
+            // as no actual foreign material exists (it was created on the fly)
             if (!is_native_file)
             {
                 if (!FileSystem::IsFile(path))
@@ -80,8 +81,8 @@ namespace Genome
             // Foreign file
             if (!FileSystem::IsEngineFile(path))
             {
-                m_resource_file_path_foreign    = file_path_relative;
-                m_resource_file_path_native     = FileSystem::NativizeFilePath(file_path_relative);
+                m_resource_file_path_foreign  = file_path_relative;
+                m_resource_file_path_native   = FileSystem::NativizeFilePath(file_path_relative);
             }
             // Native file
             else
@@ -89,8 +90,8 @@ namespace Genome
                 m_resource_file_path_foreign.clear();
                 m_resource_file_path_native = file_path_relative;
             }
-            m_resource_name                 = FileSystem::GetFileNameNoExtensionFromFilePath(file_path_relative);
-            m_resource_directory            = FileSystem::GetDirectoryFromFilePath(file_path_relative);
+            m_resource_name       = FileSystem::GetFileNameNoExtensionFromFilePath(file_path_relative);
+            m_resource_directory  = FileSystem::GetDirectoryFromFilePath(file_path_relative);
         }
         
         ResourceType GetResourceType()                  const { return m_resource_type; }
@@ -104,19 +105,19 @@ namespace Genome
 
 
         // Misc
-        LoadState GetLoadState() const { return m_load_state; }
+        LoadState GetLoadState()                   const { return m_load_state; }
 
         // IO
         virtual bool SaveToFile(const std::string& file_path)    { return true; }
-        virtual bool LoadFromFile(const std::string& file_path)    { return true; }
+        virtual bool LoadFromFile(const std::string& file_path)  { return true; }
 
         // Type
         template <typename T>
         static constexpr ResourceType TypeToEnum();
 
     protected:
-        ResourceType m_resource_type    = ResourceType::Unknown;
-        LoadState m_load_state          = LoadState::Idle;
+        ResourceType m_resource_type  = ResourceType::Unknown;
+        LoadState m_load_state        = LoadState::Idle;
 
     private:
         std::string m_resource_name;

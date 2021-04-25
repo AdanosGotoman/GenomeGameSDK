@@ -32,6 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../../Math/Frustum.h"
 //===================================
 
+using namespace Genome::Math;
+
 namespace Genome
 {
     class Camera;
@@ -47,17 +49,17 @@ namespace Genome
 
     struct ShadowSlice
     {
-        Math::Vector3 min       = Math::Vector3::Zero;
-        Math::Vector3 max       = Math::Vector3::Zero;
-        Math::Vector3 center    = Math::Vector3::Zero;
-        Math::Frustum frustum;
+        Vector3 min      = Vector3::Zero;
+        Vector3 max      = Vector3::Zero;
+        Vector3 center   = Vector3::Zero;
+        Frustum frustum;
     };
 
     struct ShadowMap
     {
         std::shared_ptr<RHI_Texture> texture_color;
         std::shared_ptr<RHI_Texture> texture_depth;
-        std::vector<ShadowSlice> slices;
+        std::vector<ShadowSlice>     slices;
     };
 
     class GENOME_CLASS Light : public IComponent
@@ -74,49 +76,49 @@ namespace Genome
         void Deserialize(FileStream* stream) override;
         //============================================
 
-        const auto GetLightType() const { return m_light_type; }
+        const auto GetLightType()                                const { return m_light_type; }
         void SetLightType(LightType type);
 
         void SetColor(const float temperature);
-        void SetColor(const Math::Vector4& rgb) { m_color_rgb = rgb; }
-        const auto& GetColor() const            { return m_color_rgb; }
+        void SetColor(const Vector4& rgb)                              { m_color_rgb = rgb; }
+        const auto& GetColor()                                   const { return m_color_rgb; }
 
-        void SetIntensity(float value)  { m_intensity = value; }
-        auto GetIntensity()    const    { return m_intensity; }
+        void SetIntensity(float value)                                 { m_intensity = value; }
+        auto GetIntensity()                                      const { return m_intensity; }
 
-        bool GetShadowsEnabled() const { return m_shadows_enabled; }
+        bool GetShadowsEnabled()                                 const { return m_shadows_enabled; }
         void SetShadowsEnabled(bool cast_shadows);
 
-        bool GetShadowsScreenSpaceEnabled() const                      { return m_shadows_screen_space_enabled; }
+        bool GetShadowsScreenSpaceEnabled()                      const { return m_shadows_screen_space_enabled; }
         void SetShadowsScreenSpaceEnabled(bool cast_contact_shadows)   { m_shadows_screen_space_enabled = cast_contact_shadows; }
 
-        bool GetShadowsTransparentEnabled() const { return m_shadows_transparent_enabled; }
+        bool GetShadowsTransparentEnabled()                      const { return m_shadows_transparent_enabled; }
         void SetShadowsTransparentEnabled(bool cast_transparent_shadows);
 
-        bool GetVolumetricEnabled() const               { return m_volumetric_enabled; }
-        void SetVolumetricEnabled(bool is_volumetric)   { m_volumetric_enabled = is_volumetric; }
+        bool GetVolumetricEnabled()                              const { return m_volumetric_enabled; }
+        void SetVolumetricEnabled(bool is_volumetric)                  { m_volumetric_enabled = is_volumetric; }
 
         void SetRange(float range);
-        auto GetRange() const { return m_range; }
+        auto GetRange()                                          const { return m_range; }
 
         void SetAngle(float angle);
-        auto GetAngle() const { return m_angle_rad; }
+        auto GetAngle()                                          const { return m_angle_rad; }
 
         void SetTimeOfDay(float time_of_day);
-        auto GetTimeOfDay() const { return m_time_of_day; }
+        auto GetTimeOfDay()                                      const { return m_time_of_day; }
 
-        void SetBias(float value)   { m_bias = value; }
-        float GetBias() const       { return m_bias; }
+        void SetBias(float value)                                      { m_bias = value; }
+        float GetBias()                                          const { return m_bias; }
 
-        void SetNormalBias(float value) { m_normal_bias = value; }
-        auto GetNormalBias() const { return m_normal_bias; }
+        void SetNormalBias(float value)                                { m_normal_bias = value; }
+        auto GetNormalBias()                                     const { return m_normal_bias; }
 
-        const Math::Matrix& GetViewMatrix(uint32_t index = 0) const;
-        const Math::Matrix& GetProjectionMatrix(uint32_t index = 0) const;
+        const Matrix& GetViewMatrix(uint32_t index = 0)          const;
+        const Matrix& GetProjectionMatrix(uint32_t index = 0)    const;
 
-        RHI_Texture* GetDepthTexture() const { return m_shadow_map.texture_depth.get(); }
-        RHI_Texture* GetColorTexture() const { return m_shadow_map.texture_color.get(); }
-        uint32_t GetShadowArraySize() const;
+        RHI_Texture* GetDepthTexture()                           const { return m_shadow_map.texture_depth.get(); }
+        RHI_Texture* GetColorTexture()                           const { return m_shadow_map.texture_color.get(); }
+        uint32_t GetShadowArraySize()                            const;
         void CreateShadowMap();
 
         bool IsInViewFrustrum(Renderable* renderable, uint32_t index) const;
@@ -138,20 +140,20 @@ namespace Genome
         float m_normal_bias = 3.0f;
 
         // Misc
-        LightType m_light_type      = LightType::Directional;
-        Math::Vector4 m_color_rgb   = Math::Vector4(1.0f, 0.76f, 0.57f, 1.0f);
-        bool m_volumetric_enabled   = true;
-        float m_range               = 10.0f;
-        float m_intensity           = 128000.0f;  // sun lux
-        float m_angle_rad           = 0.5f;       // about 30 degrees
-        float m_time_of_day         = 1.0f;
-        bool m_initialized          = false;
-        bool m_is_dirty             = true;
-        std::array<Math::Matrix, 6> m_matrix_view;
-        std::array<Math::Matrix, 6> m_matrix_projection;
-        Math::Quaternion m_previous_rot     = Math::Quaternion::Identity;
-        Math::Vector3 m_previous_pos        = Math::Vector3::Infinity;
-        Math::Matrix m_previous_camera_view = Math::Matrix::Identity;
+        LightType m_light_type        = LightType::Directional;
+        Vector4 m_color_rgb           = Vector4(1.0f, 0.76f, 0.57f, 1.0f);
+        bool m_volumetric_enabled     = true;
+        float m_range                 = 10.0f;
+        float m_intensity             = 128000.0f;  // sun lux
+        float m_angle_rad             = 0.5f;       // about 30 degrees
+        float m_time_of_day           = 1.0f;
+        bool m_initialized            = false;
+        bool m_is_dirty               = true;
+        std::array<Matrix, 6> m_matrix_view;
+        std::array<Matrix, 6> m_matrix_projection;
+        Quaternion m_previous_rot     = Quaternion::Identity;
+        Vector3 m_previous_pos        = Vector3::Infinity;
+        Matrix m_previous_camera_view = Matrix::Identity;
         Renderer* m_renderer;
     };
 }

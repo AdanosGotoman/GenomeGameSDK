@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //= NAMESPACES =========
 using namespace std;
 using namespace Genome;
-using namespace Math;
+using namespace Genome::Math;
 //======================
 
 Widget_Viewport::Widget_Viewport(Editor* editor) : Widget(editor)
@@ -51,8 +51,8 @@ void Widget_Viewport::TickVisible()
         return;
 
     // Get size
-    float width     = static_cast<float>(ImGui::GetWindowContentRegionMax().x - ImGui::GetWindowContentRegionMin().x);
-    float height    = static_cast<float>(ImGui::GetWindowContentRegionMax().y - ImGui::GetWindowContentRegionMin().y);
+    float width  = static_cast<float>(ImGui::GetWindowContentRegionMax().x - ImGui::GetWindowContentRegionMin().x);
+    float height = static_cast<float>(ImGui::GetWindowContentRegionMax().y - ImGui::GetWindowContentRegionMin().y);
 
     // Get offset
     Vector2 offset = Vector2(ImGui::GetWindowPos()) + m_window_padding;
@@ -62,9 +62,9 @@ void Widget_Viewport::TickVisible()
     {
         m_renderer->SetViewport(width, height, offset.x, offset.y);
 
-        m_width     = width;
-        m_height    = height;
-        m_offset    = offset;
+        m_width  = width;
+        m_height = height;
+        m_offset = offset;
     }
 
     // If this is the first tick and the first time the engine runs (no settings file loaded), we set the resolution to match the viewport size.

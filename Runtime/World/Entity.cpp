@@ -39,10 +39,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../IO/FileStream.h"
 //===================================
 
-//= NAMESPACES =====
-using namespace std;
-//==================
-
 namespace Genome
 {
     Entity::Entity(Context* context, uint32_t transform_id /*= 0*/)
@@ -75,7 +71,7 @@ namespace Genome
     void Entity::Clone()
     {
         auto scene = m_context->GetSubsystem<World>();
-        vector<Entity*> clones;
+        std::vector<Entity*> clones;
 
         // Creation of new entity and copying of a few properties
         auto clone_entity = [&scene, &clones](Entity* entity)
@@ -90,8 +86,8 @@ namespace Genome
             // Clone all the components
             for (const auto& component : entity->GetAllComponents())
             {
-                const auto& original_comp    = component;
-                auto clone_comp                = clone->AddComponent(component->GetType());
+                const auto& original_comp  = component;
+                auto clone_comp            = clone->AddComponent(component->GetType());
                 clone_comp->SetAttributes(original_comp->GetAttributes());
             }
 
@@ -101,7 +97,7 @@ namespace Genome
         };
 
         // Cloning of an entity and it's descendants (this is a recursive lambda)
-        function<Entity*(Entity*)> clone_entity_and_descendants = [&clone_entity_and_descendants, &clone_entity](Entity* original)
+        std::function<Entity*(Entity*)> clone_entity_and_descendants = [&clone_entity_and_descendants, &clone_entity](Entity* original)
         {
             // clone self
             const auto clone_self = clone_entity(original);
@@ -251,7 +247,7 @@ namespace Genome
 
             // Children IDs
             auto scene = m_context->GetSubsystem<World>();
-            vector<std::weak_ptr<Entity>> children;
+            std::vector<std::weak_ptr<Entity>> children;
             for (uint32_t i = 0; i < children_count; i++)
             {
                 auto child = scene->EntityCreate();
@@ -282,19 +278,19 @@ namespace Genome
 
         switch (type)
         {
-            case ComponentType::AudioListener:    return AddComponent<AudioListener>(id);
+            case ComponentType::AudioListener:  return AddComponent<AudioListener>(id);
             case ComponentType::AudioSource:    return AddComponent<AudioSource>(id);
-            case ComponentType::Camera:            return AddComponent<Camera>(id);
-            case ComponentType::Collider:        return AddComponent<Collider>(id);
-            case ComponentType::Constraint:        return AddComponent<Constraint>(id);
-            case ComponentType::Light:            return AddComponent<Light>(id);
-            case ComponentType::Renderable:        return AddComponent<Renderable>(id);
-            case ComponentType::RigidBody:        return AddComponent<RigidBody>(id);
-            case ComponentType::SoftBody:        return AddComponent<SoftBody>(id);
-            case ComponentType::Script:            return AddComponent<Script>(id);
+            case ComponentType::Camera:         return AddComponent<Camera>(id);
+            case ComponentType::Collider:       return AddComponent<Collider>(id);
+            case ComponentType::Constraint:     return AddComponent<Constraint>(id);
+            case ComponentType::Light:          return AddComponent<Light>(id);
+            case ComponentType::Renderable:     return AddComponent<Renderable>(id);
+            case ComponentType::RigidBody:      return AddComponent<RigidBody>(id);
+            case ComponentType::SoftBody:       return AddComponent<SoftBody>(id);
+            case ComponentType::Script:         return AddComponent<Script>(id);
             case ComponentType::Environment:    return AddComponent<Environment>(id);
-            case ComponentType::Transform:        return AddComponent<Transform>(id);
-            case ComponentType::Terrain:           return AddComponent<Terrain>(id);
+            case ComponentType::Transform:      return AddComponent<Transform>(id);
+            case ComponentType::Terrain:        return AddComponent<Terrain>(id);
             case ComponentType::Unknown:        return nullptr;
             default:                            return nullptr;
         }

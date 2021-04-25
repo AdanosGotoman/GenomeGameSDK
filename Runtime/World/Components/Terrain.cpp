@@ -34,7 +34,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //=======================================
 
 //= NAMESPACES ===============
-using namespace std;
 using namespace Genome::Math;
 //============================
 
@@ -52,7 +51,7 @@ namespace Genome
 
     void Terrain::Serialize(FileStream* stream)
     {
-        const string no_path;
+        const std::string no_path;
 
         stream->Write(m_height_map ? m_height_map->GetResourceFilePathNative() : no_path);
         stream->Write(m_model ? m_model->GetResourceName() : no_path);
@@ -63,15 +62,15 @@ namespace Genome
     void Terrain::Deserialize(FileStream* stream)
     {
         ResourceCache* resource_cache = m_context->GetSubsystem<ResourceCache>();
-        m_height_map    = resource_cache->GetByPath<RHI_Texture2D>(stream->ReadAs<string>());
-        m_model         = resource_cache->GetByName<Model>(stream->ReadAs<string>());
+        m_height_map = resource_cache->GetByPath<RHI_Texture2D>(stream->ReadAs<std::string>());
+        m_model      = resource_cache->GetByName<Model>(stream->ReadAs<std::string>());
         stream->Read(&m_min_y);
         stream->Read(&m_max_y);
 
         UpdateFromModel(m_model);
     }
 
-    void Terrain::SetHeightMap(const shared_ptr<RHI_Texture2D>& height_map)
+    void Terrain::SetHeightMap(const std::shared_ptr<RHI_Texture2D>& height_map)
     {
         // In order for the component to guarantee serialization/deserialization, we cache the height_map
         m_height_map = m_context->GetSubsystem<ResourceCache>()->Cache<RHI_Texture2D>(height_map);
@@ -104,24 +103,24 @@ namespace Genome
             m_is_generating = true;
 
             // Get height map data
-            const vector<std::byte> height_map_data = m_height_map->GetOrLoadMip(0);
+            const std::vector<std::byte> height_map_data = m_height_map->GetOrLoadMip(0);
             if (height_map_data.empty())
             {
                 LOG_ERROR("Height map has no data");
             }
 
             // Deduce some stuff
-            m_height                            = m_height_map->GetHeight();
-            m_width                             = m_height_map->GetWidth();
-            m_vertex_count                      = m_height * m_width;
-            m_face_count                        = (m_height - 1) * (m_width - 1) * 2;
-            m_progress_jobs_done                = 0;
-            m_progress_job_count                = m_vertex_count * 2 + m_face_count + m_vertex_count * m_face_count;
+            m_height              = m_height_map->GetHeight();
+            m_width               = m_height_map->GetWidth();
+            m_vertex_count        = m_height * m_width;
+            m_face_count          = (m_height - 1) * (m_width - 1) * 2;
+            m_progress_jobs_done  = 0;
+            m_progress_job_count  = m_vertex_count * 2 + m_face_count + m_vertex_count * m_face_count;
 
             // Pre-allocate memory for the calculations that follow
-            vector<Vector3> positions                 = vector<Vector3>(m_height * m_width);
-            vector<RHI_Vertex_PosTexNorTan> vertices  = vector<RHI_Vertex_PosTexNorTan>(m_vertex_count);
-            vector<uint32_t> indices                  = vector<uint32_t>(m_face_count * 3);
+            std::vector<Vector3> positions                 = std::vector<Vector3>(m_height * m_width);
+            std::vector<RHI_Vertex_PosTexNorTan> vertices  = std::vector<RHI_Vertex_PosTexNorTan>(m_vertex_count);
+            std::vector<uint32_t> indices                  = std::vector<uint32_t>(m_face_count * 3);
 
             // Read height map and construct positions
             m_progress_desc = "Generating positions...";
@@ -153,7 +152,7 @@ namespace Genome
         });
     }
 
-    bool Terrain::GeneratePositions(vector<Vector3>& positions, const vector<std::byte>& height_map)
+    bool Terrain::GeneratePositions(std::vector<Vector3>& positions, const std::vector<std::byte>& height_map)
     {
         if (height_map.empty())
         {
@@ -173,8 +172,8 @@ namespace Genome
 
                 // Construct position
                 const uint32_t index  = y * m_width + x;
-                positions[index].x    = static_cast<float>(x) - m_width * 0.5f;     // center on the X axis
-                positions[index].z    = static_cast<float>(y) - m_height * 0.5f;    // center on the Z axis
+                positions[index].x    = static_cast<float>(x) - m_width * 0.5f;  // center on the X axis
+                positions[index].z    = static_cast<float>(y) - m_height * 0.5f; // center on the Z axis
                 positions[index].y    = Lerp(m_min_y, m_max_y, height);
 
                 k += 4;
@@ -187,7 +186,7 @@ namespace Genome
         return true;
     }
 
-    bool Terrain::GenerateVerticesIndices(const vector<Vector3>& positions, vector<uint32_t>& indices, vector<RHI_Vertex_PosTexNorTan>& vertices)
+    bool Terrain::GenerateVerticesIndices(const std::vector<Vector3>& positions, std::vector<uint32_t>& indices, std::vector<RHI_Vertex_PosTexNorTan>& vertices)
     {
         if (positions.empty())
         {
@@ -195,10 +194,10 @@ namespace Genome
             return false;
         }
 
-        uint32_t index      = 0;
-        uint32_t k          = 0;
-        uint32_t u_index    = 0;
-        uint32_t v_index    = 0;
+        uint32_t index    = 0;
+        uint32_t k        = 0;
+        uint32_t u_index  = 0;
+        uint32_t v_index  = 0;
 
         for (uint32_t y = 0; y < m_height - 1; y++)
         {
@@ -253,7 +252,7 @@ namespace Genome
         return true;
     }
 
-    bool Terrain::GenerateNormalTangents(const vector<uint32_t>& indices, vector<RHI_Vertex_PosTexNorTan>& vertices)
+    bool Terrain::GenerateNormalTangents(const std::vector<uint32_t>& indices, std::vector<RHI_Vertex_PosTexNorTan>& vertices)
     {
         if (indices.empty())
         {
@@ -268,12 +267,12 @@ namespace Genome
         }
 
         // Normals are computed by normal averaging, which can be crazy slow
-        uint32_t face_count     = static_cast<uint32_t>(indices.size()) / 3;
-        uint32_t vertex_count   = static_cast<uint32_t>(vertices.size());
+        uint32_t face_count    = static_cast<uint32_t>(indices.size()) / 3;
+        uint32_t vertex_count  = static_cast<uint32_t>(vertices.size());
 
         // Compute face normals and tangents
-        vector<Vector3> face_normals(face_count);
-        vector<Vector3> face_tangents(face_count);
+        std::vector<Vector3> face_normals(face_count);
+        std::vector<Vector3> face_tangents(face_count);
         {
             for (uint32_t i = 0; i < face_count; ++i)
             {
@@ -380,7 +379,7 @@ namespace Genome
         return true;
     }
 
-    void Terrain::UpdateFromModel(const shared_ptr<Model>& model) const
+    void Terrain::UpdateFromModel(const std::shared_ptr<Model>& model) const
     {
         if (!model)
         {
@@ -404,13 +403,13 @@ namespace Genome
         }
     }
 
-    void Terrain::UpdateFromVertices(const vector<uint32_t>& indices, vector<RHI_Vertex_PosTexNorTan>& vertices)
+    void Terrain::UpdateFromVertices(const std::vector<uint32_t>& indices, std::vector<RHI_Vertex_PosTexNorTan>& vertices)
     {
         // Add vertices and indices into a model struct (and cache that)
         if (!m_model)
         {
             // Create new model
-            m_model = make_shared<Model>(m_context);
+            m_model = std::make_shared<Model>(m_context);
 
             // Set geometry
             m_model->AppendGeometry(indices, vertices);
@@ -418,7 +417,7 @@ namespace Genome
 
             // Set a file path so the model can be used by the resource cache
             ResourceCache* resource_cache = m_context->GetSubsystem<ResourceCache>();
-            m_model->SetResourceFilePath(resource_cache->GetProjectDirectory() + m_entity->GetName() + "_terrain_" + to_string(m_id) + string(EXTENSION_MODEL));
+            m_model->SetResourceFilePath(resource_cache->GetProjectDirectory() + m_entity->GetName() + "_terrain_" + std::to_string(m_id) + std::string(EXTENSION_MODEL));
             m_model = resource_cache->Cache(m_model);
         }
         else

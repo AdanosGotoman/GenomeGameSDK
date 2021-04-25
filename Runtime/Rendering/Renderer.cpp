@@ -49,7 +49,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //==============================================
 
 //= NAMESPACES ===============
-using namespace std;
 using namespace Genome::Math;
 //============================
 
@@ -77,17 +76,17 @@ namespace Genome
         m_options |= Render_Ssgi;
 
         // Option values
-        m_option_values[Renderer_Option_Value::Anisotropy]          = 16.0f;
-        m_option_values[Renderer_Option_Value::ShadowResolution]    = 2048.0f;
-        m_option_values[Renderer_Option_Value::Tonemapping]         = static_cast<float>(Renderer_ToneMapping_ACES);
-        m_option_values[Renderer_Option_Value::Gamma]               = 2.2f;
-        m_option_values[Renderer_Option_Value::Sharpen_Strength]    = 1.0f;
-        m_option_values[Renderer_Option_Value::Intensity]           = 0.1f;
-        m_option_values[Renderer_Option_Value::Fog]                 = 0.1f;
+        m_option_values[Renderer_Option_Value::Anisotropy]        = 16.0f;
+        m_option_values[Renderer_Option_Value::ShadowResolution]  = 2048.0f;
+        m_option_values[Renderer_Option_Value::Tonemapping]       = static_cast<float>(Renderer_ToneMapping_ACES);
+        m_option_values[Renderer_Option_Value::Gamma]             = 2.2f;
+        m_option_values[Renderer_Option_Value::Sharpen_Strength]  = 1.0f;
+        m_option_values[Renderer_Option_Value::Intensity]         = 0.1f;
+        m_option_values[Renderer_Option_Value::Fog]               = 0.1f;
 
         // Subscribe to events
-        SUBSCRIBE_TO_EVENT(EventType::WorldResolved,    EVENT_HANDLER_VARIANT(RenderablesAcquire));
-        SUBSCRIBE_TO_EVENT(EventType::WorldClear,       EVENT_HANDLER(Clear));
+        SUBSCRIBE_TO_EVENT(EventType::WorldResolved, EVENT_HANDLER_VARIANT(RenderablesAcquire));
+        SUBSCRIBE_TO_EVENT(EventType::WorldClear,    EVENT_HANDLER(Clear));
     }
 
     Renderer::~Renderer()
@@ -105,8 +104,8 @@ namespace Genome
     bool Renderer::Initialize()
     {
         // Get required systems
-        m_resource_cache    = m_context->GetSubsystem<ResourceCache>();
-        m_profiler          = m_context->GetSubsystem<Profiler>();
+        m_resource_cache  = m_context->GetSubsystem<ResourceCache>();
+        m_profiler        = m_context->GetSubsystem<Profiler>();
 
         // Resolution, viewport and swapchain default to whatever the window size is
         const WindowData& window_data = m_context->m_engine->GetWindowData();
@@ -116,11 +115,11 @@ namespace Genome
         m_resolution.y = window_data.height;
 
         // Set viewport
-        m_viewport.width    = window_data.width;
-        m_viewport.height   = window_data.height;
+        m_viewport.width  = window_data.width;
+        m_viewport.height = window_data.height;
 
         // Create device
-        m_rhi_device = make_shared<RHI_Device>(m_context);
+        m_rhi_device = std::make_shared<RHI_Device>(m_context);
         if (!m_rhi_device->IsInitialized())
         {
             LOG_ERROR("Failed to create device");
@@ -128,14 +127,14 @@ namespace Genome
         }
 
         // Create pipeline cache
-        m_pipeline_cache = make_shared<RHI_PipelineCache>(m_rhi_device.get());
+        m_pipeline_cache = std::make_shared<RHI_PipelineCache>(m_rhi_device.get());
 
         // Create descriptor set layout cache
-        m_descriptor_set_layout_cache = make_shared<RHI_DescriptorSetLayoutCache>(m_rhi_device.get());
+        m_descriptor_set_layout_cache = std::make_shared<RHI_DescriptorSetLayoutCache>(m_rhi_device.get());
 
         // Create swap chain
         {
-            m_swap_chain = make_shared<RHI_SwapChain>
+            m_swap_chain = std::make_shared<RHI_SwapChain>
             (
                 window_data.handle,
                 m_rhi_device,
@@ -159,11 +158,11 @@ namespace Genome
         m_viewport_quad.CreateBuffers(this);
 
         // Line buffer
-        m_vertex_buffer_lines = make_shared<RHI_VertexBuffer>(m_rhi_device);
+        m_vertex_buffer_lines = std::make_shared<RHI_VertexBuffer>(m_rhi_device);
 
         // Editor specific
-        m_gizmo_grid = make_unique<Grid>(m_rhi_device);
-        m_gizmo_transform = make_unique<TransformGizmo>(m_context);
+        m_gizmo_grid      = std::make_unique<Grid>(m_rhi_device);
+        m_gizmo_transform = std::make_unique<TransformGizmo>(m_context);
 
         CreateConstantBuffers();
         CreateShaders();
@@ -185,7 +184,7 @@ namespace Genome
         return true;
     }
 
-    std::weak_ptr<Genome::Entity> Renderer::SnapTransformGizmoTo(const shared_ptr<Entity>& entity) const
+    std::weak_ptr<Genome::Entity> Renderer::SnapTransformGizmoTo(const std::shared_ptr<Entity>& entity) const
     {
         return m_gizmo_transform->SetSelectedEntity(entity);
     }
@@ -240,9 +239,9 @@ namespace Genome
             {
                 if (m_update_ortho_proj || m_near_plane != m_camera->GetNearPlane() || m_far_plane != m_camera->GetFarPlane())
                 {
-                    m_buffer_frame_cpu.projection_ortho         = Matrix::CreateOrthographicLH(m_viewport.width, m_viewport.height, m_near_plane, m_far_plane);
-                    m_buffer_frame_cpu.view_projection_ortho    = Matrix::CreateLookAtLH(Vector3(0, 0, -m_near_plane), Vector3::Forward, Vector3::Up) * m_buffer_frame_cpu.projection_ortho;
-                    m_update_ortho_proj                         = false;
+                    m_buffer_frame_cpu.projection_ortho       = Matrix::CreateOrthographicLH(m_viewport.width, m_viewport.height, m_near_plane, m_far_plane);
+                    m_buffer_frame_cpu.view_projection_ortho  = Matrix::CreateLookAtLH(Vector3(0, 0, -m_near_plane), Vector3::Forward, Vector3::Up) * m_buffer_frame_cpu.projection_ortho;
+                    m_update_ortho_proj                       = false;
                 }
 
                 m_near_plane                    = m_camera->GetNearPlane();
@@ -338,8 +337,8 @@ namespace Genome
         }
 
         // Make sure we are pixel perfect
-        width   -= (width    % 2 != 0) ? 1 : 0;
-        height  -= (height    % 2 != 0) ? 1 : 0;
+        width   -= (width   % 2 != 0) ? 1 : 0;
+        height  -= (height  % 2 != 0) ? 1 : 0;
 
         // Silently return if resolution is already set
         if (m_resolution.x == width && m_resolution.y == height)
@@ -542,7 +541,7 @@ namespace Genome
         m_entities.clear();
         m_camera = nullptr;
 
-        vector<shared_ptr<Entity>> entities = entities_variant.Get<vector<shared_ptr<Entity>>>();
+        std::vector<std::shared_ptr<Entity>> entities = entities_variant.Get<std::vector<std::shared_ptr<Entity>>>();
         for (const auto& entity : entities)
         {
             if (!entity || !entity->IsActive())
@@ -581,7 +580,7 @@ namespace Genome
         RenderablesSort(&m_entities[Renderer_Object_Transparent]);
     }
 
-    void Renderer::RenderablesSort(vector<Entity*>* renderables)
+    void Renderer::RenderablesSort(std::vector<Entity*>* renderables)
     {
         if (!m_camera || renderables->size() <= 2)
             return;
@@ -596,7 +595,7 @@ namespace Genome
         };
 
         // Sort by depth (front to back)
-        sort(renderables->begin(), renderables->end(), [&comparison_op](Entity* a, Entity* b)
+        std::sort(renderables->begin(), renderables->end(), [&comparison_op](Entity* a, Entity* b)
         {
             return comparison_op(a) < comparison_op(b);
         });
@@ -609,7 +608,7 @@ namespace Genome
         m_entities.clear();
     }
 
-    const shared_ptr<Genome::RHI_Texture>& Renderer::GetEnvironmentTexture()
+    const std::shared_ptr<Genome::RHI_Texture>& Renderer::GetEnvironmentTexture()
     {
         if (m_render_targets.find(RendererRt::Brdf_Prefiltered_Environment) != m_render_targets.end())
             return m_render_targets[RendererRt::Brdf_Prefiltered_Environment];
@@ -617,7 +616,7 @@ namespace Genome
         return m_default_tex_white;
     }
 
-    void Renderer::SetEnvironmentTexture(const shared_ptr<RHI_Texture>& texture)
+    void Renderer::SetEnvironmentTexture(const std::shared_ptr<RHI_Texture>& texture)
     {
         m_render_targets[RendererRt::Brdf_Prefiltered_Environment] = texture;
     }
@@ -751,7 +750,7 @@ namespace Genome
         while (m_is_rendering)
         {
             LOG_INFO("Waiting for rendering to finish...");
-            this_thread::sleep_for(chrono::milliseconds(16));
+            std::this_thread::sleep_for(std::chrono::milliseconds(16));
         }
     }
 

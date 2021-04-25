@@ -85,14 +85,14 @@ namespace Genome
         Vector3 Unproject(const Vector2& position_screen) const;
         //==============================================================================
 
-        float GetAperture() const { return m_aperture; }
-        void SetAperture(const float aperture) { m_aperture = aperture; }
+        float GetAperture()                       const { return m_aperture; }
+        void SetAperture(const float aperture)          { m_aperture = aperture; }
 
-        float GetShutterSpeed() const                   { return m_shutter_speed; }
+        float GetShutterSpeed()                   const { return m_shutter_speed; }
         void SetShutterSpeed(const float shutter_speed) { m_shutter_speed = shutter_speed; }
 
-        float GetIso() const            { return m_iso; }
-        void SetIso(const float iso)    { m_iso = iso; }
+        float GetIso()                            const { return m_iso; }
+        void SetIso(const float iso)                    { m_iso = iso; }
 
         // Reference: https://google.github.io/filament/Filament.md.html#lighting/units/lightunitsvalidation
         float GetEv100()    const { return std::log2((m_aperture * m_aperture) / m_shutter_speed * 100.0f / m_iso); }
@@ -103,23 +103,23 @@ namespace Genome
         void SetNearPlane(float near_plane);
         void SetFarPlane(float far_plane);
         void SetProjection(ProjectionType projection);
-        float GetNearPlane()                const { return m_near_plane; }
-        float GetFarPlane()                 const { return m_far_plane; }
-        ProjectionType GetProjectionType()  const { return m_projection_type; }
+        float GetNearPlane()                      const { return m_near_plane; }
+        float GetFarPlane()                       const { return m_far_plane; }
+        ProjectionType GetProjectionType()        const { return m_projection_type; }
         //=====================================================================
 
         //= FOV ==========================================================
-        float GetFovHorizontalRad() const { return m_fov_horizontal_rad; }
-        float GetFovVerticalRad()   const;
-        float GetFovHorizontalDeg() const;
+        float GetFovHorizontalRad()               const { return m_fov_horizontal_rad; }
+        float GetFovVerticalRad()                 const;
+        float GetFovHorizontalDeg()               const;
         void SetFovHorizontalDeg(float fov);
-        const RHI_Viewport& GetViewport() const;
+        const RHI_Viewport& GetViewport()         const;
         //================================================================
 
         //= MISC =================================================================================
         bool IsInViewFrustrum(Renderable* renderable) const;
         bool IsInViewFrustrum(const Vector3& center, const Vector3& extents) const;
-        const Vector4& GetClearColor() const                  { return m_clear_color; }
+        const Vector4& GetClearColor()                  const { return m_clear_color; }
         void SetClearColor(const Vector4& color)              { m_clear_color = color; }
         bool GetFpsControlEnabled()                     const { return m_fps_control_enabled; }
         void SetFpsControlEnabled(const bool enabled)         { m_fps_control_enabled = enabled; }

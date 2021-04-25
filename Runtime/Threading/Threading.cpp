@@ -24,23 +24,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "Threading.h"
 //====================
 
-//= NAMESPACES =====
-using namespace std;
-//==================
-
 namespace Genome
 {
     Threading::Threading(Context* context) : ISubsystem(context)
     {
-        m_stopping                               = false;
-        m_thread_count_support                  = thread::hardware_concurrency();
-        m_thread_count                          = m_thread_count_support - 1; // exclude the main (this) thread
-        m_thread_names[this_thread::get_id()]   = "main";
+        m_stopping                                  = false;
+        m_thread_count_support                      = std::thread::hardware_concurrency();
+        m_thread_count                              = m_thread_count_support - 1; // exclude the main (this) thread
+        m_thread_names[std::this_thread::get_id()]  = "main";
 
         for (uint32_t i = 0; i < m_thread_count; i++)
         {
-            m_threads.emplace_back(thread(&Threading::ThreadLoop, this));
-            m_thread_names[m_threads.back().get_id()] = "worker_" + to_string(i);
+            m_threads.emplace_back(std::thread(&Threading::ThreadLoop, this));
+            m_thread_names[m_threads.back().get_id()] = "worker_" + std::to_string(i);
         }
 
         LOG_INFO("%d threads have been created", m_thread_count);
@@ -51,7 +47,7 @@ namespace Genome
         Flush(true);
 
         // Put unique lock on task mutex.
-        unique_lock<mutex> lock(m_mutex_tasks);
+        std::unique_lock<std::mutex> lock(m_mutex_tasks);
 
         // Set termination flag to true.
         m_stopping = true;
@@ -101,11 +97,11 @@ namespace Genome
 
     void Threading::ThreadLoop()
     {
-        shared_ptr<Task> task;
+        std::shared_ptr<Task> task;
         while (true)
         {
             // Lock tasks mutex
-            unique_lock<mutex> lock(m_mutex_tasks);
+            std::unique_lock<std::mutex> lock(m_mutex_tasks);
 
             // Check condition on notification
             m_condition_var.wait(lock, [this] { return !m_tasks.empty() || m_stopping; });

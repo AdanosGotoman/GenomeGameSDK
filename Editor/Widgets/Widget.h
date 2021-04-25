@@ -29,7 +29,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 struct ImGuiWindow;
 class Editor;
-namespace Genome { class Context; class Profiler; }
+namespace Genome 
+{ 
+    class Context;
+    class Profiler;
+}
+
+using namespace Genome;
 
 class Widget
 {
@@ -57,20 +63,20 @@ public:
     void SetVisible(bool is_visible)  { m_is_visible = is_visible; }
 
 protected:
-    bool m_is_window                    = true;
-    bool m_is_visible                   = true;
-    int m_flags                         = ImGuiWindowFlags_NoCollapse;
-    float m_height                      = 0;
-    float m_alpha                       = -1.0f;
-    Genome::Math::Vector2 m_position   = Genome::Math::Vector2(-1.0f);
-    Genome::Math::Vector2 m_size       = Genome::Math::Vector2(-1.0f);
-    Genome::Math::Vector2 m_size_max   = Genome::Math::Vector2(FLT_MAX, FLT_MAX);
-    Genome::Math::Vector2 m_padding    = Genome::Math::Vector2(-1.0f);
-    Editor* m_editor                    = nullptr;
-    Genome::Context* m_context         = nullptr;
-    Genome::Profiler* m_profiler       = nullptr;
-    ImGuiWindow* m_window               = nullptr;
-    std::string m_title                 = "Title";
+    bool m_is_window           = true;
+    bool m_is_visible          = true;
+    int m_flags                = ImGuiWindowFlags_NoCollapse;
+    float m_height             = 0;
+    float m_alpha              = -1.0f;
+    Math::Vector2 m_position   = Math::Vector2(-1.0f);
+    Math::Vector2 m_size       = Math::Vector2(-1.0f);
+    Math::Vector2 m_size_max   = Math::Vector2(FLT_MAX, FLT_MAX);
+    Math::Vector2 m_padding    = Math::Vector2(-1.0f);
+    Editor* m_editor           = nullptr;
+    Context* m_context         = nullptr;
+    Profiler* m_profiler       = nullptr;
+    ImGuiWindow* m_window      = nullptr;
+    std::string m_title        = "Title";
 
 private:
     uint8_t m_var_pushes = 0;

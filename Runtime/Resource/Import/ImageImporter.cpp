@@ -48,9 +48,9 @@ namespace Genome::freeimage_helper
 
         RescaleJob(const uint32_t width, const uint32_t height, const uint32_t channel_count)
         {
-            this->width         = width;
-            this->height        = height;
-            this->channel_count = channel_count;
+            this->width          = width;
+            this->height         = height;
+            this->channel_count  = channel_count;
         }
     };
 
@@ -65,17 +65,22 @@ namespace Genome::freeimage_helper
         const auto type = FreeImage_GetImageType(bitmap);
         uint32_t size = 0;
 
-        if (type == FIT_BITMAP)
-        {
-            size = sizeof(BYTE);
-        }
-        else if (type == FIT_UINT16 || type == FIT_RGB16 || type == FIT_RGBA16)
-        {
-            size = sizeof(WORD);
-        }
-        else if (type == FIT_FLOAT || type == FIT_RGBF || type == FIT_RGBAF)
-        {
-            size = sizeof(float);
+        switch (type) {
+            case FIT_BITMAP:
+            {
+                size = sizeof(BYTE);
+                break;
+            }
+            case FIT_UINT16: case FIT_RGB16: case FIT_RGBA16:
+            {
+                size = sizeof(WORD);
+                break;
+            }
+            case FIT_FLOAT: case FIT_RGBF: case FIT_RGBAF:
+            {
+                size = sizeof(float);
+                break;
+            }
         }
 
         return size;
@@ -99,29 +104,37 @@ namespace Genome::freeimage_helper
     {
         const uint32_t bits_per_channel = bytes_per_channel * 8;
 
-        if (channel_count == 1)
-        {
-            if (bits_per_channel == 8)    return RHI_Format_R8_Unorm;
-        }
-        else if (channel_count == 2)
-        {
-            if (bits_per_channel == 8)    return RHI_Format_R8G8_Unorm;
-        }
-        else if (channel_count == 3)
-        {
-            if (bits_per_channel == 32) return RHI_Format_R32G32B32A32_Float;
-        }
-        else if (channel_count == 4)
-        {
-            if (bits_per_channel == 8)  return RHI_Format_R8G8B8A8_Unorm;
-            if (bits_per_channel == 16) return RHI_Format_R16G16B16A16_Float;
-            if (bits_per_channel == 32) return RHI_Format_R32G32B32A32_Float;
+        switch (channel_count) {
+            case 1:
+            {
+                if (bits_per_channel == 8)       return RHI_Format_R8_Unorm;
+                break;
+            }
+            case 2:
+            {
+                if (bits_per_channel == 8)       return RHI_Format_R8G8_Unorm;
+                break;
+            }
+            case 3:
+            {
+                if (bits_per_channel == 32)      return RHI_Format_R32G32B32A32_Float;
+                break;
+            }
+            case 4:
+            {
+                if      (bits_per_channel == 8)  return RHI_Format_R8G8B8A8_Unorm;
+                else if (bits_per_channel == 16) return RHI_Format_R16G16B16A16_Float;
+                else if (bits_per_channel == 32) return RHI_Format_R32G32B32A32_Float;
+                break;
+            }
         }
 
         LOG_ERROR("Could not deduce format");
         return RHI_Format_Undefined;
     }
 }
+
+using namespace Genome::freeimage_helper;
 
 namespace Genome
 {
@@ -134,8 +147,8 @@ namespace Genome
         // Register error handler
         const auto free_image_error_handler = [](const FREE_IMAGE_FORMAT fif, const char* message)
         {
-            const auto text     = (message != nullptr) ? message : "Unknown error";
-            const auto format   = (fif != FIF_UNKNOWN) ? FreeImage_GetFormatFromFIF(fif) : "Unknown";
+            const auto text    = (message != nullptr) ? message                         : "Unknown error";
+            const auto format  = (fif != FIF_UNKNOWN) ? FreeImage_GetFormatFromFIF(fif) : "Unknown";
             
             LOG_ERROR("%s, Format: %s", text, format);
         };
@@ -165,8 +178,10 @@ namespace Genome
         }
 
         // Acquire image format
-        FREE_IMAGE_FORMAT format    = FreeImage_GetFileType(file_path.c_str(), 0);
-        format                      = (format == FIF_UNKNOWN) ? FreeImage_GetFIFFromFilename(file_path.c_str()) : format;  // If the format is unknown, try to work it out from the file path
+        FREE_IMAGE_FORMAT format = FreeImage_GetFileType(file_path.c_str(), 0);
+
+        // If the format is unknown, try to work it out from the file path
+        format = (format == FIF_UNKNOWN) ? FreeImage_GetFIFFromFilename(file_path.c_str()) : format;
         if (!FreeImage_FIFSupportsReading(format)) // If the format is still unknown, give up
         {
             LOG_ERROR("Unsupported format");
@@ -181,7 +196,8 @@ namespace Genome
             return false;
         }
 
-        // Deduce image properties. Important that this is done here, before ApplyBitmapCorrections(), as after that, results for grayscale seem to be always false
+        // Deduce image properties. Important that this is done here, before ApplyBitmapCorrections(),
+        // as after that, results for grayscale seem to be always false
         const bool image_is_transparent = FreeImage_IsTransparent(bitmap);
         const bool image_is_grayscale   = FreeImage_GetColorType(bitmap) == FIC_MINISBLACK;
 
@@ -194,9 +210,9 @@ namespace Genome
         }
 
         // Deduce image properties
-        const uint32_t image_bytes_per_channel  = freeimage_helper::get_bytes_per_channel(bitmap);
-        const uint32_t image_channel_count      = freeimage_helper::get_channel_count(bitmap);
-        const RHI_Format image_format           = freeimage_helper::get_rhi_format(image_bytes_per_channel, image_channel_count);
+        const uint32_t image_bytes_per_channel  = get_bytes_per_channel(bitmap);
+        const uint32_t image_channel_count      = get_channel_count(bitmap);
+        const RHI_Format image_format           = get_rhi_format(image_bytes_per_channel, image_channel_count);
 
         // Perform any scaling (if necessary)
         const auto user_define_dimensions   = (texture->GetWidth() != 0 && texture->GetHeight() != 0);
@@ -205,8 +221,8 @@ namespace Genome
         bitmap                              = scale ? _FreeImage_Rescale(bitmap, texture->GetWidth(), texture->GetHeight()) : bitmap;
 
         // Deduce image properties
-        const unsigned int image_width    = FreeImage_GetWidth(bitmap);
-        const unsigned int image_height = FreeImage_GetHeight(bitmap);
+        const unsigned int image_width   = FreeImage_GetWidth(bitmap);
+        const unsigned int image_height  = FreeImage_GetHeight(bitmap);
 
         // Fill RGBA vector with the data from the FIBITMAP
         std::vector<std::byte>& mip = texture->AddMip();
@@ -233,7 +249,13 @@ namespace Genome
         return true;
     }
 
-    bool ImageImporter::GetBitsFromFibitmap(vector<std::byte>* data, FIBITMAP* bitmap, const uint32_t width, const uint32_t height, const uint32_t channels) const
+    bool ImageImporter::GetBitsFromFibitmap(
+        vector<std::byte>* data,
+        FIBITMAP* bitmap,
+        const uint32_t width,
+        const uint32_t height,
+        const uint32_t channels
+    ) const
     {
         if (!data || width == 0 || height == 0 || channels == 0)
         {
@@ -242,7 +264,7 @@ namespace Genome
         }
 
         // Compute expected data size and reserve enough memory
-        const size_t size_bytes = width * height * channels * freeimage_helper::get_bytes_per_channel(bitmap);
+        const size_t size_bytes = width * height * channels * get_bytes_per_channel(bitmap);
         if (size_bytes != data->size())
         {
             data->clear();
@@ -257,7 +279,13 @@ namespace Genome
         return true;
     }
 
-    void ImageImporter::GenerateMipmaps(FIBITMAP* bitmap, RHI_Texture* texture, uint32_t width, uint32_t height, uint32_t channels)
+    void ImageImporter::GenerateMipmaps(
+        FIBITMAP* bitmap,
+        RHI_Texture* texture,
+        uint32_t width,
+        uint32_t height,
+        uint32_t channels
+    )
     {
         if (!texture)
         {
@@ -266,7 +294,7 @@ namespace Genome
         }
     
         // Create a RescaleJob for every mip that we need
-        vector<freeimage_helper::RescaleJob> jobs;
+        vector<RescaleJob> jobs;
         while (width > 1 && height > 1)
         {
             width   = Math::Max(width / 2, static_cast<uint32_t>(1));
@@ -293,7 +321,7 @@ namespace Genome
         {
             threading->AddTask([this, &job, &bitmap]()
             {
-                FIBITMAP* bitmap_scaled = FreeImage_Rescale(bitmap, job.width, job.height, freeimage_helper::rescale_filter);
+                FIBITMAP* bitmap_scaled = FreeImage_Rescale(bitmap, job.width, job.height, rescale_filter);
                 if (!GetBitsFromFibitmap(job.data, bitmap_scaled, job.width, job.height, job.channel_count))
                 {
                     LOG_ERROR("Failed to create mip level %dx%d", job.width, job.height);
@@ -352,8 +380,8 @@ namespace Genome
         // Vulkan tells you, your GPU doesn't support it.
         // D3D11 seems to be doing some sort of emulation under the hood while throwing some warnings regarding sampling it.
         // So to prevent that, we maintain the 32 bits and convert to an RGBA format.
-        const uint32_t image_bits_per_channel   = freeimage_helper::get_bytes_per_channel(bitmap) * 8;
-        const uint32_t image_channels           = freeimage_helper::get_channel_count(bitmap);
+        const uint32_t image_bits_per_channel   = get_bytes_per_channel(bitmap) * 8;
+        const uint32_t image_channels           = get_channel_count(bitmap);
         const bool is_r32g32b32_float           = image_channels == 3 && image_bits_per_channel == 32;
         if (is_r32g32b32_float)
         {
@@ -365,7 +393,7 @@ namespace Genome
         // Convert BGR to RGB (if needed)
         if (FreeImage_GetBPP(bitmap) == 32)
         {
-            if (FreeImage_GetRedMask(bitmap) == 0xff0000 && freeimage_helper::get_channel_count(bitmap) >= 2)
+            if (FreeImage_GetRedMask(bitmap) == 0xff0000 && get_channel_count(bitmap) >= 2)
             {
                 if (!SwapRedBlue32(bitmap))
                 {
@@ -388,11 +416,11 @@ namespace Genome
             return nullptr;
         }
 
-        const auto previous_bitmap    = bitmap;
-        bitmap                        = FreeImage_ConvertTo32Bits(previous_bitmap);
+        const auto previous_bitmap  = bitmap;
+        bitmap                      = FreeImage_ConvertTo32Bits(previous_bitmap);
         if (!bitmap)
         {
-            LOG_ERROR("Failed (%d bpp, %d channels).", FreeImage_GetBPP(previous_bitmap), freeimage_helper::get_channel_count(previous_bitmap));
+            LOG_ERROR("Failed (%d bpp, %d channels).", FreeImage_GetBPP(previous_bitmap), get_channel_count(previous_bitmap));
             return nullptr;
         }
 
@@ -408,8 +436,8 @@ namespace Genome
             return nullptr;
         }
 
-        const auto previous_bitmap    = bitmap;
-        bitmap                        = FreeImage_Rescale(previous_bitmap, width, height, freeimage_helper::rescale_filter);
+        const auto previous_bitmap  = bitmap;
+        bitmap                      = FreeImage_Rescale(previous_bitmap, width, height, rescale_filter);
         if (!bitmap)
         {
             LOG_ERROR("Failed");

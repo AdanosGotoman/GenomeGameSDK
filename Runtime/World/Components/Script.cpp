@@ -27,10 +27,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../../Scripting/Scripting.h"
 //====================================
 
-//= NAMESPACES =====
-using namespace std;
-//==================
-
 namespace Genome
 {
     Script::Script(Context* context, Entity* entity, uint32_t id /*= 0*/) : IComponent(context, entity, id)
@@ -69,7 +65,7 @@ namespace Genome
         SetScript(m_file_path);
     }
 
-    bool Script::SetScript(const string& file_path)
+    bool Script::SetScript(const std::string& file_path)
     {
         // Load script
         const uint32_t id = m_scripting->Load(file_path, this);
@@ -80,19 +76,19 @@ namespace Genome
         }
 
         // Initialise
-        m_script_instance   = m_scripting->GetScript(id);
-        m_file_path         = file_path;
-        m_name              = FileSystem::GetFileNameNoExtensionFromFilePath(file_path);
+        m_script_instance  = m_scripting->GetScript(id);
+        m_file_path        = file_path;
+        m_name             = FileSystem::GetFileNameNoExtensionFromFilePath(file_path);
 
         return true;
     }
 
-    string Script::GetScriptPath() const
+    std::string Script::GetScriptPath() const
     {
         return m_file_path;
     }
 
-    string Script::GetName() const
+    std::string Script::GetName() const
     {
         return m_name;
     }

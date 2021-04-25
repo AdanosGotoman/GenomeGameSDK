@@ -100,9 +100,9 @@ namespace Genome
         void SetType(ComponentType type)          { m_type = type; }
 
         template <typename T>
-        std::shared_ptr<T> GetPtrShared() { return std::dynamic_pointer_cast<T>(shared_from_this()); }
+        std::shared_ptr<T> GetPtrShared()         { return std::dynamic_pointer_cast<T>(shared_from_this()); }
 
-        const auto& GetAttributes() const { return m_attributes; }
+        const auto& GetAttributes() const         { return m_attributes; }
         void SetAttributes(const std::vector<Attribute>& attributes)
         { 
             for (uint32_t i = 0; i < static_cast<uint32_t>(m_attributes.size()); i++)
@@ -112,8 +112,8 @@ namespace Genome
         }
 
         // Entity
-        Entity* GetEntity()    const { return m_entity; }
-        std::string GetEntityName() const;
+        Entity* GetEntity()                 const { return m_entity; }
+        std::string GetEntityName()         const;
         //============================================================================================
         
     protected:

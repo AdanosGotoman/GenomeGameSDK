@@ -50,7 +50,7 @@ namespace Genome
         void New();
         bool SaveToFile(const std::string& filePath);
         bool LoadFromFile(const std::string& file_path);
-        const auto& GetName() const { return m_name; }
+        const auto& GetName()                       const { return m_name; }
         void Resolve() { m_resolve = true; }
         bool IsLoading();
 
@@ -61,7 +61,7 @@ namespace Genome
         std::vector<std::shared_ptr<Entity>> EntityGetRoots();
         const std::shared_ptr<Entity>& EntityGetByName(const std::string& name);
         const std::shared_ptr<Entity>& EntityGetById(uint32_t id);
-        const auto& EntityGetAll() const    { return m_entities; }
+        const auto& EntityGetAll()                  const { return m_entities; }
         //======================================================================
 
     private:
@@ -75,10 +75,10 @@ namespace Genome
         //===============================================
 
         std::string m_name;
-        bool m_was_in_editor_mode   = false;
-        bool m_resolve              = true;
-        Input* m_input              = nullptr;
-        Profiler* m_profiler        = nullptr;
+        bool m_was_in_editor_mode  = false;
+        bool m_resolve             = true;
+        Input* m_input             = nullptr;
+        Profiler* m_profiler       = nullptr;
 
         std::vector<std::shared_ptr<Entity>> m_entities;
     };

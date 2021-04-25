@@ -33,7 +33,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //= NAMESPACES ===============
 using namespace Genome::Math;
-using namespace std;
 //============================
 
 namespace Genome
@@ -115,19 +114,19 @@ namespace Genome
     void Camera::SetNearPlane(const float near_plane)
     {
         m_near_plane = Max(0.01f, near_plane);
-        m_is_dirty = true;
+        m_is_dirty   = true;
     }
 
     void Camera::SetFarPlane(const float far_plane)
     {
         m_far_plane = far_plane;
-        m_is_dirty = true;
+        m_is_dirty  = true;
     }
 
     void Camera::SetProjection(const ProjectionType projection)
     {
         m_projection_type = projection;
-        m_is_dirty = true;
+        m_is_dirty        = true;
     }
 
     float Camera::GetFovHorizontalDeg() const
@@ -143,7 +142,7 @@ namespace Genome
     void Camera::SetFovHorizontalDeg(const float fov)
     {
         m_fov_horizontal_rad = DegreesToRadians(fov);
-        m_is_dirty = true;
+        m_is_dirty           = true;
     }
 
     const RHI_Viewport& Camera::GetViewport() const
@@ -165,7 +164,7 @@ namespace Genome
         return m_frustrum.IsVisible(center, extents);
     }
 
-    bool Camera::Pick(const Vector2& mouse_position, shared_ptr<Entity>& picked)
+    bool Camera::Pick(const Vector2& mouse_position, std::shared_ptr<Entity>& picked)
     {
         const RHI_Viewport& viewport            = m_renderer->GetViewport();
         const Vector2& offset                   = m_renderer->GetViewportOffset();
@@ -183,7 +182,7 @@ namespace Genome
         m_ray               = Ray(ray_start, ray_end);
 
         // Traces ray against all AABBs in the world
-        vector<RayHit> hits;
+        std::vector<RayHit> hits;
         {
             const auto& entities = m_context->GetSubsystem<World>()->EntityGetAll();
             for (const auto& entity : entities)
@@ -229,13 +228,13 @@ namespace Genome
         //m_renderer->DrawDebugLine(ray_start, ray_end, Vector4(0, 1, 0, 1), Vector4(0, 1, 0, 1), 5.0f, true);
 
         // If there are more hits, perform triangle intersection
-        float distance_min = numeric_limits<float>::max();
+        float distance_min = std::numeric_limits<float>::max();
         for (RayHit& hit : hits)
         {
             // Get entity geometry
             Renderable* renderable = hit.m_entity->GetRenderable();
-            vector<uint32_t> indicies;
-            vector<RHI_Vertex_PosTexNorTan> vertices;
+            std::vector<uint32_t> indicies;
+            std::vector<RHI_Vertex_PosTexNorTan> vertices;
             renderable->GeometryGet(&indicies, &vertices);
             if (indicies.empty()|| vertices.empty())
             {
@@ -396,7 +395,7 @@ namespace Genome
             {
                 // Compute max speed
                 m_movement_speed_max += m_input->GetMouseWheelDelta() / 2.0f;
-                m_movement_speed_max = Clamp(m_movement_speed_max, m_movement_speed_min, numeric_limits<float>::max());
+                m_movement_speed_max = Clamp(m_movement_speed_max, m_movement_speed_min, std::numeric_limits<float>::max());
 
                 // Compute direction
                 Vector3 direction = Vector3::Zero;

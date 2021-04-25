@@ -34,7 +34,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //= NAMESPACES ===============
 using namespace Genome::Math;
-using namespace std;
 //============================
 
 namespace Genome
@@ -94,7 +93,7 @@ namespace Genome
         // Camera dirty check (needed for directional light cascade computations)
         if (m_light_type == LightType::Directional)
         {
-            if (shared_ptr<Camera> camera = m_renderer->GetCamera())
+            if (std::shared_ptr<Camera> camera = m_renderer->GetCamera())
             {
                 if (m_previous_camera_view != camera->GetViewMatrix())
                 {
@@ -263,12 +262,12 @@ namespace Genome
             const Vector3 position = GetTransform()->GetPosition();
 
             // Compute view for each side of the cube map
-            m_matrix_view[0] = Matrix::CreateLookAtLH(position, position + Vector3::Right,      Vector3::Up);       // x+
-            m_matrix_view[1] = Matrix::CreateLookAtLH(position, position + Vector3::Left,       Vector3::Up);       // x-
-            m_matrix_view[2] = Matrix::CreateLookAtLH(position, position + Vector3::Up,         Vector3::Backward); // y+
-            m_matrix_view[3] = Matrix::CreateLookAtLH(position, position + Vector3::Down,       Vector3::Forward);  // y-
-            m_matrix_view[4] = Matrix::CreateLookAtLH(position, position + Vector3::Forward,    Vector3::Up);       // z+
-            m_matrix_view[5] = Matrix::CreateLookAtLH(position, position + Vector3::Backward,   Vector3::Up);       // z-
+            m_matrix_view[0] = Matrix::CreateLookAtLH(position, position + Vector3::Right,    Vector3::Up);       // x+
+            m_matrix_view[1] = Matrix::CreateLookAtLH(position, position + Vector3::Left,     Vector3::Up);       // x-
+            m_matrix_view[2] = Matrix::CreateLookAtLH(position, position + Vector3::Up,       Vector3::Backward); // y+
+            m_matrix_view[3] = Matrix::CreateLookAtLH(position, position + Vector3::Down,     Vector3::Forward);  // y-
+            m_matrix_view[4] = Matrix::CreateLookAtLH(position, position + Vector3::Forward,  Vector3::Up);       // z+
+            m_matrix_view[5] = Matrix::CreateLookAtLH(position, position + Vector3::Backward, Vector3::Up);       // z-
         }
     }
 
@@ -350,14 +349,14 @@ namespace Genome
         const float max_z         = clip_near + clip_range;
         const float range         = max_z - min_z;
         const float ratio         = max_z / min_z;
-        vector<float> splits(m_cascade_count);
+        std::vector<float> splits(m_cascade_count);
         for (uint32_t i = 0; i < m_cascade_count; i++)
         {
-            const float p           = (i + 1) / static_cast<float>(m_cascade_count);
-            const float log         = min_z * Pow(ratio, p);
-            const float uniform     = min_z + range * p;
-            const float d           = split_lambda * (log - uniform) + uniform;
-            splits[i]               = (d - clip_near) / clip_range;
+            const float p        = (i + 1) / static_cast<float>(m_cascade_count);
+            const float log      = min_z * Pow(ratio, p);
+            const float uniform  = min_z + range * p;
+            const float d        = split_lambda * (log - uniform) + uniform;
+            splits[i]            = (d - clip_near) / clip_range;
         }
 
         for (uint32_t i = 0; i < m_cascade_count; i++)
@@ -460,44 +459,44 @@ namespace Genome
 
         if (GetLightType() == LightType::Directional)
         {
-            m_shadow_map.texture_depth = make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_D32_Float, m_cascade_count);
+            m_shadow_map.texture_depth = std::make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_D32_Float, m_cascade_count);
 
             if (m_shadows_transparent_enabled)
             {
-                m_shadow_map.texture_color = make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_R8G8B8A8_Unorm, m_cascade_count);
+                m_shadow_map.texture_color = std::make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_R8G8B8A8_Unorm, m_cascade_count);
             }
 
-            m_shadow_map.slices = vector<ShadowSlice>(m_cascade_count);
+            m_shadow_map.slices = std::vector<ShadowSlice>(m_cascade_count);
         }
         else if (GetLightType() == LightType::Point)
         {
-            m_shadow_map.texture_depth = make_unique<RHI_TextureCube>(m_context, resolution, resolution, RHI_Format_D32_Float);
+            m_shadow_map.texture_depth = std::make_unique<RHI_TextureCube>(m_context, resolution, resolution, RHI_Format_D32_Float);
 
             if (m_shadows_transparent_enabled)
             {
-                m_shadow_map.texture_color = make_unique<RHI_TextureCube>(m_context, resolution, resolution, RHI_Format_R8G8B8A8_Unorm);
+                m_shadow_map.texture_color = std::make_unique<RHI_TextureCube>(m_context, resolution, resolution, RHI_Format_R8G8B8A8_Unorm);
             }
 
-            m_shadow_map.slices = vector<ShadowSlice>(6);
+            m_shadow_map.slices = std::vector<ShadowSlice>(6);
         }
         else if (GetLightType() == LightType::Spot)
         {
-            m_shadow_map.texture_depth  = make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_D32_Float, 1);
+            m_shadow_map.texture_depth  = std::make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_D32_Float, 1);
 
             if (m_shadows_transparent_enabled)
             {
-                m_shadow_map.texture_color = make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_R8G8B8A8_Unorm, 1);
+                m_shadow_map.texture_color = std::make_unique<RHI_Texture2D>(m_context, resolution, resolution, RHI_Format_R8G8B8A8_Unorm, 1);
             }
 
-            m_shadow_map.slices = vector<ShadowSlice>(1);
+            m_shadow_map.slices = std::vector<ShadowSlice>(1);
         }
     }
 
     bool Light::IsInViewFrustrum(Renderable* renderable, uint32_t index) const
     {
-        const auto box          = renderable->GetAabb();
-        const auto center       = box.GetCenter();
-        const auto extents      = box.GetExtents();
+        const auto box      = renderable->GetAabb();
+        const auto center   = box.GetCenter();
+        const auto extents  = box.GetExtents();
 
         // ensure that potential shadow casters from behind the near plane are not rejected
         const bool ignore_near_plane = (m_light_type == LightType::Directional) ? true : false;

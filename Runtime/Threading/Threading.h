@@ -41,7 +41,7 @@ namespace Genome
 
         Task(function_type&& function)  { m_function = std::forward<function_type>(function); }
         void Execute()                  { m_is_executing = true; m_function(); m_is_executing = false; }
-        bool IsExecuting() const { return m_is_executing; }
+        bool IsExecuting()        const { return m_is_executing; }
 
     private:
         bool m_is_executing = false;
@@ -82,16 +82,16 @@ namespace Genome
         template <typename Function>
         void AddTaskLoop(Function&& function, uint32_t range)
         {
-            uint32_t available_threads      = GetThreadsAvailable();
-            std::vector<bool> tasks_done    = std::vector<bool>(available_threads, false);
-            const uint32_t task_count       = available_threads + 1; // plus one for the current thread
+            uint32_t available_threads    = GetThreadsAvailable();
+            std::vector<bool> tasks_done  = std::vector<bool>(available_threads, false);
+            const uint32_t task_count     = available_threads + 1; // plus one for the current thread
 
             uint32_t start  = 0;
             uint32_t end    = 0;
             for (uint32_t i = 0; i < available_threads; i++)
             {
-                start   = (range / task_count) * i;
-                end     = start + (range / task_count);
+                start  = (range / task_count) * i;
+                end    = start + (range / task_count);
 
                 // Kick off task
                 AddTask([&function, &tasks_done, i, start, end] { function(start, end); tasks_done[i] = true; });

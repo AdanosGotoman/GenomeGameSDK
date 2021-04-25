@@ -28,6 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 class btCollisionShape;
 
+using namespace Genome::Math;
+
 namespace Genome
 {
     class Mesh;
@@ -57,34 +59,34 @@ namespace Genome
         //============================================
 
         // Bounding box
-        const Math::Vector3& GetBoundingBox() const { return m_size; }
-        void SetBoundingBox(const Math::Vector3& boundingBox);
+        const Vector3& GetBoundingBox()             const { return m_size; }
+        void SetBoundingBox(const Vector3& boundingBox);
 
         // Collider center
-        const Math::Vector3& GetCenter() const { return m_center; }
-        void SetCenter(const Math::Vector3& center);
+        const Vector3& GetCenter()                  const { return m_center; }
+        void SetCenter(const Vector3& center);
 
         // Collision shape type
-        ColliderShape GetShapeType() const { return m_shapeType; }
+        ColliderShape GetShapeType()                const { return m_shapeType; }
         void SetShapeType(ColliderShape type);
 
         // Collision shape
-        const auto& GetShape() const { return m_shape; }
+        const auto& GetShape()                      const { return m_shape; }
 
-        bool GetOptimize() const { return m_optimize; }
+        bool GetOptimize()                          const { return m_optimize; }
         void SetOptimize(bool optimize);
 
     private:
         void Shape_Update();
         void Shape_Release();
         void RigidBody_SetShape(btCollisionShape* shape) const;
-        void RigidBody_SetCenterOfMass(const Math::Vector3& center) const;
+        void RigidBody_SetCenterOfMass(const Vector3& center) const;
 
         ColliderShape m_shapeType;
         btCollisionShape* m_shape;
-        Math::Vector3 m_size;
-        Math::Vector3 m_center;
-        uint32_t m_vertexLimit = 100000;
-        bool m_optimize = true;
+        Vector3 m_size;
+        Vector3 m_center;
+        uint32_t m_vertexLimit  = 100000;
+        bool m_optimize         = true;
     };
 }

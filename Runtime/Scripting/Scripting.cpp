@@ -34,9 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma comment(lib, "Winmm.lib")
 //=================================
 
-//= NAMESPACES =====
-using namespace std;
-//==================
+using namespace Genome::ScriptingHelper;
 
 namespace Genome
 {
@@ -53,12 +51,12 @@ namespace Genome
 
     bool Scripting::Initialize()
     {
-        ScriptingHelper::resource_cache = m_context->GetSubsystem<ResourceCache>();
+        resource_cache = m_context->GetSubsystem<ResourceCache>();
 
         // Get file paths
-        const string dir_scripts    = ScriptingHelper::resource_cache->GetResourceDirectory(ResourceDirectory::Scripts) + "\\";
-        const string dir_mono_lib   = dir_scripts + string("mono\\lib");
-        const string dir_mono_etc   = dir_scripts + string("mono\\etc");
+        const std::string dir_scripts    = resource_cache->GetResourceDirectory(ResourceDirectory::Scripts) + "\\";
+        const std::string dir_mono_lib   = dir_scripts + std::string("mono\\lib");
+        const std::string dir_mono_etc   = dir_scripts + std::string("mono\\etc");
 
         // Point mono to the libs and configuration files
         mono_set_dirs(dir_mono_lib.c_str(), dir_mono_etc.c_str());
@@ -96,9 +94,9 @@ namespace Genome
         }
 
         ScriptInstance script;
-        const string class_name = FileSystem::GetFileNameNoExtensionFromFilePath(file_path);
+        const std::string class_name = FileSystem::GetFileNameNoExtensionFromFilePath(file_path);
 
-        script.assembly = ScriptingHelper::compile_and_load_assembly(m_domain, file_path);
+        script.assembly = compile_and_load_assembly(m_domain, file_path);
         if (!script.assembly)
         {
             LOG_ERROR("Failed to load assembly");
@@ -132,8 +130,8 @@ namespace Genome
         }
 
         // Get methods
-        script.method_start     = ScriptingHelper::get_method(script.image, class_name + ":Start()");
-        script.method_update    = ScriptingHelper::get_method(script.image, class_name + ":Update(single)");
+        script.method_start   = get_method(script.image, class_name + ":Start()");
+        script.method_update  = get_method(script.image, class_name + ":Update(single)");
 
         // Set entity handle
         if (!script.SetValue(script_component->GetEntity(), "_internal_entity_handle"))
@@ -212,8 +210,8 @@ namespace Genome
     bool Scripting::CompileApiAssembly()
     {
         // Get callbacks assembly
-        const string api_cs           = ScriptingHelper::resource_cache->GetResourceDirectory(ResourceDirectory::Scripts) + "/" + "Spartan.cs";
-        MonoAssembly* api_assembly    = ScriptingHelper::compile_and_load_assembly(m_domain, api_cs, false);
+        const std::string api_cs    = resource_cache->GetResourceDirectory(ResourceDirectory::Scripts) + "/" + "Spartan.cs";
+        MonoAssembly* api_assembly  = compile_and_load_assembly(m_domain, api_cs, false);
         if (!api_assembly)
         {
             LOG_ERROR("Failed to get api assembly");

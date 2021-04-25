@@ -31,7 +31,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //=======================================
 
 //= NAMESPACES ===============
-using namespace std;
 using namespace Genome::Math;
 //============================
 
@@ -52,7 +51,7 @@ namespace Genome
                 dir_cubemaps + "array/Y+.tga",    // up
                 dir_cubemaps + "array/Y-.tga",    // down
                 dir_cubemaps + "array/Z-.tga",    // back
-                dir_cubemaps + "array/Z+.tga"    // front
+                dir_cubemaps + "array/Z+.tga"     // front
             };
         }
         else if (m_environment_type == Environment_Sphere)
@@ -105,12 +104,12 @@ namespace Genome
         m_is_dirty = true;
     }
 
-    const shared_ptr<RHI_Texture>& Environment::GetTexture() const
+    const std::shared_ptr<RHI_Texture>& Environment::GetTexture() const
     {
         return m_context->GetSubsystem<Renderer>()->GetEnvironmentTexture();
     }
 
-    void Environment::SetTexture(const shared_ptr<RHI_Texture>& texture)
+    void Environment::SetTexture(const std::shared_ptr<RHI_Texture>& texture)
     {
         m_context->GetSubsystem<Renderer>()->SetEnvironmentTexture(texture);
 
@@ -118,7 +117,7 @@ namespace Genome
         m_file_paths = { texture ? texture->GetResourceFilePath() : "" };
     }
 
-    void Environment::SetFromTextureArray(const vector<string>& file_paths)
+    void Environment::SetFromTextureArray(const std::vector<std::string>& file_paths)
     {
         if (file_paths.empty())
             return;
@@ -126,11 +125,11 @@ namespace Genome
         LOG_INFO("Creating sky box...");
 
         // Load all textures (sides)
-        vector<vector<vector<std::byte>>> cubemapData;
+        std::vector<std::vector<std::vector<std::byte>>> cubemapData;
 
         // Load all the cubemap sides
         auto m_generate_mipmaps = false;
-        auto loaderTex = make_shared<RHI_Texture2D>(GetContext(), m_generate_mipmaps);
+        auto loaderTex = std::make_shared<RHI_Texture2D>(GetContext(), m_generate_mipmaps);
         {
             loaderTex->LoadFromFile(file_paths[0]);
             cubemapData.emplace_back(loaderTex->GetMips());
@@ -152,19 +151,19 @@ namespace Genome
         }
 
         // Texture
-        auto texture = make_shared<RHI_TextureCube>(GetContext(), loaderTex->GetWidth(), loaderTex->GetHeight(), loaderTex->GetFormat(), cubemapData);
+        auto texture = std::make_shared<RHI_TextureCube>(GetContext(), loaderTex->GetWidth(), loaderTex->GetHeight(), loaderTex->GetFormat(), cubemapData);
         texture->SetResourceFilePath(m_context->GetSubsystem<ResourceCache>()->GetProjectDirectory() + "environment" + EXTENSION_TEXTURE);
         texture->SetWidth(loaderTex->GetWidth());
         texture->SetHeight(loaderTex->GetHeight());
         texture->SetGrayscale(false);
 
         // Apply sky sphere to renderer
-        SetTexture(static_pointer_cast<RHI_Texture>(texture));
+        SetTexture(std::static_pointer_cast<RHI_Texture>(texture));
 
         LOG_INFO("Sky box has been created successfully");
     }
 
-    void Environment::SetFromTextureSphere(const string& file_path)
+    void Environment::SetFromTextureSphere(const std::string& file_path)
     {
         LOG_INFO("Creating sky sphere...");
 
@@ -172,11 +171,11 @@ namespace Genome
         auto generate_mipmaps = true;
 
         // Skysphere
-        auto texture = make_shared<RHI_Texture2D>(GetContext(), generate_mipmaps);
+        auto texture = std::make_shared<RHI_Texture2D>(GetContext(), generate_mipmaps);
         if (texture->LoadFromFile(file_path))
         {
             // Set sky sphere to renderer
-            SetTexture(static_pointer_cast<RHI_Texture>(texture));
+            SetTexture(std::static_pointer_cast<RHI_Texture>(texture));
             LOG_INFO("Sky sphere has been created successfully");
         }
         else

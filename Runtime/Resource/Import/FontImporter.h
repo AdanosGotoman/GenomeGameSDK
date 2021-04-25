@@ -45,7 +45,7 @@ namespace Genome
         bool LoadFromFile(Font* font, const std::string& file_path);
 
     private:
-        Context* m_context           = nullptr;
+        Context* m_context          = nullptr;
         FT_LibraryRec_* m_library   = nullptr;
         FT_StrokerRec_* m_stroker   = nullptr;
     };
