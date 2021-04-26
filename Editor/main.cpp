@@ -30,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Editor editor;
 
     // Create window
-    Window::Create(hInstance, "Genome " + std::string(sp_version));
+    Window::Create(hInstance, "Genome " + std::string(ge_version));
     Window::Show();
 
     // Hook it up with the editor

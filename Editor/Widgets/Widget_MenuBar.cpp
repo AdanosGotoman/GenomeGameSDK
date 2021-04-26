@@ -157,7 +157,7 @@ void Widget_MenuBar::ShowAboutWindow() const
     ImGui::SetNextWindowFocus();
     ImGui::Begin("About", &_Widget_MenuBar::g_showAboutWindow, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking);
 
-    ImGui::Text("Genome %s", sp_version);
+    ImGui::Text("Genome %s", ge_version);
     ImGui::Text("Author: Adanos Gotoman & yaroslav");
     ImGui::SameLine(ImGui::GetWindowContentRegionWidth());
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 55);

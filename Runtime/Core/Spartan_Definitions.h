@@ -1,7 +1,7 @@
 #pragma once
 
 // Version
-#define sp_version "v0.33 WIP"
+#define ge_version "v0.35 WIP"
 
 // Class
 #define GENOME_CLASS
