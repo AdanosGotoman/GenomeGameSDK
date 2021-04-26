@@ -35,7 +35,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //= NAMESPACES =========
 using namespace std;
 using namespace Genome;
-using namespace Math;
+using namespace Genome::Math;
 //======================
 
 Widget_Toolbar::Widget_Toolbar(Editor* editor) : Widget(editor)

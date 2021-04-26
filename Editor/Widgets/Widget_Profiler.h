@@ -29,14 +29,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <array>
 //=============================
 
+using namespace Genome;
+
 struct Timings
 {
     Timings() { Clear(); }
 
     void AddSample(const float sample)
     {
-        m_min = Genome::Math::Min(m_min, sample);
-        m_max = Genome::Math::Max(m_max, sample);
+        m_min = Math::Min(m_min, sample);
+        m_max = Math::Max(m_max, sample);
         m_sum += sample;
         m_sample_count++;
         m_avg = float(m_sum / static_cast<float>(m_sample_count));
@@ -70,6 +72,6 @@ public:
 private:
     std::array<float, 400> m_plot;
     Timings m_timings;
-    Genome::Profiler* m_profiler;
+    Profiler* m_profiler;
     int m_item_type = 1;
 };

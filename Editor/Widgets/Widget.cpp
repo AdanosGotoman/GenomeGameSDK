@@ -35,30 +35,15 @@ Widget::Widget(Editor* editor)
     m_window    = nullptr;
 }
 
-void Widget::TickAlways()
-{
+void Widget::TickAlways() { }
 
-}
+void Widget::TickVisible() { }
 
-void Widget::TickVisible()
-{
+void Widget::OnShow() { }
 
-}
+void Widget::OnHide() { }
 
-void Widget::OnShow()
-{
-
-}
-
-void Widget::OnHide()
-{
-
-}
-
-void Widget::OnPushStyleVar()
-{
-
-}
+void Widget::OnPushStyleVar() { }
 
 void Widget::Tick()
 {

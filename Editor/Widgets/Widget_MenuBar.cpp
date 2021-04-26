@@ -71,6 +71,7 @@ void Widget_MenuBar::TickAlways()
 
             ImGui::Separator();
 
+            // Why are these the same?
             if (ImGui::MenuItem("Save"))
             {
                 m_file_dialog->SetOperation(FileDialog_Op_Save);

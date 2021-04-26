@@ -36,8 +36,10 @@ struct LogPackage
     unsigned int error_level = 0;
 };
 
+using namespace Genome;
+
 // Implementation of Genome::ILogger so the engine can log into the editor
-class EngineLogger : public Genome::ILogger
+class EngineLogger : public ILogger
 {
 public:
     typedef std::function<void(LogPackage)> log_func;
@@ -72,11 +74,11 @@ private:
     uint32_t m_log_max_count        = 1000;
     bool m_log_type_visibility[3]   = { true, true, true };
     uint32_t m_log_type_count[3]    = { 0, 0, 0 };
-    const std::vector<Genome::Math::Vector4> m_log_type_color =
+    const std::vector<Math::Vector4> m_log_type_color =
     {
-        Genome::Math::Vector4(0.76f, 0.77f, 0.8f, 1.0f),    // Info
-        Genome::Math::Vector4(0.7f, 0.75f, 0.0f, 1.0f),    // Warning
-        Genome::Math::Vector4(0.7f, 0.3f, 0.3f, 1.0f)        // Error
+        Math::Vector4(0.76f, 0.77f, 0.8f, 1.0f),  // Info
+        Math::Vector4(0.7f, 0.75f, 0.0f, 1.0f),   // Warning
+        Math::Vector4(0.7f, 0.3f, 0.3f, 1.0f)     // Error
     };
     std::atomic<bool> m_is_reading = false;
     std::shared_ptr<EngineLogger> m_logger;
