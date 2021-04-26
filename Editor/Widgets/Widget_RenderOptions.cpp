@@ -1,24 +1,3 @@
-/*
-Copyright(c) 2016-2021 Panos Karabelas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-copies of the Software, and to permit persons to whom the Software is furnished
-to do so, subject to the following conditions :
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 //= INCLUDES ====================
 #include "Widget_RenderOptions.h"
 #include "Rendering/Renderer.h"
@@ -39,11 +18,11 @@ using namespace Genome::Math;
 
 Widget_RenderOptions::Widget_RenderOptions(Editor* editor) : Widget(editor)
 {
-    m_title         = "Renderer Options";
-    m_flags         |= ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoScrollbar;
-    m_is_visible    = false;
-    m_renderer      = m_context->GetSubsystem<Renderer>();
-    m_alpha         = 1.0f;
+    m_title = "Renderer Options";
+    m_flags |= ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoScrollbar;
+    m_is_visible = false;
+    m_renderer = m_context->GetSubsystem<Renderer>();
+    m_alpha = 1.0f;
 }
 
 void Widget_RenderOptions::TickVisible()
@@ -53,22 +32,23 @@ void Widget_RenderOptions::TickVisible()
     if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_DefaultOpen))
     {
         // Reflect
-        bool do_bloom                   = m_renderer->GetOption(Render_Bloom);
-        bool do_dof                     = m_renderer->GetOption(Render_DepthOfField);
-        bool do_volumetric_fog          = m_renderer->GetOption(Render_VolumetricFog);
-        bool do_ssao                    = m_renderer->GetOption(Render_Ssao);
-        bool do_sss                     = m_renderer->GetOption(Render_ScreenSpaceShadows);
-        bool do_ssr                     = m_renderer->GetOption(Render_ScreenSpaceReflections);
-        bool do_taa                     = m_renderer->GetOption(Render_AntiAliasing_Taa);
-        bool do_fxaa                    = m_renderer->GetOption(Render_AntiAliasing_Fxaa);
-        bool do_motion_blur             = m_renderer->GetOption(Render_MotionBlur);
-        bool do_film_grain              = m_renderer->GetOption(Render_FilmGrain);
-        bool do_sharperning             = m_renderer->GetOption(Render_Sharpening_LumaSharpen);
-        bool do_chromatic_aberration    = m_renderer->GetOption(Render_ChromaticAberration);
-        bool do_dithering               = m_renderer->GetOption(Render_Dithering);
-        bool do_ssgi                    = m_renderer->GetOption(Render_Ssgi);
-        int resolution_shadow           = m_renderer->GetOptionValue<int>(Renderer_Option_Value::ShadowResolution);
-        float fog_density               = m_renderer->GetOptionValue<float>(Renderer_Option_Value::Fog);
+        bool do_bloom = m_renderer->GetOption(Render_Bloom);
+        bool do_dof = m_renderer->GetOption(Render_DepthOfField);
+        bool do_volumetric_fog = m_renderer->GetOption(Render_VolumetricFog);
+        bool do_ssao = m_renderer->GetOption(Render_Ssao);
+        bool do_sss = m_renderer->GetOption(Render_ScreenSpaceShadows);
+        bool do_ssr = m_renderer->GetOption(Render_ScreenSpaceReflections);
+        bool do_taa = m_renderer->GetOption(Render_AntiAliasing_Taa);
+        bool do_fxaa = m_renderer->GetOption(Render_AntiAliasing_Fxaa);
+        bool do_motion_blur = m_renderer->GetOption(Render_MotionBlur);
+        bool do_film_grain = m_renderer->GetOption(Render_FilmGrain);
+        bool do_sharperning = m_renderer->GetOption(Render_Sharpening_LumaSharpen);
+        bool do_chromatic_aberration = m_renderer->GetOption(Render_ChromaticAberration);
+        bool do_dithering = m_renderer->GetOption(Render_Dithering);
+        bool do_ssgi = m_renderer->GetOption(Render_Ssgi);
+        int resolution_shadow = m_renderer->GetOptionValue<int>(Renderer_Option_Value::ShadowResolution);
+        float fog_density = m_renderer->GetOptionValue<float>(Renderer_Option_Value::Fog);
+        bool do_taa_upsample = m_renderer->GetOptionValue<bool>(Renderer_Option_Value::Taa_Upsample);
 
         // Show
         {
@@ -97,77 +77,68 @@ void Widget_RenderOptions::TickVisible()
 
             // Resolution
             {
-                const auto display_mode_to_str = [](const DisplayMode& display_mode)
-                {
-                    return to_string(display_mode.width) + "x" + to_string(display_mode.height);
-                };
-
-                static vector<DisplayMode> display_modes;
-                static uint32_t display_mode_index      = 0;
-                const DisplayMode& display_mode_active  = Display::GetActiveDisplayMode();
-                string display_mode_str                 = display_mode_to_str(display_mode_active);
-                double display_mode_rhz                 = display_mode_active.hz;
-
                 // Get display modes
+                static vector<DisplayMode> display_modes;
+                static vector<string> display_modes_string;
+                const DisplayMode& display_mode_active = Display::GetActiveDisplayMode();
                 if (display_modes.empty())
                 {
                     for (const DisplayMode& display_mode : Display::GetDisplayModes())
                     {
-                        if (display_mode.hz == display_mode_rhz)
+                        if (display_mode.hz == display_mode_active.hz)
                         {
                             display_modes.emplace_back(display_mode);
+                            display_modes_string.emplace_back(to_string(display_mode.width) + "x" + to_string(display_mode.height));
                         }
                     }
                 }
-                
-                if (ImGui::BeginCombo("Resolution", display_mode_str.c_str()))
+
+                auto get_display_mode_index = [](const Vector2& resolution)
                 {
+                    uint32_t index = 0;
+
                     for (uint32_t i = 0; i < static_cast<uint32_t>(display_modes.size()); i++)
                     {
-                        const bool entry_selected   = display_mode_index == i;
-                        const string entry_str      = display_mode_to_str(display_modes[i]);
+                        const DisplayMode& display_mode = display_modes[i];
 
-                        if (ImGui::Selectable(entry_str.c_str(), entry_selected))
+                        if (display_mode.width == resolution.x && display_mode.height == resolution.y)
                         {
-                            display_mode_index  = i;
-                            display_mode_str    = entry_str;
-
-                            m_renderer->SetResolution(display_modes[i].width, display_modes[i].height);
-                        }
-
-                        if (entry_selected)
-                        {
-                            ImGui::SetItemDefaultFocus();
+                            index = i;
+                            break;
                         }
                     }
-                    ImGui::EndCombo();
+
+                    return index;
+                };
+
+                // Output resolution
+                Vector2 resolution_output = m_renderer->GetResolutionOutput();
+                uint32_t output_index = get_display_mode_index(resolution_output);
+                if (ImGuiEx::ComboBox("Output resolution", display_modes_string, &output_index))
+                {
+                    m_renderer->SetResolutionOutput(display_modes[output_index].width, display_modes[output_index].height);
                 }
+
+                // Render resolution
+                Vector2 resolution_render = m_renderer->GetResolutionRender();
+                uint32_t render_index = get_display_mode_index(resolution_render);
+                if (ImGuiEx::ComboBox("Render resolution", display_modes_string, &render_index))
+                {
+                    m_renderer->SetResolutionRender(display_modes[render_index].width, display_modes[render_index].height);
+                }
+
                 ImGui::Separator();
             }
 
-            // Tonemapping
+            // Tonemapping & Gamma
             {
-                // Reflect from engine
-                static array<string, 4> tonemapping_options = { "Off", "ACES", "Reinhard", "Uncharted 2" };
-                static string tonemapping_selection         = tonemapping_options[m_renderer->GetOptionValue<uint32_t>(Renderer_Option_Value::Tonemapping)];
-
-                if (ImGui::BeginCombo("Tonemapping", tonemapping_selection.c_str()))
+                static vector<string> tonemapping_options = { "Off", "ACES", "Reinhard", "Uncharted 2" };
+                uint32_t selection_index = m_renderer->GetOptionValue<uint32_t>(Renderer_Option_Value::Tonemapping);
+                if (ImGuiEx::ComboBox("Tonemapping", tonemapping_options, &selection_index))
                 {
-                    for (uint32_t i = 0; i < static_cast<uint32_t>(tonemapping_options.size()); i++)
-                    {
-                        const auto is_selected = (tonemapping_selection == tonemapping_options[i]);
-                        if (ImGui::Selectable(tonemapping_options[i].c_str(), is_selected))
-                        {
-                            tonemapping_selection = tonemapping_options[i];
-                            m_renderer->SetOptionValue(Renderer_Option_Value::Tonemapping, static_cast<float>(i));
-                        }
-                        if (is_selected)
-                        {
-                            ImGui::SetItemDefaultFocus();
-                        }
-                    }
-                    ImGui::EndCombo();
+                    m_renderer->SetOptionValue(Renderer_Option_Value::Tonemapping, static_cast<float>(selection_index));
                 }
+
                 ImGui::SameLine(); render_option_float("##tonemapping_option_1", "Gamma", Renderer_Option_Value::Gamma);
                 ImGui::Separator();
             }
@@ -219,6 +190,9 @@ void Widget_RenderOptions::TickVisible()
             // Temporal anti-aliasing
             ImGui::Checkbox("TAA - Temporal Anti-Aliasing", &do_taa);
             ImGuiEx::Tooltip("Used to improve many stochastic effects, you want this to always be enabled.");
+            //ImGui::SameLine();
+            //ImGui::Checkbox("Upsample", &do_taa_upsample);
+            //ImGuiEx::Tooltip("If the output resolution is bigger than the render resolution, TAA will be used to reconstruct the image.");
             ImGui::Separator();
 
             // FXAA
@@ -254,125 +228,97 @@ void Widget_RenderOptions::TickVisible()
         }
 
         // Map
-        m_renderer->SetOption(Render_Bloom,                                 do_bloom);
-        m_renderer->SetOption(Render_DepthOfField,                          do_dof);
-        m_renderer->SetOption(Render_VolumetricFog,                         do_volumetric_fog);
-        m_renderer->SetOption(Render_Ssao,                                  do_ssao);
-        m_renderer->SetOption(Render_ScreenSpaceShadows,                    do_sss);
-        m_renderer->SetOption(Render_ScreenSpaceReflections,                do_ssr);
-        m_renderer->SetOption(Render_Ssgi,                                  do_ssgi);
-        m_renderer->SetOption(Render_AntiAliasing_Taa,                      do_taa);
-        m_renderer->SetOption(Render_AntiAliasing_Fxaa,                     do_fxaa);
-        m_renderer->SetOption(Render_MotionBlur,                            do_motion_blur);
-        m_renderer->SetOption(Render_FilmGrain,                             do_film_grain);
-        m_renderer->SetOption(Render_Sharpening_LumaSharpen,                do_sharperning);
-        m_renderer->SetOption(Render_ChromaticAberration,                   do_chromatic_aberration);
-        m_renderer->SetOption(Render_Dithering,                             do_dithering);
+        m_renderer->SetOption(Render_Bloom, do_bloom);
+        m_renderer->SetOption(Render_DepthOfField, do_dof);
+        m_renderer->SetOption(Render_VolumetricFog, do_volumetric_fog);
+        m_renderer->SetOption(Render_Ssao, do_ssao);
+        m_renderer->SetOption(Render_ScreenSpaceShadows, do_sss);
+        m_renderer->SetOption(Render_ScreenSpaceReflections, do_ssr);
+        m_renderer->SetOption(Render_Ssgi, do_ssgi);
+        m_renderer->SetOption(Render_AntiAliasing_Taa, do_taa);
+        m_renderer->SetOption(Render_AntiAliasing_Fxaa, do_fxaa);
+        m_renderer->SetOption(Render_MotionBlur, do_motion_blur);
+        m_renderer->SetOption(Render_FilmGrain, do_film_grain);
+        m_renderer->SetOption(Render_Sharpening_LumaSharpen, do_sharperning);
+        m_renderer->SetOption(Render_ChromaticAberration, do_chromatic_aberration);
+        m_renderer->SetOption(Render_Dithering, do_dithering);
         m_renderer->SetOptionValue(Renderer_Option_Value::ShadowResolution, static_cast<float>(resolution_shadow));
-        m_renderer->SetOptionValue(Renderer_Option_Value::Fog,              fog_density);
+        m_renderer->SetOptionValue(Renderer_Option_Value::Fog, fog_density);
+        m_renderer->SetOptionValue(Renderer_Option_Value::Taa_Upsample, static_cast<float>(do_taa_upsample));
     }
 
     if (ImGui::CollapsingHeader("Widgets", ImGuiTreeNodeFlags_None))
     {
-        bool debug_physics               = m_renderer->GetOption(Render_Debug_Physics);
-        bool debug_aabb                  = m_renderer->GetOption(Render_Debug_Aabb);
-        bool debug_light                 = m_renderer->GetOption(Render_Debug_Lights);
-        bool debug_transform             = m_renderer->GetOption(Render_Debug_Transform);
-        bool debug_selection_outline     = m_renderer->GetOption(Render_Debug_SelectionOutline);
-        bool debug_picking_ray           = m_renderer->GetOption(Render_Debug_PickingRay);
-        bool debug_grid                  = m_renderer->GetOption(Render_Debug_Grid);
-        bool debug_performance_metrics   = m_renderer->GetOption(Render_Debug_PerformanceMetrics);
-        bool debug_wireframe             = m_renderer->GetOption(Render_Debug_Wireframe);
-        
+        bool debug_physics = m_renderer->GetOption(Render_Debug_Physics);
+        bool debug_aabb = m_renderer->GetOption(Render_Debug_Aabb);
+        bool debug_light = m_renderer->GetOption(Render_Debug_Lights);
+        bool debug_transform = m_renderer->GetOption(Render_Debug_Transform);
+        bool debug_selection_outline = m_renderer->GetOption(Render_Debug_SelectionOutline);
+        bool debug_picking_ray = m_renderer->GetOption(Render_Debug_PickingRay);
+        bool debug_grid = m_renderer->GetOption(Render_Debug_Grid);
+        bool debug_performance_metrics = m_renderer->GetOption(Render_Debug_PerformanceMetrics);
+        bool debug_wireframe = m_renderer->GetOption(Render_Debug_Wireframe);
+
         ImGui::Checkbox("Transform", &debug_transform);
         {
             ImGui::SameLine(); ImGui::InputFloat("Size", &m_renderer->m_gizmo_transform_size, 0.0025f);
             ImGui::SameLine(); ImGui::InputFloat("Speed", &m_renderer->m_gizmo_transform_speed, 1.0f);
         }
-        ImGui::Checkbox("Selection Outline",    &debug_selection_outline);
-        ImGui::Checkbox("Physics",              &debug_physics);
-        ImGui::Checkbox("AABB",                 &debug_aabb);
-        ImGui::Checkbox("Lights",               &debug_light);
-        ImGui::Checkbox("Picking Ray",          &debug_picking_ray);
-        ImGui::Checkbox("Grid",                 &debug_grid);
-        ImGui::Checkbox("Performance Metrics",  &debug_performance_metrics);
-        ImGui::Checkbox("Wireframe",            &debug_wireframe);
-        
+        ImGui::Checkbox("Selection Outline", &debug_selection_outline);
+        ImGui::Checkbox("Physics", &debug_physics);
+        ImGui::Checkbox("AABB", &debug_aabb);
+        ImGui::Checkbox("Lights", &debug_light);
+        ImGui::Checkbox("Picking Ray", &debug_picking_ray);
+        ImGui::Checkbox("Grid", &debug_grid);
+        ImGui::Checkbox("Performance Metrics", &debug_performance_metrics);
+        ImGui::Checkbox("Wireframe", &debug_wireframe);
+
         // Reset metrics on activation
         if (debug_performance_metrics && !m_renderer->GetOption(Render_Debug_PerformanceMetrics))
         {
             m_profiler->ResetMetrics();
         }
-        
-        m_renderer->SetOption(Render_Debug_Transform,           debug_transform);
-        m_renderer->SetOption(Render_Debug_SelectionOutline,    debug_selection_outline);
-        m_renderer->SetOption(Render_Debug_Physics,             debug_physics);
-        m_renderer->SetOption(Render_Debug_Aabb,                debug_aabb);
-        m_renderer->SetOption(Render_Debug_Lights,              debug_light);
-        m_renderer->SetOption(Render_Debug_PickingRay,          debug_picking_ray);
-        m_renderer->SetOption(Render_Debug_Grid,                debug_grid);
-        m_renderer->SetOption(Render_Debug_PerformanceMetrics,  debug_performance_metrics);
-        m_renderer->SetOption(Render_Debug_Wireframe,           debug_wireframe);
+
+        m_renderer->SetOption(Render_Debug_Transform, debug_transform);
+        m_renderer->SetOption(Render_Debug_SelectionOutline, debug_selection_outline);
+        m_renderer->SetOption(Render_Debug_Physics, debug_physics);
+        m_renderer->SetOption(Render_Debug_Aabb, debug_aabb);
+        m_renderer->SetOption(Render_Debug_Lights, debug_light);
+        m_renderer->SetOption(Render_Debug_PickingRay, debug_picking_ray);
+        m_renderer->SetOption(Render_Debug_Grid, debug_grid);
+        m_renderer->SetOption(Render_Debug_PerformanceMetrics, debug_performance_metrics);
+        m_renderer->SetOption(Render_Debug_Wireframe, debug_wireframe);
     }
 
     if (ImGui::CollapsingHeader("Debug", ImGuiTreeNodeFlags_None))
     {
         // Reflect from engine
-        auto do_depth_prepass   = m_renderer->GetOption(Render_DepthPrepass);
-        auto do_reverse_z       = m_renderer->GetOption(Render_ReverseZ);
+        bool do_depth_prepass = m_renderer->GetOption(Render_DepthPrepass);
+        bool do_reverse_z = m_renderer->GetOption(Render_ReverseZ);
 
         {
-            // Buffer
+            // Render target
             {
-                static array<string, 24> render_target_debug =
+                // Get render targets
+                static vector<string> render_target_options;
+                if (render_target_options.empty())
                 {
-                    "None",
-                    "Gbuffer_Albedo",
-                    "Gbuffer_Normal",
-                    "Gbuffer_Material",
-                    "Gbuffer_Velocity",
-                    "Gbuffer_Depth",
-                    "Brdf_Prefiltered_Environment",
-                    "Brdf_Specular_Lut",
-                    "Light_Diffuse",
-                    "Light_Diffuse_Transparent",
-                    "Light_Specular",
-                    "Light_Specular_Transparent",
-                    "Light_Volumetric",
-                    "Frame_Hdr",
-                    "Frame_Hdr_2",
-                    "Frame_Ldr",
-                    "Frame_Ldr_2",
-                    "Dof_Half",
-                    "Dof_Half_2",
-                    "Bloom",
-                    "Ssao_Noisy",
-                    "Ssao",
-                    "Ssgi",
-                    "Ssr"
-                };
-                static int selection_int = 0;
-                static string selection_str = render_target_debug[0];
-
-                if (ImGui::BeginCombo("Render Target", selection_str.c_str()))
-                {
-                    for (auto i = 0; i < render_target_debug.size(); i++)
+                    render_target_options.emplace_back("None");
+                    for (const shared_ptr<RHI_Texture>& render_target : m_renderer->GetRenderTargets())
                     {
-                        const auto is_selected = (selection_str == render_target_debug[i]);
-                        if (ImGui::Selectable(render_target_debug[i].c_str(), is_selected))
+                        if (render_target)
                         {
-                            selection_str = render_target_debug[i];
-                            selection_int = i;
-                        }
-                        if (is_selected)
-                        {
-                            ImGui::SetItemDefaultFocus();
+                            render_target_options.emplace_back(render_target->GetName());
                         }
                     }
-                    ImGui::EndCombo();
                 }
 
-                m_renderer->SetRenderTargetDebug(static_cast<RendererRt>(selection_int));
+                // Combo box
+                uint32_t selection_index = static_cast<uint32_t>(m_renderer->GetRenderTargetDebug());
+                if (ImGuiEx::ComboBox("Render Target", render_target_options, &selection_index))
+                {
+                    m_renderer->SetRenderTargetDebug(static_cast<RendererRt>(selection_index));
+                }
             }
             ImGui::Separator();
 

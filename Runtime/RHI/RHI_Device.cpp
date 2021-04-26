@@ -1,25 +1,3 @@
-/*
-Copyright(c) 2016-2021 Panos Karabelas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-copies of the Software, and to permit persons to whom the Software is furnished
-to do so, subject to the following conditions :
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-//= INCLUDES ==================
 #include "Spartan.h"
 #include "RHI_Device.h"
 #include "RHI_Implementation.h"
@@ -38,9 +16,9 @@ namespace Genome
 
         // Keep devices sorted, based on memory (from highest to lowest)
         sort(m_physical_devices.begin(), m_physical_devices.end(), [](const PhysicalDevice& adapter1, const PhysicalDevice& adapter2)
-        {
-            return adapter1.GetMemory() > adapter2.GetMemory();
-        });
+            {
+                return adapter1.GetMemory() > adapter2.GetMemory();
+            });
 
         LOG_INFO("%s (%d MB)", physical_device.GetName().c_str(), physical_device.GetMemory());
     }
@@ -63,13 +41,10 @@ namespace Genome
         }
     }
 
-    bool RHI_Device::ValidateResolution(const uint32_t width, const uint32_t height) const
+    bool RHI_Device::IsValidResolution(const uint32_t width, const uint32_t height)
     {
-        if (!m_rhi_context)
-            return false;
-
-        return  width  > 0 && width  <= RHI_Context::texture_2d_dimension_max &&
-                height > 0 && height <= RHI_Context::texture_2d_dimension_max;
+        return  width > 4 && width <= RHI_Context::texture_2d_dimension_max &&
+            height > 4 && height <= RHI_Context::texture_2d_dimension_max;
     }
 
     bool RHI_Device::Queue_WaitAll() const

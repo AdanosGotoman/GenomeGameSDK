@@ -1,24 +1,3 @@
-/*
-Copyright(c) 2016-2021 Panos Karabelas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-copies of the Software, and to permit persons to whom the Software is furnished
-to do so, subject to the following conditions :
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 #pragma once
 
 //= INCLUDES ============================
@@ -51,12 +30,12 @@ public:
 
     void Initialize(Genome::Context* context)
     {
-        g_context           = context;
-        g_resource_cache    = context->GetSubsystem<Genome::ResourceCache>();
-        g_world             = context->GetSubsystem<Genome::World>();
-        g_threading         = context->GetSubsystem<Genome::Threading>();
-        g_renderer          = context->GetSubsystem<Genome::Renderer>();
-        g_input             = context->GetSubsystem<Genome::Input>();
+        g_context = context;
+        g_resource_cache = context->GetSubsystem<Genome::ResourceCache>();
+        g_world = context->GetSubsystem<Genome::World>();
+        g_threading = context->GetSubsystem<Genome::Threading>();
+        g_renderer = context->GetSubsystem<Genome::Renderer>();
+        g_input = context->GetSubsystem<Genome::Input>();
     }
 
     void LoadModel(const std::string& file_path) const
@@ -65,9 +44,9 @@ public:
 
         // Load the model asynchronously
         g_threading->AddTask([resource_cache, file_path]()
-        {
-            resource_cache->Load<Genome::Model>(file_path);
-        });
+            {
+                resource_cache->Load<Genome::Model>(file_path);
+            });
     }
 
     void LoadWorld(const std::string& file_path) const
@@ -79,9 +58,9 @@ public:
 
         // Load the scene asynchronously
         g_threading->AddTask([world, file_path]()
-        {
-            world->LoadFromFile(file_path);
-        });
+            {
+                world->LoadFromFile(file_path);
+            });
     }
 
     void SaveWorld(const std::string& file_path) const
@@ -90,9 +69,9 @@ public:
 
         // Save the scene asynchronously
         g_threading->AddTask([world, file_path]()
-        {
-            world->SaveToFile(file_path);
-        });
+            {
+                world->SaveToFile(file_path);
+            });
     }
 
     void PickEntity()
@@ -119,14 +98,14 @@ public:
         g_selected_entity = g_renderer->SnapTransformGizmoTo(entity);
     }
 
-    Genome::Context*               g_context               = nullptr;
-    Genome::ResourceCache*         g_resource_cache        = nullptr;
-    Genome::World*                 g_world                 = nullptr;
-    Genome::Threading*             g_threading             = nullptr;
-    Genome::Renderer*              g_renderer              = nullptr;
-    Genome::Input*                 g_input                 = nullptr;
+    Genome::Context* g_context = nullptr;
+    Genome::ResourceCache* g_resource_cache = nullptr;
+    Genome::World* g_world = nullptr;
+    Genome::Threading* g_threading = nullptr;
+    Genome::Renderer* g_renderer = nullptr;
+    Genome::Input* g_input = nullptr;
     std::weak_ptr<Genome::Entity>  g_selected_entity;
-    std::function<void()>           g_on_entity_selected    = nullptr;
+    std::function<void()>           g_on_entity_selected = nullptr;
 };
 
 namespace ImGuiEx
@@ -271,15 +250,15 @@ namespace ImGuiEx
     // Image slot
     inline void ImageSlot(const std::shared_ptr<Genome::RHI_Texture>& image, const std::function<void(const std::shared_ptr<Genome::RHI_Texture>&)>& setter)
     {
-        const ImVec2 slot_size  = ImVec2(80, 80);
+        const ImVec2 slot_size = ImVec2(80, 80);
         const float button_size = 15.0f;
 
         // Image
         ImGui::BeginGroup();
         {
-            Genome::RHI_Texture* texture   = image.get();
-            const ImVec2 pos_image          = ImGui::GetCursorPos();
-            const ImVec2 pos_button         = ImVec2(ImGui::GetCursorPosX() + slot_size.x - button_size * 2.0f + 6.0f, ImGui::GetCursorPosY() + 1.0f);
+            Genome::RHI_Texture* texture = image.get();
+            const ImVec2 pos_image = ImGui::GetCursorPos();
+            const ImVec2 pos_button = ImVec2(ImGui::GetCursorPosX() + slot_size.x - button_size * 2.0f + 6.0f, ImGui::GetCursorPosY() + 1.0f);
 
             // Remove button
             if (image != nullptr)
@@ -347,15 +326,15 @@ namespace ImGuiEx
 
         if (ImGui::IsItemEdited() && ImGui::IsMouseDown(0))
         {
-            Genome::Input* input       = EditorHelper::Get().g_input;
-            Genome::Math::Vector2 pos  = input->GetMousePosition();
-            uint32_t edge_padding       = 5;
+            Genome::Input* input = EditorHelper::Get().g_input;
+            Genome::Math::Vector2 pos = input->GetMousePosition();
+            uint32_t edge_padding = 5;
 
             bool wrapped = false;
             if (pos.x >= Genome::Display::GetWidth() - edge_padding)
             {
                 pos.x = static_cast<float>(edge_padding + 1);
-                wrapped = true;              
+                wrapped = true;
             }
             else if (pos.x <= edge_padding)
             {
@@ -365,11 +344,39 @@ namespace ImGuiEx
 
             if (wrapped)
             {
-                ImGuiIO& imgui_io           = ImGui::GetIO();
-                imgui_io.MousePos           = pos;
-                imgui_io.MousePosPrev       = pos; // set previous position as well so that we eliminate a huge mouse delta, which we don't want for the drag float
-                imgui_io.WantSetMousePos    = true;
+                ImGuiIO& imgui_io = ImGui::GetIO();
+                imgui_io.MousePos = pos;
+                imgui_io.MousePosPrev = pos; // set previous position as well so that we eliminate a huge mouse delta, which we don't want for the drag float
+                imgui_io.WantSetMousePos = true;
             }
         }
+    }
+
+    inline bool ComboBox(const char* label, const std::vector<std::string>& options, uint32_t* selection_index)
+    {
+        bool selection_made = false;
+        std::string selection_string = options[*selection_index];
+
+        if (ImGui::BeginCombo(label, selection_string.c_str()))
+        {
+            for (uint32_t i = 0; i < static_cast<uint32_t>(options.size()); i++)
+            {
+                const bool is_selected = *selection_index == i;
+
+                if (ImGui::Selectable(options[i].c_str(), is_selected))
+                {
+                    *selection_index = i;
+                    selection_made = true;
+                }
+
+                if (is_selected)
+                {
+                    ImGui::SetItemDefaultFocus();
+                }
+            }
+            ImGui::EndCombo();
+        }
+
+        return selection_made;
     }
 }

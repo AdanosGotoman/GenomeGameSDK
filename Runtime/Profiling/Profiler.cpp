@@ -1,25 +1,4 @@
-﻿/*
-Copyright(c) 2016-2021 Panos Karabelas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-copies of the Software, and to permit persons to whom the Software is furnished
-to do so, subject to the following conditions :
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-//= INCLUDES =========================
+﻿//= INCLUDES =========================
 #include "Spartan.h"
 #include "Profiler.h"
 #include "../Rendering/Renderer.h"
@@ -53,9 +32,9 @@ namespace Genome
 
     bool Profiler::Initialize()
     {
-        m_resource_manager  = m_context->GetSubsystem<ResourceCache>();
-        m_renderer          = m_context->GetSubsystem<Renderer>();
-        m_timer             = m_context->GetSubsystem<Timer>();
+        m_resource_manager = m_context->GetSubsystem<ResourceCache>();
+        m_renderer = m_context->GetSubsystem<Renderer>();
+        m_timer = m_context->GetSubsystem<Timer>();
 
         return true;
     }
@@ -93,15 +72,15 @@ namespace Genome
         // Compute timings
         {
             // Detect stutters
-            float frames_to_accumulate  = 5.0f;
-            float delta_feedback        = 1.0f / frames_to_accumulate;
-            m_is_stuttering_cpu         = m_time_cpu_last > (m_time_cpu_avg + m_stutter_delta_ms);
-            m_is_stuttering_gpu         = m_time_gpu_last > (m_time_gpu_avg + m_stutter_delta_ms);
+            float frames_to_accumulate = 5.0f;
+            float delta_feedback = 1.0f / frames_to_accumulate;
+            m_is_stuttering_cpu = m_time_cpu_last > (m_time_cpu_avg + m_stutter_delta_ms);
+            m_is_stuttering_gpu = m_time_gpu_last > (m_time_gpu_avg + m_stutter_delta_ms);
 
-            frames_to_accumulate  = 20.0f;
-            delta_feedback        = 1.0f / frames_to_accumulate;
-            m_time_cpu_last       = 0.0f;
-            m_time_gpu_last       = 0.0f;
+            frames_to_accumulate = 20.0f;
+            delta_feedback = 1.0f / frames_to_accumulate;
+            m_time_cpu_last = 0.0f;
+            m_time_gpu_last = 0.0f;
 
             for (const TimeBlock& time_block : m_time_blocks_read)
             {
@@ -153,8 +132,8 @@ namespace Genome
         m_time_since_profiling_sec += delta_time;
         if (m_time_since_profiling_sec >= m_profiling_interval_sec)
         {
-            m_time_since_profiling_sec  = 0.0f;
-            m_poll                      = true;
+            m_time_since_profiling_sec = 0.0f;
+            m_poll = true;
         }
         else if (m_poll)
         {
@@ -202,7 +181,7 @@ namespace Genome
                 {
                     LOG_WARNING("TimeBlockEnd() was not called for time block \"%s\"", time_block.GetName());
                 }
-                
+
                 time_block.Reset();
             }
 
@@ -244,18 +223,18 @@ namespace Genome
 
     void Profiler::ResetMetrics()
     {
-        m_time_frame_avg   = 0.0f;
-        m_time_frame_min   = std::numeric_limits<float>::max();
-        m_time_frame_max   = std::numeric_limits<float>::lowest();
-        m_time_frame_last  = 0.0f;
-        m_time_cpu_avg     = 0.0f;
-        m_time_cpu_min     = std::numeric_limits<float>::max();
-        m_time_cpu_max     = std::numeric_limits<float>::lowest();
-        m_time_cpu_last    = 0.0f;
-        m_time_gpu_avg     = 0.0f;
-        m_time_gpu_min     = std::numeric_limits<float>::max();
-        m_time_gpu_max     = std::numeric_limits<float>::lowest();
-        m_time_gpu_last    = 0.0f;
+        m_time_frame_avg = 0.0f;
+        m_time_frame_min = std::numeric_limits<float>::max();
+        m_time_frame_max = std::numeric_limits<float>::lowest();
+        m_time_frame_last = 0.0f;
+        m_time_cpu_avg = 0.0f;
+        m_time_cpu_min = std::numeric_limits<float>::max();
+        m_time_cpu_max = std::numeric_limits<float>::lowest();
+        m_time_cpu_last = 0.0f;
+        m_time_gpu_avg = 0.0f;
+        m_time_gpu_min = std::numeric_limits<float>::max();
+        m_time_gpu_max = std::numeric_limits<float>::lowest();
+        m_time_gpu_last = 0.0f;
     }
 
     TimeBlock* Profiler::GetNewTimeBlock()
@@ -292,17 +271,17 @@ namespace Genome
         RHI_Device* rhi_device = m_renderer->GetRhiDevice().get();
         if (const PhysicalDevice* physical_device = rhi_device->GetPrimaryPhysicalDevice())
         {
-            m_gpu_name              = physical_device->GetName();
-            m_gpu_memory_used       = RHI_CommandList::Gpu_GetMemoryUsed(rhi_device);
-            m_gpu_memory_available  = RHI_CommandList::Gpu_GetMemory(rhi_device);
-            m_gpu_driver            = physical_device->GetDriverVersion();
-            m_gpu_api               = physical_device->GetApiVersion();
+            m_gpu_name = physical_device->GetName();
+            m_gpu_memory_used = RHI_CommandList::Gpu_GetMemoryUsed(rhi_device);
+            m_gpu_memory_available = RHI_CommandList::Gpu_GetMemory(rhi_device);
+            m_gpu_driver = physical_device->GetDriverVersion();
+            m_gpu_api = physical_device->GetApiVersion();
         }
     }
 
     void Profiler::UpdateRhiMetricsString()
     {
-        const auto texture_count  = m_resource_manager->GetResourceCount(ResourceType::Texture) + m_resource_manager->GetResourceCount(ResourceType::Texture2d) + m_resource_manager->GetResourceCount(ResourceType::TextureCube);
+        const auto texture_count = m_resource_manager->GetResourceCount(ResourceType::Texture) + m_resource_manager->GetResourceCount(ResourceType::Texture2d) + m_resource_manager->GetResourceCount(ResourceType::TextureCube);
         const auto material_count = m_resource_manager->GetResourceCount(ResourceType::Material);
 
         static const char* text =
@@ -324,8 +303,9 @@ namespace Genome
             "Driver:\t%s\n"
             "\n"
             // Resolution
-            "Render resolution:\t\t%dx%d\n"
             "Output resolution:\t%dx%d\n"
+            "Render resolution:\t\t%dx%d\n"
+            "Viewport resolution:\t%dx%d\n"
             "\n"
             // Renderer
             "Meshes rendered:\t%d\n"
@@ -358,16 +338,17 @@ namespace Genome
             m_fps,
             m_renderer->GetFrameNum(),
             m_time_frame_last,
-            m_time_frame_avg,   m_time_frame_min,   m_time_frame_max,   m_time_frame_last,
-            m_time_cpu_avg,     m_time_cpu_min,     m_time_cpu_max,     m_time_cpu_last,
-            m_time_gpu_avg,     m_time_gpu_min,     m_time_gpu_max,     m_time_gpu_last,
+            m_time_frame_avg, m_time_frame_min, m_time_frame_max, m_time_frame_last,
+            m_time_cpu_avg, m_time_cpu_min, m_time_cpu_max, m_time_cpu_last,
+            m_time_gpu_avg, m_time_gpu_min, m_time_gpu_max, m_time_gpu_last,
             m_gpu_api.c_str(),
             m_gpu_name.c_str(),
             m_gpu_memory_used, m_gpu_memory_available,
             m_gpu_driver.c_str(),
 
             // Resolution
-            static_cast<int>(m_renderer->GetResolution().x), static_cast<int>(m_renderer->GetResolution().y),
+            static_cast<int>(m_renderer->GetResolutionOutput().x), static_cast<int>(m_renderer->GetResolutionOutput().y),
+            static_cast<int>(m_renderer->GetResolutionRender().x), static_cast<int>(m_renderer->GetResolutionRender().y),
             static_cast<int>(m_renderer->GetViewport().width), static_cast<int>(m_renderer->GetViewport().height),
 
             // Renderer

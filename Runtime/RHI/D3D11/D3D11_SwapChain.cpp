@@ -1,25 +1,3 @@
-/*
-Copyright(c) 2016-2021 Panos Karabelas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-copies of the Software, and to permit persons to whom the Software is furnished
-to do so, subject to the following conditions :
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-//= INCLUDES ========================
 #include "Spartan.h"
 #include "../RHI_Implementation.h"
 #include "../RHI_SwapChain.h"
@@ -55,15 +33,15 @@ namespace Genome
         }
 
         // Validate window handle
-        const auto hwnd    = static_cast<HWND>(window_handle);
-        if (!hwnd|| !IsWindow(hwnd))
+        const auto hwnd = static_cast<HWND>(window_handle);
+        if (!hwnd || !IsWindow(hwnd))
         {
             LOG_ERROR_INVALID_PARAMETER();
             return;
         }
 
         // Validate resolution
-        if (!rhi_device->ValidateResolution(width, height))
+        if (!rhi_device->IsValidResolution(width, height))
         {
             LOG_WARNING("%dx%d is an invalid resolution", width, height);
             return;
@@ -87,28 +65,28 @@ namespace Genome
         }
 
         // Save parameters
-        m_format        = format;
-        m_rhi_device    = rhi_device.get();
-        m_buffer_count  = buffer_count;
-        m_windowed      = true;
-        m_width         = width;
-        m_height        = height;
-        m_flags         = d3d11_utility::swap_chain::validate_flags(flags);
+        m_format = format;
+        m_rhi_device = rhi_device.get();
+        m_buffer_count = buffer_count;
+        m_windowed = true;
+        m_width = width;
+        m_height = height;
+        m_flags = d3d11_utility::swap_chain::validate_flags(flags);
 
         // Create swap chain
         {
-            DXGI_SWAP_CHAIN_DESC desc   = {};
-            desc.BufferCount            = static_cast<UINT>(buffer_count);
-            desc.BufferDesc.Width       = static_cast<UINT>(width);
-            desc.BufferDesc.Height      = static_cast<UINT>(height);
-            desc.BufferDesc.Format      = d3d11_format[format];
-            desc.BufferUsage            = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-            desc.OutputWindow           = hwnd;
-            desc.SampleDesc.Count       = 1;
-            desc.SampleDesc.Quality     = 0;
-            desc.Windowed               = m_windowed ? TRUE : FALSE;
-            desc.SwapEffect             = d3d11_utility::swap_chain::get_swap_effect(m_flags);
-            desc.Flags                  = d3d11_utility::swap_chain::get_flags(m_flags);
+            DXGI_SWAP_CHAIN_DESC desc = {};
+            desc.BufferCount = static_cast<UINT>(buffer_count);
+            desc.BufferDesc.Width = static_cast<UINT>(width);
+            desc.BufferDesc.Height = static_cast<UINT>(height);
+            desc.BufferDesc.Format = d3d11_format[format];
+            desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+            desc.OutputWindow = hwnd;
+            desc.SampleDesc.Count = 1;
+            desc.SampleDesc.Quality = 0;
+            desc.Windowed = m_windowed ? TRUE : FALSE;
+            desc.SwapEffect = d3d11_utility::swap_chain::get_swap_effect(m_flags);
+            desc.Flags = d3d11_utility::swap_chain::get_flags(m_flags);
 
             if (!d3d11_utility::error_check(dxgi_factory->CreateSwapChain(m_rhi_device->GetContextRhi()->device, &desc, reinterpret_cast<IDXGISwapChain**>(&m_swap_chain_view))))
             {
@@ -166,7 +144,7 @@ namespace Genome
     }
 
     bool RHI_SwapChain::Resize(const uint32_t width, const uint32_t height, const bool force /*= false*/)
-    {    
+    {
         if (!m_swap_chain_view)
         {
             LOG_ERROR_INVALID_INTERNALS();
@@ -174,7 +152,7 @@ namespace Genome
         }
 
         // Validate resolution
-        m_present_enabled = m_rhi_device->ValidateResolution(width, height);
+        m_present_enabled = m_rhi_device->IsValidResolution(width, height);
         if (!m_present_enabled)
         {
             // Return true as when minimizing, a resolution
@@ -190,11 +168,11 @@ namespace Genome
         }
 
         // Save new dimensions
-        m_width     = width;
-        m_height    = height;
+        m_width = width;
+        m_height = height;
 
-        auto swap_chain            = static_cast<IDXGISwapChain*>(m_swap_chain_view);
-        auto render_target_view    = static_cast<ID3D11RenderTargetView*>(m_resource_view_renderTarget);
+        auto swap_chain = static_cast<IDXGISwapChain*>(m_swap_chain_view);
+        auto render_target_view = static_cast<ID3D11RenderTargetView*>(m_resource_view_renderTarget);
 
         // Release previous stuff
         d3d11_utility::release(render_target_view);
@@ -207,14 +185,14 @@ namespace Genome
             const DisplayMode& display_mode = Display::GetActiveDisplayMode();
 
             // Resize swapchain target
-            DXGI_MODE_DESC dxgi_mode_desc   = {};
-            dxgi_mode_desc.Width            = static_cast<UINT>(width);
-            dxgi_mode_desc.Height           = static_cast<UINT>(height);
-            dxgi_mode_desc.Format           = d3d11_format[m_format];
-            dxgi_mode_desc.RefreshRate      = DXGI_RATIONAL{ display_mode.numerator, display_mode.denominator };
-            dxgi_mode_desc.Scaling          = DXGI_MODE_SCALING_UNSPECIFIED;
+            DXGI_MODE_DESC dxgi_mode_desc = {};
+            dxgi_mode_desc.Width = static_cast<UINT>(width);
+            dxgi_mode_desc.Height = static_cast<UINT>(height);
+            dxgi_mode_desc.Format = d3d11_format[m_format];
+            dxgi_mode_desc.RefreshRate = DXGI_RATIONAL{ display_mode.numerator, display_mode.denominator };
+            dxgi_mode_desc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
             dxgi_mode_desc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-            
+
             // Resize swapchain target
             const auto result = swap_chain->ResizeTarget(&dxgi_mode_desc);
             if (FAILED(result))
@@ -223,7 +201,7 @@ namespace Genome
                 return false;
             }
         }
-    
+
         // Resize swapchain buffers
         const UINT d3d11_flags = d3d11_utility::swap_chain::get_flags(d3d11_utility::swap_chain::validate_flags(m_flags));
         auto result = swap_chain->ResizeBuffers(m_buffer_count, static_cast<UINT>(width), static_cast<UINT>(height), d3d11_format[m_format], d3d11_flags);
@@ -266,9 +244,9 @@ namespace Genome
         SP_ASSERT(m_swap_chain_view != nullptr);
 
         // Present parameters
-        const bool tearing_allowed  = m_flags & RHI_Present_Immediate;
-        const UINT sync_interval    = tearing_allowed ? 0 : 1; // sync interval can go up to 4, so this could be improved
-        const UINT flags            = (tearing_allowed && m_windowed) ? DXGI_PRESENT_ALLOW_TEARING : 0;
+        const bool tearing_allowed = m_flags & RHI_Present_Immediate;
+        const UINT sync_interval = tearing_allowed ? 0 : 1; // sync interval can go up to 4, so this could be improved
+        const UINT flags = (tearing_allowed && m_windowed) ? DXGI_PRESENT_ALLOW_TEARING : 0;
 
         // Present
         return d3d11_utility::error_check(static_cast<IDXGISwapChain*>(m_swap_chain_view)->Present(sync_interval, flags));

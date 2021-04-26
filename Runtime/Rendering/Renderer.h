@@ -1,24 +1,3 @@
-/*
-Copyright(c) 2016-2021 Panos Karabelas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-copies of the Software, and to permit persons to whom the Software is furnished
-to do so, subject to the following conditions :
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 #pragma once
 
 //= INCLUDES ========================
@@ -60,14 +39,17 @@ namespace Genome
     {
     public:
         // Constants
-        const uint32_t m_resolution_shadow_min  = 128;
-        const float m_gizmo_size_max            = 2.0f;
-        const float m_gizmo_size_min            = 0.1f;
-        const float m_thread_group_count        = 8.0f;
-        const float m_depth_bias                = 0.004f; // bias that's applied directly into the depth buffer
-        const float m_depth_bias_clamp          = 0.0f;
-        const float m_depth_bias_slope_scaled   = 2.0f;
-        #define DEBUG_COLOR                     Vector4(0.41f, 0.86f, 1.0f, 1.0f)
+        const uint32_t m_resolution_shadow_min = 128;
+        const float m_gizmo_size_max = 2.0f;
+        const float m_gizmo_size_min = 0.1f;
+        const float m_thread_group_count = 8.0f;
+        const float m_depth_bias = 0.004f; // bias that's applied directly into the depth buffer
+        const float m_depth_bias_clamp = 0.0f;
+        const float m_depth_bias_slope_scaled = 2.0f;
+        float m_gizmo_transform_size = 0.015f;
+        float m_gizmo_transform_speed = 12.0f;
+#define DEBUG_COLOR                     Math::Vector4(0.41f, 0.86f, 1.0f, 1.0f)
+#define RENDER_TARGET(rt_enum)          m_render_targets[static_cast<uint8_t>(rt_enum)]
 
         Renderer(Context* context);
         ~Renderer();
@@ -79,48 +61,51 @@ namespace Genome
 
         // Primitive rendering
         void TickPrimitives(const float delta_time);
-        void DrawLine(const Vector3& from, const Vector3& to, const Vector4& color_from = DEBUG_COLOR, const Vector4& color_to = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
-        void DrawTriangle(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
-        void DrawRectangle(const Math::Rectangle& rectangle, const Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
-        void DrawBox(const BoundingBox& box, const Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
-        void DrawCircle(const Vector3& center, const Vector3& axis, const float radius, const uint32_t segmentCount, const Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
+        void DrawLine(const Math::Vector3& from, const Math::Vector3& to, const Math::Vector4& color_from = DEBUG_COLOR, const Math::Vector4& color_to = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
+        void DrawTriangle(const Math::Vector3& v0, const Math::Vector3& v1, const Math::Vector3& v2, const Math::Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
+        void DrawRectangle(const Math::Rectangle& rectangle, const Math::Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
+        void DrawBox(const Math::BoundingBox& box, const Math::Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
+        void DrawCircle(const Math::Vector3& center, const Math::Vector3& axis, const float radius, const uint32_t segmentCount, const Math::Vector4& color = DEBUG_COLOR, const float duration = 0.0f, const bool depth = true);
 
         // Viewport
         const RHI_Viewport& GetViewport()           const { return m_viewport; }
-        const Vector2& GetViewportOffset()    const { return m_viewport_editor_offset; }
+        const Math::Vector2& GetViewportOffset()    const { return m_viewport_editor_offset; }
         void SetViewport(float width, float height, float offset_x = 0, float offset_y = 0);
 
-        // Resolution
-        const Vector2& GetResolution() const { return m_resolution; }
-        void SetResolution(uint32_t width, uint32_t height);
+        // Resolution render
+        const Math::Vector2& GetResolutionRender() const { return m_resolution_render; }
+        void SetResolutionRender(uint32_t width, uint32_t height);
+
+        // Resolution output
+        const Math::Vector2& GetResolutionOutput() const { return m_resolution_output; }
+        void SetResolutionOutput(uint32_t width, uint32_t height);
 
         // Resolution
         bool GetIsFullscreen() const { return m_is_fullscreen; }
         void SetIsFullscreen(const bool is_fullscreen) { m_is_fullscreen = is_fullscreen; }
 
         // Editor
-        float m_gizmo_transform_size    = 0.015f;
-        float m_gizmo_transform_speed   = 12.0f;
         std::weak_ptr<Entity> SnapTransformGizmoTo(const std::shared_ptr<Entity>& entity) const;
 
-        // Debug/Visualise a render target
+        // Debug/Visualise a render targets
+        const auto& GetRenderTargets() { return m_render_targets; }
         void SetRenderTargetDebug(const RendererRt render_target_debug) { m_render_target_debug = render_target_debug; }
-        auto GetRenderTargetDebug() const                               { return m_render_target_debug; }
+        RendererRt GetRenderTargetDebug() const { return m_render_target_debug; }
 
         // Depth
-        auto GetClearDepth()                { return GetOption(Render_ReverseZ) ? m_viewport.depth_min : m_viewport.depth_max; }
-        auto GetComparisonFunction() const  { return GetOption(Render_ReverseZ) ? RHI_Comparison_GreaterEqual : RHI_Comparison_LessEqual; }
+        auto GetClearDepth() { return GetOption(Render_ReverseZ) ? m_viewport.depth_min : m_viewport.depth_max; }
+        auto GetComparisonFunction() const { return GetOption(Render_ReverseZ) ? RHI_Comparison_GreaterEqual : RHI_Comparison_LessEqual; }
 
         // Environment
         const std::shared_ptr<RHI_Texture>& GetEnvironmentTexture();
-        void SetEnvironmentTexture(const std::shared_ptr<RHI_Texture>& texture);
+        void SetEnvironmentTexture(const std::shared_ptr<RHI_Texture> texture);
 
         // Options
         uint64_t GetOptions()                           const { return m_options; }
-        void SetOptions(const uint64_t options)               { m_options = options; }
+        void SetOptions(const uint64_t options) { m_options = options; }
         bool GetOption(const Renderer_Option option)    const { return m_options & option; }
         void SetOption(Renderer_Option option, bool enable);
-        
+
         // Options values
         template<typename T>
         T GetOptionValue(const Renderer_Option_Value option) { return static_cast<T>(m_option_values[option]); }
@@ -132,12 +117,12 @@ namespace Genome
         bool Flush();
 
         // Default textures
-        RHI_Texture* GetDefaultTextureWhite()       const { return m_default_tex_white.get(); }
-        RHI_Texture* GetDefaultTextureBlack()       const { return m_default_tex_black.get(); }
-        RHI_Texture* GetDefaultTextureTransparent() const { return m_default_tex_transparent.get(); }
+        RHI_Texture* GetDefaultTextureWhite()       const { return m_tex_default_white.get(); }
+        RHI_Texture* GetDefaultTextureBlack()       const { return m_tex_default_black.get(); }
+        RHI_Texture* GetDefaultTextureTransparent() const { return m_tex_default_transparent.get(); }
 
         // Global shader resources
-        void SetGlobalShaderObjectTransform(RHI_CommandList* cmd_list, const Matrix& transform);
+        void SetGlobalShaderObjectTransform(RHI_CommandList* cmd_list, const Math::Matrix& transform);
         void SetGlobalSamplersAndConstantBuffers(RHI_CommandList* cmd_list) const;
 
         // Rendering
@@ -150,7 +135,7 @@ namespace Genome
         const std::shared_ptr<RHI_Device>& GetRhiDevice()           const { return m_rhi_device; }
         RHI_PipelineCache* GetPipelineCache()                       const { return m_pipeline_cache.get(); }
         RHI_DescriptorSetLayoutCache* GetDescriptorLayoutSetCache() const { return m_descriptor_set_layout_cache.get(); }
-        RHI_Texture* GetFrameTexture()                              const { return m_render_targets.at(RendererRt::Frame_Ldr).get(); }
+        RHI_Texture* GetFrameTexture() { return RENDER_TARGET(RendererRt::PostProcess_Ldr).get(); }
         auto GetFrameNum()                                          const { return m_frame_num; }
         std::shared_ptr<Camera> GetCamera()                         const { return m_camera; }
         auto IsInitialized()                                        const { return m_initialized; }
@@ -210,6 +195,7 @@ namespace Genome
         void Pass_Text(RHI_CommandList* cmd_list, RHI_Texture* tex_out);
         void Pass_BrdfSpecularLut(RHI_CommandList* cmd_list);
         void Pass_Copy(RHI_CommandList* cmd_list, RHI_Texture* tex_in, RHI_Texture* tex_out);
+        void Pass_CopyBilinear(RHI_CommandList* cmd_list, RHI_Texture* tex_in, RHI_Texture* tex_out);
 
         // Constant buffers
         bool UpdateFrameBuffer(RHI_CommandList* cmd_list);
@@ -221,19 +207,20 @@ namespace Genome
         void RenderablesAcquire(const Variant& renderables);
         void RenderablesSort(std::vector<Entity*>* renderables);
 
-        // Render textures
-        std::unordered_map<RendererRt, std::shared_ptr<RHI_Texture>> m_render_targets;
+        // Render targets
+        std::array<std::shared_ptr<RHI_Texture>, 24> m_render_targets;
         std::vector<std::shared_ptr<RHI_Texture>> m_render_tex_bloom;
 
         // Standard textures
-        std::shared_ptr<RHI_Texture> m_default_tex_noise_normal;
-        std::shared_ptr<RHI_Texture> m_default_tex_noise_blue;
-        std::shared_ptr<RHI_Texture> m_default_tex_white;
-        std::shared_ptr<RHI_Texture> m_default_tex_black;
-        std::shared_ptr<RHI_Texture> m_default_tex_transparent;
-        std::shared_ptr<RHI_Texture> m_gizmo_tex_light_directional;
-        std::shared_ptr<RHI_Texture> m_gizmo_tex_light_point;
-        std::shared_ptr<RHI_Texture> m_gizmo_tex_light_spot;
+        std::shared_ptr<RHI_Texture> m_tex_environment;
+        std::shared_ptr<RHI_Texture> m_tex_default_noise_normal;
+        std::shared_ptr<RHI_Texture> m_tex_default_noise_blue;
+        std::shared_ptr<RHI_Texture> m_tex_default_white;
+        std::shared_ptr<RHI_Texture> m_tex_default_black;
+        std::shared_ptr<RHI_Texture> m_tex_default_transparent;
+        std::shared_ptr<RHI_Texture> m_tex_gizmo_light_directional;
+        std::shared_ptr<RHI_Texture> m_tex_gizmo_light_point;
+        std::shared_ptr<RHI_Texture> m_tex_gizmo_light_spot;
 
         // Shaders
         std::unordered_map<RendererShader, std::shared_ptr<RHI_Shader>> m_shaders;
@@ -278,9 +265,10 @@ namespace Genome
         Math::Rectangle m_gizmo_light_rect;
 
         // Resolution & Viewport
-        Vector2 m_resolution              = Vector2::Zero;
-        RHI_Viewport m_viewport                 = RHI_Viewport(0, 0, 1920, 1080);
-        Vector2 m_viewport_editor_offset  = Vector2::Zero;
+        Math::Vector2 m_resolution_render = Math::Vector2::Zero;
+        Math::Vector2 m_resolution_output = Math::Vector2::Zero;
+        RHI_Viewport m_viewport = RHI_Viewport(0, 0, 1920, 1080);
+        Math::Vector2 m_viewport_editor_offset = Math::Vector2::Zero;
 
         // Options
         uint64_t m_options = 0;
@@ -289,19 +277,19 @@ namespace Genome
         // Misc
         Math::Rectangle m_viewport_quad;
         std::unique_ptr<Font> m_font;
-        Vector2 m_taa_jitter                      = Vector2::Zero;
-        Vector2 m_taa_jitter_previous             = Vector2::Zero;
-        RendererRt m_render_target_debug          = RendererRt::Undefined;
-        bool m_initialized                        = false;
-        bool m_is_fullscreen                      = false;
-        float m_near_plane                        = 0.0f;
-        float m_far_plane                         = 0.0f;
-        uint64_t m_frame_num                      = 0;
-        bool m_is_odd_frame                       = false;
-        bool m_brdf_specular_lut_rendered         = false;
-        bool m_update_ortho_proj                  = true;
-        std::atomic<bool> m_is_allowed_to_render  = true;
-        std::atomic<bool> m_is_rendering          = false;
+        Math::Vector2 m_taa_jitter = Math::Vector2::Zero;
+        Math::Vector2 m_taa_jitter_previous = Math::Vector2::Zero;
+        RendererRt m_render_target_debug = RendererRt::Undefined;
+        bool m_initialized = false;
+        bool m_is_fullscreen = false;
+        float m_near_plane = 0.0f;
+        float m_far_plane = 0.0f;
+        uint64_t m_frame_num = 0;
+        bool m_is_odd_frame = false;
+        bool m_brdf_specular_lut_rendered = false;
+        bool m_update_ortho_proj = true;
+        std::atomic<bool> m_is_allowed_to_render = true;
+        std::atomic<bool> m_is_rendering = false;
 
         // RHI Core
         std::shared_ptr<RHI_Device> m_rhi_device;
@@ -340,7 +328,7 @@ namespace Genome
         std::shared_ptr<Camera> m_camera;
 
         // Dependencies
-        Profiler* m_profiler            = nullptr;
+        Profiler* m_profiler = nullptr;
         ResourceCache* m_resource_cache = nullptr;
     };
 }
