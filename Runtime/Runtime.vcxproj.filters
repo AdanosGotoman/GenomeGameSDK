@@ -43,8 +43,8 @@
     <Filter Include="RHI">
       <UniqueIdentifier>{4819880B-B422-887C-3D9E-9E7CA9A6937C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RHI\D3D11">
-      <UniqueIdentifier>{3406661A-A070-1A91-E9AE-CB365558F8E5}</UniqueIdentifier>
+    <Filter Include="RHI\D3D12">
+      <UniqueIdentifier>{3506661A-A170-1A91-EAAE-CB365658F8E5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Rendering">
       <UniqueIdentifier>{E3AE1F7C-4F19-D4F2-9857-85980401B247}</UniqueIdentifier>
@@ -201,8 +201,8 @@
     <ClInclude Include="Profiling\TimeBlock.h">
       <Filter>Profiling</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\D3D11\D3D11_Utility.h">
-      <Filter>RHI\D3D11</Filter>
+    <ClInclude Include="RHI\D3D12\D3D12_Utility.h">
+      <Filter>RHI\D3D12</Filter>
     </ClInclude>
     <ClInclude Include="RHI\RHI_BlendState.h">
       <Filter>RHI</Filter>
@@ -530,65 +530,65 @@
     <ClCompile Include="Profiling\TimeBlock.cpp">
       <Filter>Profiling</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_BlendState.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_BlendState.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_CommandList.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_CommandList.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_ConstantBuffer.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_ConstantBuffer.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_DepthStencilState.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_DepthStencilState.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSet.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_DescriptorSet.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSetLayout.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_DescriptorSetLayout.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSetLayoutCache.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_DescriptorSetLayoutCache.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_Device.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_Device.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_Fence.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_Fence.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_IndexBuffer.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_IndexBuffer.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_InputLayout.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_InputLayout.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_Pipeline.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_Pipeline.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_PipelineState.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_PipelineState.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_RasterizerState.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_RasterizerState.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_Sampler.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_Sampler.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_Semaphore.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_Semaphore.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_Shader.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_Shader.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_SwapChain.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_SwapChain.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_Texture.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_Texture.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D11\D3D11_VertexBuffer.cpp">
-      <Filter>RHI\D3D11</Filter>
+    <ClCompile Include="RHI\D3D12\D3D12_VertexBuffer.cpp">
+      <Filter>RHI\D3D12</Filter>
     </ClCompile>
     <ClCompile Include="RHI\RHI_CommandList.cpp">
       <Filter>RHI</Filter>

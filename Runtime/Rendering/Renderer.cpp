@@ -63,7 +63,7 @@ namespace Genome
         m_options |= Render_Debug_Lights;
         m_options |= Render_Debug_Physics;
         m_options |= Render_Bloom;
-        m_options |= Render_DepthOfField;
+        //m_options |= Render_DepthOfField;
         m_options |= Render_VolumetricFog;
         m_options |= Render_MotionBlur;
         m_options |= Render_Ssao;
@@ -348,9 +348,13 @@ namespace Genome
         m_resolution.x = static_cast<float>(width);
         m_resolution.y = static_cast<float>(height);
 
+        DisplayMode display_mode = Display::GetActiveDisplayMode();
+        display_mode.width = width;
+        display_mode.height = height;
+        Display::SetActiveDisplayMode(display_mode);
+
         // Register display mode (in case it doesn't exist)
-        const DisplayMode& display_mode = Display::GetActiveDisplayMode();
-        Display::SetActiveDisplayMode(DisplayMode(width, height, display_mode.numerator, display_mode.denominator));
+        Display::RegisterDisplayMode(display_mode, m_context);
 
         // Re-create render textures
         CreateRenderTextures();

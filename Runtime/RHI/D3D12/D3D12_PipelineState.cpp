@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../RHI_PipelineState.h"
 //================================
 
-namespace Spartan
+namespace Genome
 {
     bool RHI_PipelineState::CreateFrameBuffer(const RHI_Device* rhi_device)
     {

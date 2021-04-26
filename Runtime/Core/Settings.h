@@ -77,6 +77,7 @@ namespace Genome
         uint64_t m_renderer_flags           = 0;
         Math::Vector2 m_resolution          = Math::Vector2::Zero;
         uint32_t m_anisotropy               = 0;
+        uint32_t m_tonemapping = 0;
         uint32_t m_max_thread_count         = 0;
         double m_fps_limit                  = 0;
         bool m_loaded                       = false;

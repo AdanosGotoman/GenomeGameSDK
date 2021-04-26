@@ -145,6 +145,7 @@ namespace Genome
         _Settings::read_setting(_Settings::fin, "fResolutionHeight",    m_resolution.y);
         _Settings::read_setting(_Settings::fin, "iShadowMapResolution", m_shadow_map_resolution);
         _Settings::read_setting(_Settings::fin, "iAnisotropy",          m_anisotropy);
+        _Settings::read_setting(_Settings::fin, "iTonemapping", m_tonemapping);
         _Settings::read_setting(_Settings::fin, "fFPSLimit",            m_fps_limit);
         _Settings::read_setting(_Settings::fin, "iMaxThreadCount",      m_max_thread_count);
         _Settings::read_setting(_Settings::fin, "iRendererFlags",       m_renderer_flags);
@@ -165,6 +166,7 @@ namespace Genome
         m_resolution            = renderer->GetResolution();
         m_shadow_map_resolution = renderer->GetOptionValue<uint32_t>(Renderer_Option_Value::ShadowResolution);
         m_anisotropy            = renderer->GetOptionValue<uint32_t>(Renderer_Option_Value::Anisotropy);
+        m_tonemapping = renderer->GetOptionValue<uint32_t>(Renderer_Option_Value::Tonemapping);
         m_renderer_flags        = renderer->GetOptions();
     }
 
@@ -177,6 +179,8 @@ namespace Genome
         renderer->SetResolution(static_cast<uint32_t>(m_resolution.x), static_cast<uint32_t>(m_resolution.y));
         renderer->SetOptionValue(Renderer_Option_Value::Anisotropy, static_cast<float>(m_anisotropy));
         renderer->SetOptionValue(Renderer_Option_Value::ShadowResolution, static_cast<float>(m_shadow_map_resolution));
+        renderer->SetOptionValue(Renderer_Option_Value::Anisotropy, static_cast<float>(m_anisotropy));
+        renderer->SetOptionValue(Renderer_Option_Value::Tonemapping, static_cast<float>(m_tonemapping));
         renderer->SetOptions(m_renderer_flags);
     }
 }

@@ -72,14 +72,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Binaries\Debug\</OutDir>
     <IntDir>..\Binaries\Obj\x64\Debug\Editor\</IntDir>
-    <TargetName>GenomeGameSDK_d3d11</TargetName>
+    <TargetName>GenomeGameSDK_d3d12</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug linux|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Binaries\Debug\</OutDir>
     <IntDir>..\Binaries\Obj\linux\Debug\Editor\</IntDir>
-    <TargetName>GenomeGameSDK_d3d11</TargetName>
+    <TargetName>GenomeGameSDK_d3d12</TargetName>
     <TargetExt>
     </TargetExt>
   </PropertyGroup>
@@ -87,14 +87,14 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Binaries\Release\</OutDir>
     <IntDir>..\Binaries\Obj\x64\Release\Editor\</IntDir>
-    <TargetName>GenomeGameSDK_d3d11</TargetName>
+    <TargetName>GenomeGameSDK_d3d12</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release linux|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Binaries\Release\</OutDir>
     <IntDir>..\Binaries\Obj\linux\Release\Editor\</IntDir>
-    <TargetName>GenomeGameSDK_d3d11</TargetName>
+    <TargetName>GenomeGameSDK_d3d12</TargetName>
     <TargetExt>
     </TargetExt>
   </PropertyGroup>
@@ -102,7 +102,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -113,7 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
@@ -126,7 +126,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -137,7 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
@@ -150,7 +150,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -164,7 +164,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
@@ -179,7 +179,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -193,7 +193,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_EDITOR;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Runtime;..\ThirdParty\FreeType_2.10.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>

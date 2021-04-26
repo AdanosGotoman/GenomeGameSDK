@@ -97,7 +97,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Spartan.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\Assimp_5.0.0;..\ThirdParty\Bullet_2.89;..\ThirdParty\FMOD_1.10.10;..\ThirdParty\FreeImage_3.18.0;..\ThirdParty\FreeType_2.10.4;..\ThirdParty\pugixml_1.10;..\ThirdParty\Mono_6.12.0.86;Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -121,7 +121,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Spartan.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;DEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\Assimp_5.0.0;..\ThirdParty\Bullet_2.89;..\ThirdParty\FMOD_1.10.10;..\ThirdParty\FreeImage_3.18.0;..\ThirdParty\FreeType_2.10.4;..\ThirdParty\pugixml_1.10;..\ThirdParty\Mono_6.12.0.86;Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -145,7 +145,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Spartan.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\Assimp_5.0.0;..\ThirdParty\Bullet_2.89;..\ThirdParty\FMOD_1.10.10;..\ThirdParty\FreeImage_3.18.0;..\ThirdParty\FreeType_2.10.4;..\ThirdParty\pugixml_1.10;..\ThirdParty\Mono_6.12.0.86;Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -174,7 +174,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Spartan.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARTAN_RUNTIME_STATIC=1;SPARTAN_RUNTIME_SHARED=0;NDEBUG;SPARTAN_RUNTIME;API_GRAPHICS_D3D12;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\Assimp_5.0.0;..\ThirdParty\Bullet_2.89;..\ThirdParty\FMOD_1.10.10;..\ThirdParty\FreeImage_3.18.0;..\ThirdParty\FreeType_2.10.4;..\ThirdParty\pugixml_1.10;..\ThirdParty\Mono_6.12.0.86;Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -240,7 +240,7 @@
     <ClInclude Include="Physics\PhysicsDebugDraw.h" />
     <ClInclude Include="Profiling\Profiler.h" />
     <ClInclude Include="Profiling\TimeBlock.h" />
-    <ClInclude Include="RHI\D3D11\D3D11_Utility.h" />
+    <ClInclude Include="RHI\D3D12\D3D12_Utility.h" />
     <ClInclude Include="RHI\RHI_BlendState.h" />
     <ClInclude Include="RHI\RHI_CommandList.h" />
     <ClInclude Include="RHI\RHI_ConstantBuffer.h" />
@@ -353,26 +353,26 @@
     <ClCompile Include="Physics\PhysicsDebugDraw.cpp" />
     <ClCompile Include="Profiling\Profiler.cpp" />
     <ClCompile Include="Profiling\TimeBlock.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_BlendState.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_CommandList.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_ConstantBuffer.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_DepthStencilState.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSet.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSetLayout.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_DescriptorSetLayoutCache.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_Device.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_Fence.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_IndexBuffer.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_InputLayout.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_Pipeline.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_PipelineState.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_RasterizerState.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_Sampler.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_Semaphore.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_Shader.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_SwapChain.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_Texture.cpp" />
-    <ClCompile Include="RHI\D3D11\D3D11_VertexBuffer.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_BlendState.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_CommandList.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_ConstantBuffer.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_DepthStencilState.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_DescriptorSet.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_DescriptorSetLayout.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_DescriptorSetLayoutCache.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_Device.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_Fence.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_IndexBuffer.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_InputLayout.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_Pipeline.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_PipelineState.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_RasterizerState.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_Sampler.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_Semaphore.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_Shader.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_SwapChain.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_Texture.cpp" />
+    <ClCompile Include="RHI\D3D12\D3D12_VertexBuffer.cpp" />
     <ClCompile Include="RHI\RHI_CommandList.cpp" />
     <ClCompile Include="RHI\RHI_DescriptorSet.cpp" />
     <ClCompile Include="RHI\RHI_DescriptorSetLayout.cpp" />

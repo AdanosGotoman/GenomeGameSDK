@@ -96,7 +96,7 @@ namespace Genome
         static std::vector<std::string> GetSupportedSceneFilesInDirectory(const std::string& path);
     };
 
-    static const char* EXTENSION_WORLD      = ".world";
+    static const char* EXTENSION_WORLD      = ".geworld";
     static const char* EXTENSION_MATERIAL   = ".material";
     static const char* EXTENSION_MODEL      = ".model";
     static const char* EXTENSION_PREFAB     = ".prefab";
