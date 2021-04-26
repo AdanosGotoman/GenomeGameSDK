@@ -36,7 +36,7 @@ SP_WARNINGS_ON
 using namespace std;
 //==================
 
-namespace Spartan
+namespace Genome
 {
     RHI_Shader::~RHI_Shader()
     {

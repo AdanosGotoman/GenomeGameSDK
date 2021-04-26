@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std;
 //==================
 
-namespace Spartan
+namespace Genome
 {
     RHI_InputLayout::~RHI_InputLayout() {}
     bool RHI_InputLayout::_CreateResource(void* vertex_shader_blob) { return true; }

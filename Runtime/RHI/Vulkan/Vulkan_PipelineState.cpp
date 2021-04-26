@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std;
 //==================
 
-namespace Spartan
+namespace Genome
 {
     inline VkAttachmentLoadOp get_color_load_op(const Math::Vector4& color)
     {

@@ -34,7 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std;
 //==================
 
-namespace Spartan
+namespace Genome
 {
     RHI_Pipeline::RHI_Pipeline(const RHI_Device* rhi_device, RHI_PipelineState& pipeline_state, RHI_DescriptorSetLayout* descriptor_set_layout)
     {
@@ -261,7 +261,7 @@ namespace Spartan
                 rasterizer_state.cullMode                   = vulkan_cull_mode[m_state.rasterizer_state->GetCullMode()];
                 rasterizer_state.frontFace                  = VK_FRONT_FACE_CLOCKWISE;
                 rasterizer_state.depthBiasEnable            = m_state.rasterizer_state->GetDepthBias() != 0.0f ? VK_TRUE : VK_FALSE;
-                rasterizer_state.depthBiasConstantFactor    = Math::Helper::Floor(m_state.rasterizer_state->GetDepthBias() * (float)(1 << 24));
+                rasterizer_state.depthBiasConstantFactor    = Math::Floor(m_state.rasterizer_state->GetDepthBias() * (float)(1 << 24));
                 rasterizer_state.depthBiasClamp             = m_state.rasterizer_state->GetDepthBiasClamp();
                 rasterizer_state.depthBiasSlopeFactor       = m_state.rasterizer_state->GetDepthBiasSlopeScaled();
             }
