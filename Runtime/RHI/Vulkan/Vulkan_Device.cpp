@@ -81,8 +81,8 @@ namespace Genome
             }
 
             app_info.sType              = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-            app_info.pApplicationName   = sp_version;
-            app_info.pEngineName        = sp_version;
+            app_info.pApplicationName   = ge_version;
+            app_info.pEngineName        = ge_version;
             app_info.engineVersion      = VK_MAKE_VERSION(1, 0, 0);
             app_info.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
             app_info.apiVersion         = m_rhi_context->api_version;

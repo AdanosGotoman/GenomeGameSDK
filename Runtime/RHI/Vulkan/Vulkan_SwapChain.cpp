@@ -60,8 +60,8 @@ namespace Genome
         VkSurfaceCapabilitiesKHR capabilities = vulkan_utility::surface::capabilities(surface);
 
         // Compute extent
-        *width = Math::Helper::Clamp(*width, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
-        *height = Math::Helper::Clamp(*height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
+        *width = Math::Clamp(*width, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
+        *height = Math::Clamp(*height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
         VkExtent2D extent = { *width, *height };
 
         // Detect surface format and color space
