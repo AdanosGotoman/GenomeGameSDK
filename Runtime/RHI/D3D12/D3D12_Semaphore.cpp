@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std;
 //==================
 
-namespace Spartan
+namespace Genome
 {
     RHI_Semaphore::RHI_Semaphore(RHI_Device* rhi_device, bool is_timeline /*= false*/, const char* name /*= nullptr*/)
     {
