@@ -47,6 +47,8 @@ namespace Genome
     class IComponent;
 }
 
+using namespace Genome;
+
 class Widget_Properties : public Widget
 {
 public:
@@ -54,28 +56,28 @@ public:
 
     void TickVisible() override;
 
-    static void Inspect(const std::weak_ptr<Genome::Entity>& entity);
-    static void Inspect(const std::weak_ptr<Genome::Material>& material);
+    static void Inspect(const std::weak_ptr<Entity>& entity);
+    static void Inspect(const std::weak_ptr<Material>& material);
 
     // Inspected resources
-    static std::weak_ptr<Genome::Entity> m_inspected_entity;
-    static std::weak_ptr<Genome::Material> m_inspected_material;
+    static std::weak_ptr<Entity>   m_inspected_entity;
+    static std::weak_ptr<Material> m_inspected_material;
 
 private:
-    void ShowTransform(Genome::Transform* transform) const;
-    void ShowLight(Genome::Light* light) const;
-    void ShowRenderable(Genome::Renderable* renderable) const;
-    void ShowRigidBody(Genome::RigidBody* rigid_body) const;
-    void ShowSoftBody(Genome::SoftBody* soft_body) const;
-    void ShowCollider(Genome::Collider* collider) const;
-    void ShowConstraint(Genome::Constraint* constraint) const;
-    void ShowMaterial(Genome::Material* material) const;
-    void ShowCamera(Genome::Camera* camera) const;
-    void ShowEnvironment(Genome::Environment* environment) const;
-    void ShowTerrain(Genome::Terrain* terrain) const;
-    void ShowAudioSource(Genome::AudioSource* audio_source) const;
-    void ShowAudioListener(Genome::AudioListener* audio_listener) const;
-    void ShowScript(Genome::Script* script) const;
+    void ShowTransform(Transform* transform) const;
+    void ShowLight(Light* light) const;
+    void ShowRenderable(Renderable* renderable) const;
+    void ShowRigidBody(RigidBody* rigid_body) const;
+    void ShowSoftBody(SoftBody* soft_body) const;
+    void ShowCollider(Collider* collider) const;
+    void ShowConstraint(Constraint* constraint) const;
+    void ShowMaterial(Material* material) const;
+    void ShowCamera(Camera* camera) const;
+    void ShowEnvironment(Environment* environment) const;
+    void ShowTerrain(Terrain* terrain) const;
+    void ShowAudioSource(AudioSource* audio_source) const;
+    void ShowAudioListener(AudioListener* audio_listener) const;
+    void ShowScript(Script* script) const;
 
     void ShowAddComponentButton() const;
     void ComponentContextMenu_Add() const;

@@ -126,6 +126,24 @@ namespace Genome
         bool IsFpsControlled()                          const { return m_fps_control_assumed; }
         //========================================================================================
 
+        //= MOUSE ===
+        float GetMouseSensitivity()                     const { return m_mouse_sensitivity; }
+        float GetMouseSmoothing()                       const { return m_mouse_smoothing; }
+        void SetMouseSensitivity(float mouse_sensitivity)     { m_mouse_sensitivity = mouse_sensitivity; }
+        void SetMouseSmoothing(float mouse_smoothing)         { m_mouse_smoothing = mouse_smoothing; }
+        //===========
+        
+        //= SPEED ===
+        float GetMovementSpeedMin()                     const { return m_movement_speed_min; }
+        float GetMovementSpeedMax()                     const { return m_movement_speed_max; }
+        float GetMovementAcceleration()                 const { return m_movement_acceleration; }
+        float GetMovementDrag()                         const { return m_movement_drag; }
+        void SetMovementSpeedMin(float speed_min)             { m_movement_speed_min = speed_min; }
+        void SetMovementSpeedMax(float speed_max)             { m_movement_speed_max = speed_max; }
+        void SetMovementAcceleration(float acceleration)      { m_movement_acceleration = acceleration; }
+        void SetMovementDrag(float drag)                      { m_movement_drag = drag; }
+        //===========
+
         Matrix ComputeViewMatrix() const;
         Matrix ComputeProjection(const bool reverse_z, const float near_plane = 0.0f, const float far_plane = 0.0f);
 
@@ -152,12 +170,12 @@ namespace Genome
         bool m_fps_control_cursor_hidden    = false;
         Vector3 m_movement_speed            = Vector3::Zero;
         float m_movement_speed_min          = 0.5f;
-        float m_movement_speed_max          = 5.0f;
+        float m_movement_speed_max          = 20.0f;
         float m_movement_acceleration       = 1000.0f;
         float m_movement_drag               = 10.0f;
         Vector2 m_mouse_smoothed            = Vector2::Zero;
         Vector2 m_mouse_rotation            = Vector2::Zero;
-        float m_mouse_sensitivity           = 0.2f;
+        float m_mouse_sensitivity           = 1.0f;
         float m_mouse_smoothing             = 0.5f;
         RHI_Viewport m_last_known_viewport;
         Ray m_ray;

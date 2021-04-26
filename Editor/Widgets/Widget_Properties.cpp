@@ -140,7 +140,7 @@ namespace ComponentProperty
 
 Widget_Properties::Widget_Properties(Editor* editor) : Widget(editor)
 {
-    m_title        = "Properties";
+    m_title     = "Properties";
     m_size.x    = 500; // min width
 
     m_colorPicker_light     = make_unique<ButtonColorPicker>("Light Color Picker");
@@ -878,6 +878,12 @@ void Widget_Properties::ShowCamera(Camera* camera) const
         float fov                               = camera->GetFovHorizontalDeg();
         float near_plane                        = camera->GetNearPlane();
         float far_plane                         = camera->GetFarPlane();
+        float mouse_sens                        = camera->GetMouseSensitivity();
+        float mouse_smooth                      = camera->GetMouseSmoothing();
+        float speed_min                         = camera->GetMovementSpeedMin();
+        float speed_max                         = camera->GetMovementSpeedMax();
+        float acceleration                      = camera->GetMovementAcceleration();
+        float drag                              = camera->GetMovementDrag();
         bool fps_control_enabled                = camera->GetFpsControlEnabled();
         m_colorPicker_camera->SetColor(camera->GetClearColor());
         //========================================================================================================
@@ -932,8 +938,20 @@ void Widget_Properties::ShowCamera(Camera* camera) const
 
         // Clipping Planes
         ImGui::Text("Clipping Planes");
-        ImGui::SameLine(ComponentProperty::g_column);       ImGui::PushItemWidth(130); ImGui::InputFloat("Near", &near_plane, 0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
-        ImGui::SetCursorPosX(ComponentProperty::g_column);  ImGui::PushItemWidth(130); ImGui::InputFloat("Far", &far_plane, 0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+        ImGui::SameLine(ComponentProperty::g_column);       ImGui::PushItemWidth(130); ImGui::InputFloat("Near",         &near_plane,   0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+        ImGui::SetCursorPosX(ComponentProperty::g_column);  ImGui::PushItemWidth(130); ImGui::InputFloat("Far",          &far_plane,    0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+
+        // Mouse Sensitivity / Smoothing
+        ImGui::Text("Mouse");
+        ImGui::SameLine(ComponentProperty::g_column);       ImGui::PushItemWidth(130); ImGui::InputFloat("Sensitivity",  &mouse_sens,   0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+        ImGui::SetCursorPosX(ComponentProperty::g_column);  ImGui::PushItemWidth(130); ImGui::InputFloat("Smoothing",    &mouse_smooth, 0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+
+        // Camera Movement Speed
+        ImGui::Text("Movement");
+        ImGui::SameLine(ComponentProperty::g_column);       ImGui::PushItemWidth(130); ImGui::InputFloat("Speed Min",    &speed_min,    0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+        ImGui::SetCursorPosX(ComponentProperty::g_column);  ImGui::PushItemWidth(130); ImGui::InputFloat("Speed Max",    &speed_max,    0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+        ImGui::SetCursorPosX(ComponentProperty::g_column);  ImGui::PushItemWidth(130); ImGui::InputFloat("Acceleration", &acceleration, 0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
+        ImGui::SetCursorPosX(ComponentProperty::g_column);  ImGui::PushItemWidth(130); ImGui::InputFloat("Drag",         &drag,         0.1f, 0.1f, "%.3f", input_text_flags); ImGui::PopItemWidth();
 
         // FPS Control
         ImGui::Text("FPS Control");
@@ -941,14 +959,21 @@ void Widget_Properties::ShowCamera(Camera* camera) const
         ImGuiEx::Tooltip("Enables FPS control while holding down the right mouse button");
 
         //= MAP ====================================================================================================================
-        if (aperture != camera->GetAperture())                              camera->SetAperture(aperture);
-        if (shutter_speed != camera->GetShutterSpeed())                     camera->SetShutterSpeed(shutter_speed);
-        if (iso != camera->GetIso())                                        camera->SetIso(iso);
-        if (fov != camera->GetFovHorizontalDeg())                           camera->SetFovHorizontalDeg(fov);
-        if (near_plane != camera->GetNearPlane())                           camera->SetNearPlane(near_plane);
-        if (far_plane != camera->GetFarPlane())                             camera->SetFarPlane(far_plane);
-        if (fps_control_enabled != camera->GetFpsControlEnabled())          camera->SetFpsControlEnabled(fps_control_enabled);
-        if (m_colorPicker_camera->GetColor() != camera->GetClearColor())    camera->SetClearColor(m_colorPicker_camera->GetColor());
+        if (aperture             != camera->GetAperture())                 camera->SetAperture(aperture);
+        if (shutter_speed        != camera->GetShutterSpeed())             camera->SetShutterSpeed(shutter_speed);
+        if (iso                  != camera->GetIso())                      camera->SetIso(iso);
+        if (fov                  != camera->GetFovHorizontalDeg())         camera->SetFovHorizontalDeg(fov);
+        if (near_plane           != camera->GetNearPlane())                camera->SetNearPlane(near_plane);
+        if (far_plane            != camera->GetFarPlane())                 camera->SetFarPlane(far_plane);
+        if (mouse_sens           != camera->GetMouseSensitivity())         camera->SetMouseSensitivity(mouse_sens);
+        if (mouse_smooth         != camera->GetMouseSmoothing())           camera->SetMouseSmoothing(mouse_smooth);
+        if (speed_min            != camera->GetMovementSpeedMin())         camera->SetMovementSpeedMin(speed_min);
+        if (speed_max            != camera->GetMovementSpeedMax())         camera->SetMovementSpeedMax(speed_max);
+        if (acceleration         != camera->GetMovementAcceleration())     camera->SetMovementAcceleration(acceleration);
+        if (drag                 != camera->GetMovementDrag())             camera->SetMovementDrag(drag);
+        if (fps_control_enabled  != camera->GetFpsControlEnabled())        camera->SetFpsControlEnabled(fps_control_enabled);
+
+        if (m_colorPicker_camera->GetColor() != camera->GetClearColor())   camera->SetClearColor(m_colorPicker_camera->GetColor());
         //==========================================================================================================================
     }
     ComponentProperty::End();
