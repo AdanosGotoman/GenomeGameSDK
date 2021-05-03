@@ -31,6 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../../Math/Ray.h"
 #include "../../Math/Frustum.h"
 #include "../../Math/Vector2.h"
+#include <DirectXMath.h>
+using namespace DirectX;
 //===================================
 
 using namespace Genome::Math;
