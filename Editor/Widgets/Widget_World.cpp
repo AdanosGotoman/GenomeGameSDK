@@ -37,7 +37,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "World/Components/Renderable.h"
 #include "World/Components/Environment.h"
 #include "World/Components/Terrain.h"
-#include <World/Components/OceanComponent.h>
 //================================================
 
 //= NAMESPACES ==========
@@ -442,10 +441,6 @@ void Widget_World::PopupContextMenu() const
         ActionEntityCreateTerrain();
     }
 
-    // OCEAN
-    if (ImGui::MenuItem("Ocean"))
-        ActionEntityCreateOcean();
-
     ImGui::EndPopup();
 }
 
@@ -565,14 +560,6 @@ void Widget_World::ActionEntityCreateTerrain()
     auto entity = ActionEntityCreateEmpty();
     entity->AddComponent<Terrain>();
     entity->SetName("Terrain");
-}
-
-void Widget_World::ActionEntityCreateOcean()
-{
-    auto entity = ActionEntityCreateEmpty();
-    auto renderable = entity->AddComponent<OceanComponent>();
-    renderable->UseDefaultMaterial();
-    entity->SetName("Ocean");
 }
 
 void Widget_World::ActionEntityCreateLightDirectional()

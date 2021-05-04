@@ -62,7 +62,6 @@ private:
     static void ActionEntityCreateCone();
     static void ActionEntityCreateCamera();
     static void ActionEntityCreateTerrain();
-    static void ActionEntityCreateOcean();
     static void ActionEntityCreateLightDirectional();
     static void ActionEntityCreateLightPoint();
     static void ActionEntityCreateLightSpot();

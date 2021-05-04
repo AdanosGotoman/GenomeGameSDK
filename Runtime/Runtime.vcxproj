@@ -235,7 +235,7 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
-    <ClInclude Include="World\Components\OceanComponent.h" />
+    <ClInclude Include="World\Components\WaterComponent.h" />
     <ClInclude Include="Physics\BulletPhysicsHelper.h" />
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Physics\PhysicsDebugDraw.h" />
@@ -350,7 +350,7 @@
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
-    <ClCompile Include="World\Components\OceanComponent.cpp" />
+    <ClCompile Include="World\Components\WaterComponent.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Physics\PhysicsDebugDraw.cpp" />
     <ClCompile Include="Profiling\Profiler.cpp" />

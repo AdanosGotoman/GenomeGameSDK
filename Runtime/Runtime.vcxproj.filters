@@ -441,7 +441,7 @@
     <ClInclude Include="World\World.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="World\Components\OceanComponent.h">
+    <ClInclude Include="World\Components\WaterComponent.h">
       <Filter>World\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -752,7 +752,7 @@
     <ClCompile Include="World\World.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="World\Components\OceanComponent.cpp">
+    <ClCompile Include="World\Components\WaterComponent.cpp">
       <Filter>World\Components</Filter>
     </ClCompile>
   </ItemGroup>
