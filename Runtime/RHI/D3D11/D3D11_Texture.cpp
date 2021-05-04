@@ -90,7 +90,8 @@ namespace Genome
 
     // TEXTURE 2D
 
-    inline bool CreateTexture2d(
+    inline bool CreateTexture2d
+    (
         void*& texture,
         const uint32_t width,
         const uint32_t height,

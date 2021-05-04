@@ -1,10 +1,12 @@
 #pragma once
-#include "Spartan.h"
-#include "../Math/Vector2.h"
 #include "IComponent.h"
-#include "../Math/MathHelper.h"
+#include "Renderable.h"
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "../../Math/Vector2.h"
+#include "../../RHI/RHI_VertexBuffer.h"
+#include "../../RHI/RHI_Texture2D.h"
+
 using namespace DirectX;
 using namespace Genome::Math;
 
@@ -22,13 +24,15 @@ namespace Genome
         Vector2 wind_Dir;
     };
 
-    class GENOME_CLASS OceanComponent : IComponent
+    class GENOME_CLASS OceanComponent : public IComponent
     {
     public:
-        OceanComponent(OceanParams& m_Params, RHI_Device* m_Device);
-        ~OceanComponent();
+        void CreateBufferAndUAV(ID3D11Device* m_Device, void* data, UINT byte_Width, UINT byte_Stride, ID3D11Buffer** pBuffer, ID3D11UnorderedAccessView** pUAV, ID3D11ShaderResourceView** pResView);
+        OceanComponent(OceanParams& params, Context* context, Entity* entity, uint32_t id = 0);
+        ~OceanComponent() = default;
 
         void UpdateDisplacementMap();
+        void UseDefaultMaterial();
         ID3D11ShaderResourceView* GetDisplacementMap();
         ID3D11ShaderResourceView* GetGradientMap();
 
@@ -37,11 +41,12 @@ namespace Genome
     protected:
         OceanParams m_Params;
 
-        RHI_Device* m_Device;
+        ID3D11Device* m_Device;
+        RHI_VertexBuffer* m_Buffer;
         ID3D11DeviceContext* m_Context;
         RHI_Texture2D* m_DisplacementMap;
         ID3D11ShaderResourceView* m_DisplacementSRV;
-        Renderer* m_DisplacementRTV;
+        ID3D11RenderTargetView* m_DisplacementRTV;
 
         RHI_Texture2D* m_GradientMap;
         RHI_Sampler* m_Sampler;
@@ -80,10 +85,6 @@ namespace Genome
 
         ID3D11Buffer* m_pImmutableCB;
         ID3D11Buffer* m_pPerFrameCB;
-
-        // FFT wrap-up
-        CSFFT512x512_Plan m_fft_plan;
-
     };
 }
 

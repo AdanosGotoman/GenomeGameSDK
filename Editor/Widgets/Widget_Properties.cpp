@@ -39,6 +39,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "World/Components/Script.h"
 #include "World/Components/Environment.h"
 #include "World/Components/Terrain.h"
+#include "World/Components/OceanComponent.h"
 //================================================
 
 //= NAMESPACES =========
@@ -1244,6 +1245,10 @@ void Widget_Properties::ComponentContextMenu_Add() const
             {
                 entity->AddComponent<Terrain>();
             }
+
+            // OCEAN
+            if (ImGui::MenuItem("Ocean"))
+                entity->AddComponent<OceanComponent>();
         }
 
         ImGui::EndPopup();

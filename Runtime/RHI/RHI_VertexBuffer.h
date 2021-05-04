@@ -76,7 +76,7 @@ namespace Genome
         uint32_t GetStride()        const { return m_stride; }
         uint32_t GetVertexCount()   const { return m_vertex_count; }
 
-    private:
+    public:
         bool _create(const void* vertices);
         void _destroy();
 
