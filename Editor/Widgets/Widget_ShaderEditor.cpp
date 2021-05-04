@@ -80,29 +80,28 @@ void Widget_ShaderEditor::ShowShaderSource()
                         }
 
                         // Handle keyboard shortcuts
-                        if (m_input->GetKeyDown(KeyCode::Ctrl_Left) && m_input->GetKeyDown(KeyCode::C))
+                        if (m_input->GetKeyDown(KeyCode::Ctrl_Left))
                         {
-                            m_text_editor->Copy();
-                        }
-
-                        if (m_input->GetKeyDown(KeyCode::Ctrl_Left) && m_input->GetKeyDown(KeyCode::X))
-                        {
-                            m_text_editor->Cut();
-                        }
-
-                        if (m_input->GetKeyDown(KeyCode::Ctrl_Left) && m_input->GetKeyDown(KeyCode::V))
-                        {
-                            m_text_editor->Paste();
-                        }
-
-                        if (m_input->GetKeyDown(KeyCode::Ctrl_Left) && m_input->GetKeyDown(KeyCode::Z))
-                        {
-                            m_text_editor->Undo();
-                        }
-
-                        if (m_input->GetKeyDown(KeyCode::Ctrl_Left) && m_input->GetKeyDown(KeyCode::Y))
-                        {
-                            m_text_editor->Redo();
+                            if (m_input->GetKeyDown(KeyCode::C)) 
+                            {
+                                m_text_editor->Copy();
+                            }
+                            else if (m_input->GetKeyDown(KeyCode::X))
+                            {
+                                m_text_editor->Cut();
+                            }
+                            else if (m_input->GetKeyDown(KeyCode::V))
+                            {
+                                m_text_editor->Paste();
+                            }
+                            else if (m_input->GetKeyDown(KeyCode::Z))
+                            {
+                                m_text_editor->Undo();
+                            }
+                            else if (m_input->GetKeyDown(KeyCode::Y))
+                            {
+                                m_text_editor->Redo();
+                            }
                         }
 
                         // Render

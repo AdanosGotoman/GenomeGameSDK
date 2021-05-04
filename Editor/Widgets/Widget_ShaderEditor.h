@@ -35,6 +35,8 @@ namespace Genome
     class Input;
 }
 
+using namespace Genome;
+
 struct ShaderFile
 {
     ShaderFile() = default;
@@ -42,7 +44,7 @@ struct ShaderFile
     {
         this->path      = path;
         this->source    = source;
-        name = Genome::FileSystem::GetFileNameFromFilePath(path);
+        name = FileSystem::GetFileNameFromFilePath(path);
     }
 
     std::string name;
@@ -64,13 +66,13 @@ private:
     void GetShaderSource(const std::string& file_path);
     void GetShaderInstances();
 
-    Genome::RHI_Shader* m_shader   = nullptr;
+    RHI_Shader* m_shader            = nullptr;
     std::string m_shader_name       = "N/A";
-    Genome::Renderer* m_renderer   = nullptr;
-    Genome::Input* m_input         = nullptr;
+    Renderer* m_renderer            = nullptr;
+    Input* m_input                  = nullptr;
     int32_t m_displayed_file_index  = -1;
     bool m_first_run                = true;
     std::unique_ptr<Widget_TextEditor> m_text_editor;
-    std::vector<Genome::RHI_Shader*> m_shaders;
-    std::vector<ShaderFile> m_shader_sources;
+    std::vector<RHI_Shader*>           m_shaders;
+    std::vector<ShaderFile>            m_shader_sources;
 };

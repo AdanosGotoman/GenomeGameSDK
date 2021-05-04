@@ -9,7 +9,7 @@
 //= NAMESPACES =========
 using namespace std;
 using namespace Genome;
-using namespace Math;
+using namespace Genome::Math;
 //======================
 
 Widget_Viewport::Widget_Viewport(Editor* editor) : Widget(editor)

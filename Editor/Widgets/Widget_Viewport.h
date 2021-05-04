@@ -15,6 +15,8 @@ namespace Genome
 }
 //========================
 
+using namespace Genome;
+
 class Widget_Viewport : public Widget
 {
 public:
@@ -25,11 +27,11 @@ public:
 private:
     float m_width = 0.0f;
     float m_height = 0.0f;
-    Genome::Math::Vector2 m_offset = Genome::Math::Vector2::Zero;
+    Math::Vector2 m_offset = Math::Vector2::Zero;
     float m_window_padding = 4.0f;
     bool m_is_resolution_dirty = true;
-    Genome::Renderer* m_renderer = nullptr;
-    Genome::Settings* m_settings = nullptr;
-    Genome::World* m_world = nullptr;
-    Genome::Input* m_input = nullptr;
+    Renderer* m_renderer = nullptr;
+    Settings* m_settings = nullptr;
+    World* m_world = nullptr;
+    Input* m_input = nullptr;
 };

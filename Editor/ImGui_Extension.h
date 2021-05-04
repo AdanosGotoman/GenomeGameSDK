@@ -18,6 +18,8 @@
 #include "Display/Display.h"
 //=======================================
 
+using namespace Genome;
+
 class EditorHelper
 {
 public:
@@ -28,14 +30,14 @@ public:
         return instance;
     }
 
-    void Initialize(Genome::Context* context)
+    void Initialize(Context* context)
     {
         g_context = context;
-        g_resource_cache = context->GetSubsystem<Genome::ResourceCache>();
-        g_world = context->GetSubsystem<Genome::World>();
-        g_threading = context->GetSubsystem<Genome::Threading>();
-        g_renderer = context->GetSubsystem<Genome::Renderer>();
-        g_input = context->GetSubsystem<Genome::Input>();
+        g_resource_cache = context->GetSubsystem<ResourceCache>();
+        g_world = context->GetSubsystem<World>();
+        g_threading = context->GetSubsystem<Threading>();
+        g_renderer = context->GetSubsystem<Renderer>();
+        g_input = context->GetSubsystem<Input>();
     }
 
     void LoadModel(const std::string& file_path) const
@@ -45,7 +47,7 @@ public:
         // Load the model asynchronously
         g_threading->AddTask([resource_cache, file_path]()
             {
-                resource_cache->Load<Genome::Model>(file_path);
+                resource_cache->Load<Model>(file_path);
             });
     }
 
@@ -82,7 +84,7 @@ public:
             return;
 
         // Pick the world
-        std::shared_ptr<Genome::Entity> entity;
+        std::shared_ptr<Entity> entity;
         camera->Pick(g_input->GetMousePosition(), entity);
 
         // Set the transform gizmo to the selected entity
@@ -92,19 +94,19 @@ public:
         g_on_entity_selected();
     }
 
-    void SetSelectedEntity(const std::shared_ptr<Genome::Entity>& entity)
+    void SetSelectedEntity(const std::shared_ptr<Entity>& entity)
     {
         // keep returned entity instead as the transform gizmo can decide to reject it
         g_selected_entity = g_renderer->SnapTransformGizmoTo(entity);
     }
 
-    Genome::Context* g_context = nullptr;
-    Genome::ResourceCache* g_resource_cache = nullptr;
-    Genome::World* g_world = nullptr;
-    Genome::Threading* g_threading = nullptr;
-    Genome::Renderer* g_renderer = nullptr;
-    Genome::Input* g_input = nullptr;
-    std::weak_ptr<Genome::Entity>  g_selected_entity;
+    Context* g_context = nullptr;
+    ResourceCache* g_resource_cache = nullptr;
+    World* g_world = nullptr;
+    Threading* g_threading = nullptr;
+    Renderer* g_renderer = nullptr;
+    Input* g_input = nullptr;
+    std::weak_ptr<Entity>  g_selected_entity;
     std::function<void()>           g_on_entity_selected = nullptr;
 };
 
@@ -113,7 +115,7 @@ namespace ImGuiEx
     static const ImVec4 default_tint(255, 255, 255, 255);
 
     // Images & Image buttons
-    inline bool ImageButton(Genome::RHI_Texture* texture, const ImVec2& size)
+    inline bool ImageButton(RHI_Texture* texture, const ImVec2& size)
     {
         return ImGui::ImageButton
         (
@@ -168,7 +170,7 @@ namespace ImGuiEx
         );
     }
 
-    inline void Image(Genome::RHI_Texture* texture, const float size)
+    inline void Image(RHI_Texture* texture, const float size)
     {
         ImGui::Image(
             static_cast<ImTextureID>(texture),
@@ -180,7 +182,7 @@ namespace ImGuiEx
         );
     }
 
-    inline void Image(Genome::RHI_Texture* texture, const ImVec2& size, const ImColor& tint = default_tint, const ImColor& border = ImColor(0, 0, 0, 0))
+    inline void Image(RHI_Texture* texture, const ImVec2& size, const ImColor& tint = default_tint, const ImColor& border = ImColor(0, 0, 0, 0))
     {
         ImGui::Image(
             static_cast<ImTextureID>(texture),
@@ -248,7 +250,7 @@ namespace ImGuiEx
     }
 
     // Image slot
-    inline void ImageSlot(const std::shared_ptr<Genome::RHI_Texture>& image, const std::function<void(const std::shared_ptr<Genome::RHI_Texture>&)>& setter)
+    inline void ImageSlot(const std::shared_ptr<RHI_Texture>& image, const std::function<void(const std::shared_ptr<RHI_Texture>&)>& setter)
     {
         const ImVec2 slot_size = ImVec2(80, 80);
         const float button_size = 15.0f;
@@ -256,7 +258,7 @@ namespace ImGuiEx
         // Image
         ImGui::BeginGroup();
         {
-            Genome::RHI_Texture* texture = image.get();
+            RHI_Texture* texture = image.get();
             const ImVec2 pos_image = ImGui::GetCursorPos();
             const ImVec2 pos_button = ImVec2(ImGui::GetCursorPosX() + slot_size.x - button_size * 2.0f + 6.0f, ImGui::GetCursorPosY() + 1.0f);
 
@@ -297,7 +299,7 @@ namespace ImGuiEx
         {
             try
             {
-                if (const auto tex = EditorHelper::Get().g_resource_cache->Load<Genome::RHI_Texture2D>(std::get<const char*>(payload->data)))
+                if (const auto tex = EditorHelper::Get().g_resource_cache->Load<RHI_Texture2D>(std::get<const char*>(payload->data)))
                 {
                     setter(tex);
                 }
@@ -326,19 +328,19 @@ namespace ImGuiEx
 
         if (ImGui::IsItemEdited() && ImGui::IsMouseDown(0))
         {
-            Genome::Input* input = EditorHelper::Get().g_input;
-            Genome::Math::Vector2 pos = input->GetMousePosition();
+            Input* input = EditorHelper::Get().g_input;
+            Math::Vector2 pos = input->GetMousePosition();
             uint32_t edge_padding = 5;
 
             bool wrapped = false;
-            if (pos.x >= Genome::Display::GetWidth() - edge_padding)
+            if (pos.x >= Display::GetWidth() - edge_padding)
             {
                 pos.x = static_cast<float>(edge_padding + 1);
                 wrapped = true;
             }
             else if (pos.x <= edge_padding)
             {
-                pos.x = static_cast<float>(Genome::Display::GetWidth() - edge_padding - 1);
+                pos.x = static_cast<float>(Display::GetWidth() - edge_padding - 1);
                 wrapped = true;
             }
 

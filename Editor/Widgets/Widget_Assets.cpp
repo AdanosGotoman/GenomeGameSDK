@@ -51,24 +51,26 @@ Widget_Assets::Widget_Assets(Editor* editor) : Widget(editor)
 
 void Widget_Assets::TickVisible()
 {    
+    using namespace Widget_Assets_Statics;
+
     if (ImGui::Button("Import"))
     {
-        Widget_Assets_Statics::g_show_file_dialog_load = true;
+        g_show_file_dialog_load = true;
     }
 
     ImGui::SameLine();
     
     // View
-    m_fileDialogView->Show(&Widget_Assets_Statics::g_show_file_dialog_view);
+    m_fileDialogView->Show(&g_show_file_dialog_view);
 
     // Import
-    if (m_fileDialogLoad->Show(&Widget_Assets_Statics::g_show_file_dialog_load, nullptr, &Widget_Assets_Statics::g_double_clicked_path_import_dialog))
+    if (m_fileDialogLoad->Show(&g_show_file_dialog_load, nullptr, &g_double_clicked_path_import_dialog))
     {
         // Model
-        if (FileSystem::IsSupportedModelFile(Widget_Assets_Statics::g_double_clicked_path_import_dialog))
+        if (FileSystem::IsSupportedModelFile(g_double_clicked_path_import_dialog))
         {
-            EditorHelper::Get().LoadModel(Widget_Assets_Statics::g_double_clicked_path_import_dialog);
-            Widget_Assets_Statics::g_show_file_dialog_load = false;
+            EditorHelper::Get().LoadModel(g_double_clicked_path_import_dialog);
+            g_show_file_dialog_load = false;
         }
     }
 }

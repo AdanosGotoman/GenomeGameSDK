@@ -441,6 +441,10 @@
     <ClInclude Include="World\World.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="World\Components\OceanComponent.h">
+      <Filter>World\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="World\Components\fft_512x512.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\Audio.cpp">
@@ -749,5 +753,12 @@
     <ClCompile Include="World\World.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="World\Components\OceanComponent.cpp">
+      <Filter>World\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="World\Components\fft_512x512.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="World\Components\fft_512x512_c2c.hlsl" />
   </ItemGroup>
 </Project>
