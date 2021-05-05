@@ -35,6 +35,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "Renderable.h"
 #include "Transform.h"
 #include "Terrain.h"
+#include "WaterComponent.h"
 #include "../Entity.h"
 //========================
 

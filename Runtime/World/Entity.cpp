@@ -36,6 +36,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "Components/AudioSource.h"
 #include "Components/AudioListener.h"
 #include "Components/Terrain.h"
+#include "Components/WaterComponent.h"
 #include "../IO/FileStream.h"
 //===================================
 

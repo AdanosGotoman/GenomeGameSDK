@@ -14,7 +14,7 @@ namespace _Settings
 {
     ofstream fout;
     ifstream fin;
-    string file_name = "Spartan.ini";
+    string file_name = "Genome.ini";
 
     template <class T>
     void write_setting(ofstream& fout, const string& name, T value)
