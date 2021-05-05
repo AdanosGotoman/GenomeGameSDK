@@ -37,6 +37,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "World/Components/Renderable.h"
 #include "World/Components/Environment.h"
 #include "World/Components/Terrain.h"
+#include "World/Components/WaterComponent.h"
 //================================================
 
 //= NAMESPACES ==========
@@ -441,6 +442,10 @@ void Widget_World::PopupContextMenu() const
         ActionEntityCreateTerrain();
     }
 
+    // WATER
+    if (ImGui::MenuItem("Water"))
+        ActionEntityCreateWater();
+
     ImGui::EndPopup();
 }
 
@@ -560,6 +565,13 @@ void Widget_World::ActionEntityCreateTerrain()
     auto entity = ActionEntityCreateEmpty();
     entity->AddComponent<Terrain>();
     entity->SetName("Terrain");
+}
+
+void Widget_World::ActionEntityCreateWater()
+{
+    auto entity = ActionEntityCreateEmpty();
+    entity->AddComponent<WaterComponent>();
+    entity->SetName("Water");
 }
 
 void Widget_World::ActionEntityCreateLightDirectional()

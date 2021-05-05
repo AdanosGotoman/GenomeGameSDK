@@ -1211,14 +1211,12 @@ namespace Genome
             rt_frame_hdr.swap(rt_frame_hdr_2);
         }
 
-        // TAA upsamples the frame but if it's not enabled, we need to do regular dowsampling/upsampling
-        //bool taa_upsampled                  = GetOption(Render_AntiAliasing_Taa) && GetOptionValue<bool>(Renderer_Option_Value::Taa_Upsample);
-        //bool different_output_resolution    = m_resolution_render != m_resolution_output;
-        //bool do_upscale                     = different_output_resolution && !taa_upsampled;
-        //if (do_upscale)
-        //{
-        //    Pass_CopyBilinear(cmd_list, rt_frame_hdr.get(), rt_frame_hdr_2.get());
-        //}
+        // FXAA
+        if (GetOption(Render_AntiAliasing_Fxaa))
+        {
+            Pass_PostProcess_Fxaa(cmd_list, rt_post_process_ldr, rt_post_process_ldr_2);
+            rt_post_process_ldr.swap(rt_post_process_ldr_2);
+        }
 
         // Motion Blur
         if (GetOption(Render_MotionBlur))
@@ -1251,12 +1249,7 @@ namespace Genome
             rt_post_process_ldr.swap(rt_post_process_ldr_2);
         }
 
-        // FXAA
-        if (GetOption(Render_AntiAliasing_Fxaa))
-        {
-            Pass_PostProcess_Fxaa(cmd_list, rt_post_process_ldr, rt_post_process_ldr_2);
-            rt_post_process_ldr.swap(rt_post_process_ldr_2);
-        }
+        
 
         // Sharpening
         if (GetOption(Render_Sharpening_LumaSharpen))
