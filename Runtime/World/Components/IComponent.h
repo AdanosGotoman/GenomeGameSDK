@@ -52,6 +52,7 @@ namespace Genome
         Environment,
         Transform,
         Terrain,
+        WaterComponent,
         Unknown
     };
 

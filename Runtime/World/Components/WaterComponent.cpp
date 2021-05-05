@@ -55,13 +55,13 @@ namespace Genome
     {
         if (m_is_generating)
         {
-            LOG_WARNING("Terrain is already being generated, please wait...");
+            LOG_WARNING("Water is already being generated, please wait...");
             return;
         }
 
         if (!m_height_map)
         {
-            LOG_WARNING("You need to assign a height map before trying to generate a terrain.");
+            LOG_WARNING("You need to assign a height map before trying to generate a water.");
 
             m_context->GetSubsystem<ResourceCache>()->Remove(m_model);
             m_model.reset();
@@ -102,7 +102,7 @@ namespace Genome
                 if (GeneratePositions(positions, height_map_data))
                 {
                     // Compute the vertices (without the normals) and the indices
-                    m_progress_desc = "Generating terrain vertices and indices...";
+                    m_progress_desc = "Generating water vertices and indices...";
                     if (GenerateVerticesIndices(positions, indices, vertices))
                     {
                         m_progress_desc = "Generating normals and tangents...";
