@@ -570,6 +570,9 @@ void Widget_World::ActionEntityCreateTerrain()
 void Widget_World::ActionEntityCreateWater()
 {
     auto entity = ActionEntityCreateEmpty();
+    auto renderable = entity->AddComponent<Renderable>();
+    renderable->GeometrySet(Geometry_Default_Quad);
+    renderable->UseDefaultMaterial();
     entity->AddComponent<WaterComponent>();
     entity->SetName("Water");
 }

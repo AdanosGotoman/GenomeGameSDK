@@ -36,7 +36,8 @@ namespace Genome
     class RHI_Sampler : public SpartanObject
     {
     public:
-        RHI_Sampler(
+        RHI_Sampler
+        (
             const std::shared_ptr<RHI_Device>& rhi_device,
             const RHI_Filter filter_min                         = RHI_Filter_Nearest,
             const RHI_Filter filter_mag                         = RHI_Filter_Nearest,
@@ -45,7 +46,8 @@ namespace Genome
             const RHI_Comparison_Function comparison_function   = RHI_Comparison_Always,
             const bool anisotropy_enabled                       = false,
             const bool comparison_enabled                       = false
-            );
+        );
+
         ~RHI_Sampler();
 
         RHI_Filter GetFilterMin()                       const { return m_filter_min; }
@@ -57,7 +59,7 @@ namespace Genome
         bool GetComparisonEnabled()                     const { return m_comparison_enabled; }
         void* GetResource()                             const { return m_resource; }
 
-    private:
+    public:
         void CreateResource();
 
         RHI_Filter m_filter_min                         = RHI_Filter_Nearest;
